@@ -1222,6 +1222,13 @@
   dependencies:
     lodash.debounce "^4.0.8"
 
+"@vuepress/plugin-back-to-top@^1.8.2":
+  version "1.8.2"
+  resolved "https://registry.nlark.com/@vuepress/plugin-back-to-top/download/@vuepress/plugin-back-to-top-1.8.2.tgz#e9794409d1d589e4952b0700291270d2696e6d01"
+  integrity sha1-6XlECdHVieSVKwcAKRJw0mlubQE=
+  dependencies:
+    lodash.debounce "^4.0.8"
+
 "@vuepress/plugin-blog@^1.9.2":
   version "1.9.4"
   resolved "https://registry.nlark.com/@vuepress/plugin-blog/download/@vuepress/plugin-blog-1.9.4.tgz#34636d0387d28221c9f2564b6255786da0dd186a"
@@ -1250,14 +1257,14 @@
   dependencies:
     medium-zoom "^1.0.4"
 
-"@vuepress/plugin-nprogress@1.8.2", "@vuepress/plugin-nprogress@^1.5.4":
+"@vuepress/plugin-nprogress@1.8.2", "@vuepress/plugin-nprogress@^1.5.4", "@vuepress/plugin-nprogress@^1.8.2":
   version "1.8.2"
   resolved "https://registry.nlark.com/@vuepress/plugin-nprogress/download/@vuepress/plugin-nprogress-1.8.2.tgz#dc6c082925420c8c59ecb7fc2d4a9401f6d4664a"
   integrity sha1-3GwIKSVCDIxZ7Lf8LUqUAfbUZko=
   dependencies:
     nprogress "^0.2.0"
 
-"@vuepress/plugin-pwa@^1.5.4":
+"@vuepress/plugin-pwa@^1.5.4", "@vuepress/plugin-pwa@^1.8.2":
   version "1.8.2"
   resolved "https://registry.nlark.com/@vuepress/plugin-pwa/download/@vuepress/plugin-pwa-1.8.2.tgz#a82ecaa9f920bfc79f283fb3c224a42540109e19"
   integrity sha1-qC7Kqfkgv8efKD+zwiSkJUAQnhk=
