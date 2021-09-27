@@ -39,10 +39,13 @@ FaceBook 2011 Jordan Walke
 
 单行注释推荐
 
-> {/\* _/}
-> 多行注释推荐
-> /_ \*/
+> {/\* \_/}
 
+多行注释推荐
+
+> /\_ \*/
+
+<pre>
 ```Tip-具有相同渲染结果
 <div />
 <div></div>
@@ -51,10 +54,7 @@ FaceBook 2011 Jordan Walke
 <div>{null}</div>
 <div>{undefined}</div>
 ```
-
-<pre><code>
-
-</code></pre>
+</pre>
 
 2\. React-DOM
 
@@ -64,35 +64,36 @@ FaceBook 2011 Jordan Walke
 
 3\. 组件
 3.1\. 函数组件
-定义
 
-<pre><code>	
+<pre>
+```定义
 function Welcome(props) {
-  return <h1>Hello, {props.name}</h1>;
+  return <span>Hello, {props.name}</span>
 }
-</code></pre>
+```
+</pre>
 
 3.2\. class 组件（ES6）
-定义
 
-<pre><code>	
+<pre>
+```定义
 class Welcome extends React.Component {
   render() {
-    return <h1>Hello, {this.props.name}</h1>;
+    return <span>Hello, {this.props.name}</span>
   }
 }
-</code></pre>
+```
+</pre>
 
 3.3\. 自定义组件&&props
 
 -   组件名称必须以大写字母开头
 -   JSX 所接收的属性（attributes）以及子组件（children）转换为单个对象传递给组件，这个对象被称之为 “props”
-定义
-<pre><code>
 
-```
+<pre>
+```定义
 function Welcome(props) {
-  return <h1>Hello, {props.name}</h1>;
+  return <span>Hello, {props.name}</span>;
 }
 const element = <Welcome name="Sara" />;
 ReactDOM.render(
@@ -100,15 +101,14 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
-
-</code></pre>
+</pre>
 
 3.4\. 高阶组件(Higher-Order Component, HOC)
 
 -   本质是一个函数
 -   入参和返回值均为组件
 
-<pre><code>
+<pre>
 ```给每个组件添加一个属性
 const Container = (WrappedComponent) => {
     class extends React.Component{
@@ -139,7 +139,7 @@ export default class App extends React.Component {
     }
 }
 ```
-</code></pre>
+</pre>
 
 4\. 数据流
 
@@ -152,8 +152,8 @@ export default class App extends React.Component {
 
     4.1.2\. state
 
--   构造函数和 setState 方法可以给 this.state 赋值
--   setState()更新可能是异步的
+    -   构造函数和 setState 方法可以给 this.state 赋值
+    -   setState()更新可能是异步的
 
 ## 从状态机的角度理解 React 如何使用数据驱动渲染
 
