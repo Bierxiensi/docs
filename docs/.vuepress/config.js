@@ -16,14 +16,14 @@ module.exports = {
   //     md.use(require("markdown-it-include"), "./");
   //   },
   // },
-  // plugins: [
-  //   '@vuepress/pwa', {
-  //     serviceWorker: true,
-  //     updatePopup: true
-  //   },
-  //   ["@vuepress/back-to-top"], // 返回顶部
-  //   ["@vuepress/nprogress"],   // 加载进度条 
-  // ],
+  plugins: [
+    '@vuepress/pwa', {
+      serviceWorker: true,
+      updatePopup: true
+    },
+    ["@vuepress/back-to-top"], // 返回顶部
+    ["@vuepress/nprogress"],   // 加载进度条 
+  ],
   themeConfig: {
     logo: '/images/home/balu.jpg',
     // navbar: true,
@@ -37,7 +37,10 @@ module.exports = {
         items: [
           { text: "JavaScript", link:"/Web/JavaScript/"},
           { text: "HTML", link:"/Web/HTML/"},
-          { text: "CSS", link:"/Web/CSS/"},
+          { text: "CSS", link: "/Web/CSS/" },
+          { text: "Server", link: "/Web/Server/" },
+          { text: "Question", link: "/Web/Question/" },
+          { text: "BlockChain", link: "/Web/BlockChain/" }
         ]
       },
       { text: 'GitHub', link: 'https://github.com/bierxiensi' },
@@ -65,11 +68,7 @@ module.exports = {
               path: '/Web/JavaScript/this',
             },
             {
-              title: '文本对象模型',
-              path: '/Web/JavaScript/DOM',
-            },
-            {
-              title: '文本对象模型',
+              title: '浏览器对象模型DOM',
               path: '/Web/JavaScript/DOM',
             }
           ]
@@ -117,7 +116,7 @@ module.exports = {
           collapsable: true, // 可选的, 默认值是 true,
           children: [
             {
-              title: 'JavaScript目录',
+              title: '盘点ES6到ES12的新增特性',
               path: '/Web/JavaScript/',
             },
             {
@@ -125,7 +124,7 @@ module.exports = {
               path: '/Web/JavaScript/this',
             },
             {
-              title: '文本对象模型',
+              title: '文本对象模型DOM',
               path: '/Web/JavaScript/DOM',
             }
           ]
@@ -137,7 +136,7 @@ module.exports = {
           collapsable: true, // 可选的, 默认值是 true,
           children: [
             {
-              title: 'HTML基础',
+              title: 'HTML5',
               path: '/Web/HTML/html',
             }
           ]
@@ -155,8 +154,38 @@ module.exports = {
           ]
         }
       ],
-
-
+      "/Web/Question/": [{
+        title: 'Question',
+        collapsable: true,
+        children:[{
+          title: '前端问题集锦',
+          path: '/Web/Question/question',
+        }]
+      }],
+      "/Web/Server/": [{
+        title: 'Server端相关知识',
+        collapsable: true,
+        children: [
+          {
+            title: '防火墙linux',
+            path: '/Web/Server/linux',
+          },
+          {
+            title: 'nginx项目部署',
+            path: '/Web/Server/nginx',
+          }
+        ]
+      }],
+      "/Web/BlockChain/": [{
+        title: '区块链',
+        collapsable: true,
+        children: [
+          {
+            title: '区块链基础知识',
+            path: '/Web/BlockChain/',
+          }
+        ]
+      }]
 
       // "/Node/": [
       //   {

@@ -38,16 +38,7 @@ align-self:
 
 ##### 4\. 手绘三角箭头
 
-
-
-
-
-
-
-
-
-
-
+##### 5\. 手绘三角形
 
 
 ### JavaScript
@@ -161,3 +152,11 @@ plugins: UglifyjsWebpackPlugin，压缩js体积；ZipWebpackPlugin，将打出�
 ##### 5\. ajax请求放在哪个钩子里较好
 
 ##### 6\. beforeDestroy使用场景
+
+
+### Vue
+
+##### 1\. Vue组件为什么data必须是一个函数
+```
+每次实例化组件调用data函数，返回一个新对象，使其组件拥有独立的对象数据，防止更改原型数据导致两个new对象的数据相互污染
+```
