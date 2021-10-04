@@ -1,13 +1,16 @@
 ---
-title: React
+title: React基础
 search: true
 
-date: 2021-09-25 19:05:23
-tags: [React]
+date: 2021-09-10 09:05:23
+tags: [React, React-router, PubSub, Redux, Ant-Design]
 photos:
 description:
 comments:
 ---
+
+## 前置
+this、class、ES6、npm、原型与原型链、数组方法、模块化
 
 ## what
 
@@ -45,8 +48,8 @@ FaceBook 2011 Jordan Walke
 
 > /\_ \*/
 
-<pre>
-```Tip-具有相同渲染结果
+Tip-具有相同渲染结果
+```javascript
 <div />
 <div></div>
 <div>{false}</div>
@@ -54,7 +57,7 @@ FaceBook 2011 Jordan Walke
 <div>{null}</div>
 <div>{undefined}</div>
 ```
-</pre>
+
 
 2\. React-DOM
 
@@ -65,33 +68,31 @@ FaceBook 2011 Jordan Walke
 3\. 组件
 3.1\. 函数组件
 
-<pre>
-```定义
+定义
+```javascript
 function Welcome(props) {
   return <span>Hello, {props.name}</span>
 }
 ```
-</pre>
 
 3.2\. class 组件（ES6）
 
-<pre>
-```定义
+定义
+```javascript
 class Welcome extends React.Component {
   render() {
     return <span>Hello, {this.props.name}</span>
   }
 }
 ```
-</pre>
 
 3.3\. 自定义组件&&props
 
 -   组件名称必须以大写字母开头
 -   JSX 所接收的属性（attributes）以及子组件（children）转换为单个对象传递给组件，这个对象被称之为 “props”
 
-<pre>
-```定义
+定义
+```javascript
 function Welcome(props) {
   return <span>Hello, {props.name}</span>;
 }
@@ -101,15 +102,14 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
-</pre>
 
 3.4\. 高阶组件(Higher-Order Component, HOC)
 
 -   本质是一个函数
 -   入参和返回值均为组件
 
-<pre>
-```给每个组件添加一个属性
+给每个组件添加一个属性
+```javascript
 const Container = (WrappedComponent) => {
     class extends React.Component{
         render(){
@@ -118,8 +118,8 @@ const Container = (WrappedComponent) => {
         }
     }
 } 
-```
-```使用方式：export时调用
+
+使用方式：export时调用
 class App extends React.Component {
     render(){
         return (
@@ -128,8 +128,8 @@ class App extends React.Component {
     }
 }
 export default Container(App)
-```
-```使用方式：装饰器
+
+使用方式：装饰器
 @Container
 export default class App extends React.Component {
     render(){
@@ -139,7 +139,6 @@ export default class App extends React.Component {
     }
 }
 ```
-</pre>
 
 4\. 数据流
 
@@ -161,7 +160,8 @@ export default class App extends React.Component {
 
 场景一：
 [X]this.state.Status === 'OK'
-[]this.setState({ Status: 'OK' })
+[√]this.setState({ Status: 'OK' })
+
 场景二：
 
 ```
@@ -178,4 +178,5 @@ function(){
 
 #### 状态机
 
-####
+#### jsx
+> Most React developers use a special syntax called “JSX” which makes these structures easier to write. The <div /> syntax is transformed at build time to React.createElement('div')

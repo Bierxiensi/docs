@@ -31,16 +31,47 @@ module.exports = {
 
     nav: [
       { text: 'Home', link: '/' },
-      // { text: 'Node', link: '/Node/' },
+      {
+        text: '移动端',
+        items: [
+          { text: "App", link:"/App/App/"},
+          { text: "桌面应用", link:"/App/Desktop/"},
+        ]
+      },
       {
         text: 'Web端',
         items: [
           { text: "JavaScript", link:"/Web/JavaScript/"},
           { text: "HTML", link:"/Web/HTML/"},
           { text: "CSS", link: "/Web/CSS/" },
-          { text: "Server", link: "/Web/Server/" },
-          { text: "Question", link: "/Web/Question/" },
-          { text: "BlockChain", link: "/Web/BlockChain/" }
+        ]
+      },
+      {
+        text: 'React系列',
+        items: [
+          { text: "AntDesign", link:"/React/AntDesign/"},
+          { text: "React入门", link:"/React/ReactPrimer/"},
+        ]
+      },
+      { 
+        text: 'Node',
+        items: [
+          { text: "Node", link: "/Node/" },
+          { text: "Nest框架", link: "/Node/Nest/" },
+        ]
+      },
+      {
+        text: '打包与工具链',
+        items: [
+          { text: "Server", link: "/Tools/Server/" },
+          { text: "Webpack", link: "/Tools/Webpack/" },
+        ]
+      },
+      {
+        text: '其他',
+        items: [
+          { text: "面试题", link: "/Others/Question/" },
+          { text: "区块链", link: "/Others/BlockChain/" }
         ]
       },
       { text: 'GitHub', link: 'https://github.com/bierxiensi' },
@@ -48,77 +79,52 @@ module.exports = {
 
     sidebar: {
       "/all/": [
-        // ['', '目录']
-        // ['es', '盘点ES6到ES12的新增特性'],
-        // ['BlockChain', '区块链基础知识'],
-        // {
-        //   title: 'ES',  
-        //   path: '/Web/ES/', 
-        // },
         {
-          title: 'JavaScript',   // 必要的
+          title: '这里是所有的路由',   // 必要的
+          collapsable: false, // 可选的, 默认值是 true,
+        },
+      ],
+
+      // app
+      "/App/App/": [
+        {
+          title: 'app',   // 必要的
           collapsable: false, // 可选的, 默认值是 true,
           children: [
             {
-              title: 'ES6 到 ES12 特性总结',
-              path: '/Web/JavaScript/',
+              title: 'app',
+              path: '/App/App/',
             },
             {
-              title: 'JavaScript中的this',
-              path: '/Web/JavaScript/this',
+              title: 'cordova入门',
+              path: '/App/App/Cordova',
             },
-            {
-              title: '浏览器对象模型DOM',
-              path: '/Web/JavaScript/DOM',
-            }
           ]
-        },
+        }
+      ],
+      "/App/Desktop/": [
         {
-          title: 'HTML',   // 必要的
-          collapsable: true, // 可选的, 默认值是 true,
+          title: '桌面应用',   // 必要的
+          collapsable: false, // 可选的, 默认值是 true,
           children: [
             {
-              title: 'html基础',
-              path: '/Web/HTML/html',
-            }
+              title: '桌面应用',
+              path: '/App/Desktop/',
+            },
           ]
-        },
-        {
-          title: 'HTML',   // 必要的
-          collapsable: true, // 可选的, 默认值是 true,
-          children: [
-            {
-              title: 'CSS目录',
-              path: '/Web/CSS/',
-            }
-          ]
-        },
-        // {
-        //   title: 'Question',
-        //   collapsable: true,
-        //   children: [
-        //     '/Web/Question/question'
-        //   ]
-        // },
-        // {
-        //   title: 'Server端相关知识',
-        //   collapsable: true,
-        //   children: [
-        //     '/Web/Server/linux',
-        //     '/Web/Server/nginx'
-        //   ]
-        // }
+        }
       ],
 
+      // web
       "/Web/JavaScript/": [
         {
-          title: 'JavaScript',   // 必要的
+          title: 'ES6 到 ES12 特性总结',   // 必要的
+          path: '/Web/JavaScript/',
+        },
+        {
+          title: 'JavaScript初级',   // 必要的
           collapsable: true, // 可选的, 默认值是 true,
           children: [
-            {
-              title: '盘点ES6到ES12的新增特性',
-              path: '/Web/JavaScript/',
-            },
             {
               title: 'JavaScript中的this',
               path: '/Web/JavaScript/this',
@@ -133,7 +139,7 @@ module.exports = {
       "/Web/HTML/": [
         {
           title: 'HTML',   // 必要的
-          collapsable: true, // 可选的, 默认值是 true,
+          collapsable: false, // 可选的, 默认值是 true,
           children: [
             {
               title: 'HTML5',
@@ -145,7 +151,7 @@ module.exports = {
       "/Web/CSS/": [
         {
           title: 'CSS',   // 必要的
-          collapsable: true, // 可选的, 默认值是 true,
+          collapsable: false, // 可选的, 默认值是 true,
           children: [
             {
               title: 'CSS目录',
@@ -154,49 +160,87 @@ module.exports = {
           ]
         }
       ],
-      "/Web/Question/": [{
-        title: 'Question',
-        collapsable: true,
-        children:[{
-          title: '前端问题集锦',
-          path: '/Web/Question/question',
-        }]
-      }],
-      "/Web/Server/": [{
+
+      // react
+      "/React/AntDesign/": [
+        { title: 'AntDesign', path: '/React/AntDesign/' }
+      ],
+      "/React/ReactPrimer/": [
+        {
+          title: 'React入门',
+          collapsable: false,
+          children: [
+            { title: 'React入门（一、安装及简介）', path: '/React/ReactPrimer/' }
+          ]
+        }
+      ],
+
+      // node
+      "/Node/": [
+        {
+          title: 'Node',
+          collapsable: false,
+          children: [
+            { title: 'Node', path: '/Node/' },
+          ]
+        }
+      ],
+      "/Node/Nest/": [
+        {
+          title: 'Node',
+          collapsable: false,
+          children: [
+            { title: 'Nest框架', path: '/Node/Nest' }
+          ]
+        }
+      ],
+
+      // Tools
+      "/Tools/Server/": [{
         title: 'Server端相关知识',
-        collapsable: true,
+        collapsable: false,
         children: [
           {
             title: '防火墙linux',
-            path: '/Web/Server/linux',
+            path: '/Tools/Server/linux',
           },
           {
             title: 'nginx项目部署',
-            path: '/Web/Server/nginx',
+            path: '/Tools/Server/nginx',
           }
         ]
       }],
-      "/Web/BlockChain/": [{
+      "/Tools/Webpack/": [{
+        title: 'Webpack相关知识',
+        collapsable: false,
+        children: [
+          {
+            title: 'Webpack',
+            path: '/Tools/Webpack/',
+          }
+        ]
+      }],
+
+
+      // others
+      "/Others/Question/": [{
+        title: 'Question',
+        collapsable: false,
+        children:[{
+          title: '前端面试题集锦',
+          path: '/Others/Question/',
+        }]
+      }],
+      "/Others/BlockChain/": [{
         title: '区块链',
-        collapsable: true,
+        collapsable: false,
         children: [
           {
             title: '区块链基础知识',
-            path: '/Web/BlockChain/',
+            path: '/Others/BlockChain/',
           }
         ]
-      }]
-
-      // "/Node/": [
-      //   {
-      //     title: 'Node',
-      //     collapsable: false,
-      //     children: [
-      //       { title: 'Node01', path: '/Node/' },
-      //       { title: 'Node02', path: '/Node/aaa' }
-      //     ]
-      //   }
-      // ],
+      }],
       
     }
   }
