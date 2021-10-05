@@ -1,11 +1,15 @@
 ---
-title: dom
+title: 浏览器对象模型BOM
 search: true
 
-date: 2021-10-03 12:50:34
-tags: [document]
-lang: en-US
+date: 2021-10-05 09:48:10
+tags: [Browser]
+photos:
+description:
+comments:
 ---
+
+
 # 浏览器对象 BOM
 
 ## 定义
@@ -633,3 +637,4 @@ this.$button.addEventListener('click', () => {
 **2. 组件的封装**
 
 上面的例子中，`<template>`与网页代码放在一起，其实可以用脚本把`<template>`注入网页。这样的话，JavaScript 脚本跟`<template>`就能封装成一个 JS 文件，成为独立的组件文件。网页只要加载这个脚本，就能使用`<user-card>`组件。
+

@@ -124,15 +124,19 @@ module.exports = {
         {
           title: 'JavaScript初级',   // 必要的
           collapsable: true, // 可选的, 默认值是 true,
-          children: [
+          children: [     
+            {
+              title: '文本对象模型DOM',
+              path: '/Web/JavaScript/DOM',
+            },
+            {
+              title: '浏览器对象模型BOM',
+              path: '/Web/JavaScript/BOM',
+            },
             {
               title: 'JavaScript中的this',
               path: '/Web/JavaScript/this',
             },
-            {
-              title: '文本对象模型DOM',
-              path: '/Web/JavaScript/DOM',
-            }
           ]
         }
       ],
