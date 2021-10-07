@@ -1,182 +1,203 @@
 ---
-title: React基础
+title: React与Vue
 search: true
 
-date: 2021-09-10 09:05:23
-tags: [React, React-router, PubSub, Redux, Ant-Design]
+date: 2021-10-03 09:05:23
+tags: [React, Vue]
 photos:
 description:
 comments:
 ---
 
-## 前置
-this、class、ES6、npm、原型与原型链、数组方法、模块化
-
-## what
-
-用于构建用户界面（视图）的 Js 库
-
-## designed
-
-FaceBook 2011 Jordan Walke
-
-## 优势
-
--   避免 DOM-API 繁琐操作
--   避免直接操作 DOM 引发的重绘重拍
--   引入组件化（包括 html、css、图片、字体、音视频，对比模块化的仅 js 拆分）编码方案，声明式编程，代码复用率高
--   React native 可以使用 React 语法进行移动端开发
--   使用虚拟 DOM + 优秀 Diffing 算法，尽量减少与真实 DOM 的交互
-
-## 核心概念
-
-1\. JSX
-
--   本身是表达式
--   允许嵌入表达式
--   引号指定字面量
--   花括号指定 JS 表达式
--   防止 XSS 注入攻击（React DOM 在渲染所有输入内容之前，默认会进行转义）
--   有两种元素，以首字母是否大小写区分 DOM 元素和 React 组件
--   显示的调用 preventDefault()或 stopPropagation()等原生方法阻止默认事件
-
-单行注释推荐
-
-> {/\* \_/}
-
-多行注释推荐
-
-> /\_ \*/
-
-Tip-具有相同渲染结果
+场景一：
 ```javascript
-<div />
-<div></div>
-<div>{false}</div>
-<div>{true}</div>
-<div>{null}</div>
-<div>{undefined}</div>
+[❌]this.state.Status === 'OK'
+[✔️]this.setState({ Status: 'OK' })
 ```
 
+## 本质 js库 VS js框架
+[官网简介React](https://reactjs.org/)
+> A <font color="red">JavaScript library</font> for building user interfaces
 
-2\. React-DOM
+[官网简介Vue](https://reactjs.org/)
+> The Progressive <font color="red">JavaScript Framework</font>
 
--   React 元素一旦创建不可修改
--   更新 UI 唯一的方式是 ReactDOM.render()
--   React-DOM 更新时仅进行必要的更新（将元素和它的子元素与它们之前的状态进行比较）
+1\. [React] VS [Vue] = [js库] VS [js框架] <br>
+2\. Vue做的更多，React需要开发者做的更多
 
-3\. 组件
-3.1\. 函数组件
 
-定义
+## 数据渲染 单向数据流 VS 双向数据流
+![avatar](./images/README(2).jpg)
+
+[React] 开发者通过setState更新state的值来达到重新render <br>
+[Vue] 响应式数据渲染，通过getter/setter(vue2.x)以及一些函数的劫持可以精确感知数据变化
+
+1\. Vue 和 React 设计理念上的区别，Vue 使用的是可变数据，而React(onChange/setState()模式)更强调数据的不可变
+2\. 由于一般会用 Vuex 以及 Redux 等单向数据流的状态管理框架，因此很多时候我们感受不到这一点区别
+
+
+
+## API
+[Vue]Vue的template在处理上更加优雅于React的jsx
+[React]Class Component中在render中会存在大量porps, state的解构算是一个痛点
+Vue对template则不需要通过this.data.xxx来渲染options api
+
+
+## 上手
+#### 脚手架
+[Vue]VueCli
+[React]
+[❌]create-react-app
+[✔️]umi => 蚂蚁团队ant design, dva
+
+#### 路由
+[Vue]
 ```javascript
-function Welcome(props) {
-  return <span>Hello, {props.name}</span>
+export default {
+  routes: [
+    { path: '/login', component: 'login' },
+    {
+      path: '/',
+      component: '@/layouts/index',
+      children: [
+        { path: '/list', component: 'list' },
+        { path: '/main', component: 'main' },
+      ],
+    }, 
+  ],
+}
+```
+[React]
+```javascript
+export default {
+  routes: [
+    { path: '/login', component: 'login' },
+    {
+      path: '/',
+      component: '@/layouts/index',
+      routes: [
+        { path: '/list', component: 'list' },
+        { path: '/main', component: 'main' },
+      ],
+    }, 
+  ],
 }
 ```
 
-3.2\. class 组件（ES6）
+[对照umi]
+  | onRouteChange
 
-定义
+  addRoutes | patchRoutes
+#### 状态管理
+[Vue]vuex
 ```javascript
-class Welcome extends React.Component {
-  render() {
-    return <span>Hello, {this.props.name}</span>
+export default {
+  // 同样的命名空间
+  namespace: 'todo',
+  state: {
+    // 类似Vuex State
+    list: []
+  },
+  Mutations: {
+    // 类似Vuex Mutations
+    save(state, { payload: { list } }) {
+      return { ...state, list }
+    }
+  },
+  actions: {
+    
+  }
+}
+```
+[React]redux全家桶 ,Mobx  ==> dva
+```javascript
+export default {
+  // 同样的命名空间
+  namespace: 'todo',
+  state: {
+    // 类似Vuex State
+    list: []
+  },
+  reducers: {
+    // 类似Vuex Mutations
+    save(state, { payload: { list } }) {
+      return { ...state, list }
+    }
+  },
+  effects: {
+    *queryUserInfo({ payload: value }, { call, put, select }) {
+      // 对比Vuex Actions
+    }
+  },
+  subscriptions: {
+    setup({ dispatch, history }) {
+      // 监听路由的变化，请求页面数据
+    }
   }
 }
 ```
 
-3.3\. 自定义组件&&props
+## 特殊的
+#### [Vue]插槽
+[vue]在Vue中通过slot传递组件模板给组件进行渲染。
+[React]React没有插槽的概念，但其实在组件内部中不论是JSX还是DOM 都会被传入到Props的children当中去，隐含的实现了类似于Vue的普通插槽。
 
--   组件名称必须以大写字母开头
--   JSX 所接收的属性（attributes）以及子组件（children）转换为单个对象传递给组件，这个对象被称之为 “props”
-
-定义
+往往我们可能会因为不同的插槽，做不同的事情，比如有一个footer插槽用来改变模态框底部的内容，header用来改变顶部的内容。可以通过传入一个对象的形式进行具名插槽的一个场景模拟。同样的也会将其传递到一个Props当中去。
 ```javascript
-function Welcome(props) {
-  return <span>Hello, {props.name}</span>;
-}
-const element = <Welcome name="Sara" />;
-ReactDOM.render(
-  element,
-  document.getElementById('root')
-);
+<Model>
+{{
+	header: <div>header slot</div>,
+	footer: <div>footer slot</div>
+}}
+</Model>
 ```
 
-3.4\. 高阶组件(Higher-Order Component, HOC)
 
--   本质是一个函数
--   入参和返回值均为组件
+#### [React]HOC 与[Vue]mixin
+> 如何在多个组件之间共享代码是一个重要问题，在 Vue 中组合不同功能的方式是通过 mixin，而在React中通过 HoC (高阶组件）
 
-给每个组件添加一个属性
+React 最早也是使用 mixins 的，不过后来他们觉得这种方式对组件侵入太强会导致很多问题([由于声明式渲染和自上而下的数据流，许多团队在采用 React 时能够在发布新功能的同时修复一堆错误](https://reactjs.bootcss.com/blog/2016/07/13/mixins-considered-harmful.html))
+
+#### CSS
+
+网页开发有一个原则，叫做[关注点分离（separation of concerns）](https://en.wikipedia.org/wiki/Separation_of_concerns#HTML.2C_CSS.2C_JavaScript)，旨在各种技术只负责自己的领域，不要混合在一起，形成耦合。对于网页开发来说，主要是三种技术分离
+![avatar](./images/README(1).jpg)
+
+
 ```javascript
-const Container = (WrappedComponent) => {
-    class extends React.Component{
-        render(){
-            let newProps = { status: 'pending' };
-            return <WrappedComponent {...this.props} {...newProps} />
-        }
-    }
-} 
+[bad]
+<h1 style="color:red;font-size:46px;"  onclick="alert('Hi')">
+Hello World
+</h1>
+```
 
-使用方式：export时调用
-class App extends React.Component {
-    render(){
+
+[vue]在style标签上声明一个scoped以区分组件样式。最后组件打包时加入一个hash值
+[react]使用的cssModule方案来进行
+- [Bem](https://juejin.cn/post/6844903672162304013) CssName
+- [Style Component](https://juejin.cn/post/6844903878580764686#heading-6)
+  ```javascript
+    import React from 'react';
+    import Styled from 'styled-components'
+
+    export default () => {
+        const Wrapper = Styled.div`
+            & >.title { 
+                color: red;
+            }
+        `
         return (
-            <span>hello world</span>
-        )
+            <Wrapper>Red Text Wrapper....
+                <p className="title">1111</p>
+            </Wrapper>
+        );
     }
-}
-export default Container(App)
+  ```
+- CssModule
+- [Css in js](https://www.ruanyifeng.com/blog/2017/04/css_in_js.html)
 
-使用方式：装饰器
-@Container
-export default class App extends React.Component {
-    render(){
-        return (
-            <span>hello world</span>
-        )
-    }
-}
-```
 
-4\. 数据流
+react：umi+dva+antd vue: vue-cli+vuex+element
 
--   不变属性 props 与可变属性 state
--   上下文 Context
--   Redux
-
-    4.1.1\. props
-    参见 3.3
-
-    4.1.2\. state
-
-    -   构造函数和 setState 方法可以给 this.state 赋值
-    -   setState()更新可能是异步的
-
-## 从状态机的角度理解 React 如何使用数据驱动渲染
-
-#### 两个场景
-
-场景一：
-[X]this.state.Status === 'OK'
-[√]this.setState({ Status: 'OK' })
-
-场景二：
-
-```
-this.setStatus({ count: count + 1 })
-this.setStatus({ count: count + 1 })
-```
-
-```
-function(){
-    this.setStatus((state, props) => { return { count: count + 1 }})
-    this.setStatus((state, props) => { return { count: count + 1 }})
-}
-```
-
-#### 状态机
-
-#### jsx
-> Most React developers use a special syntax called “JSX” which makes these structures easier to write. The <div /> syntax is transformed at build time to React.createElement('div')
+参考：
+[CSS in JS 简介](https://www.ruanyifeng.com/blog/2017/04/css_in_js.html)
