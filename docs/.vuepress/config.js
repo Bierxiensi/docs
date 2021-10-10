@@ -172,11 +172,10 @@ module.exports = {
       "/React/ReactPrimer/": [
         {
           title: 'React入门',
-          collapsable: false,
+          collapsable: true,
           children: [
-            { title: 'React与Vue', path: '/React/ReactPrimer/' },
-            { title: 'React入门（JSX）', path: '/React/ReactPrimer/JSX/' },
-            { title: 'React入门（一、React基础）', path: '/React/ReactPrimer/React_1/' }
+            { title: 'React入门（JSX）', path: '/React/ReactPrimer/JSX' },
+            { title: 'React入门（一、React基础）', path: '/React/ReactPrimer/React_1' }
           ]
         }
       ],
