@@ -170,12 +170,17 @@ module.exports = {
         { title: 'AntDesign', path: '/React/AntDesign/' }
       ],
       "/React/ReactPrimer/": [
+        { 
+          title: '🔯React与Vue比较研究', 
+          path: '/React/ReactPrimer/' 
+        },
         {
           title: 'React入门',
           collapsable: true,
           children: [
             { title: 'React入门（JSX）', path: '/React/ReactPrimer/JSX' },
-            { title: 'React入门（一、React基础）', path: '/React/ReactPrimer/React_1' }
+            { title: 'React入门（一、React基础）', path: '/React/ReactPrimer/React_1' },
+            
           ]
         }
       ],
