@@ -68,6 +68,8 @@ comments:
 > -   项目-脚手架
 > -   项目-状态管理
 
+# 二、差异对比
+
 ## [ViewModal] JSX vs new Vue({})
 
 React-对应组件中的 JSX，它实质上是 Virtual DOM 的语法糖。
@@ -133,8 +135,6 @@ Object.defineProperty(vm.prototype, "message", {
 });
 ```
 
-# 二、差异对比
-
 ## [数据流] 单向数据流 VS 双向数据流
 
 ![avatar](<./images/README(2).jpg>)
@@ -150,17 +150,15 @@ Object.defineProperty(vm.prototype, "message", {
 1\. Vue 和 React 设计理念上的区别，Vue 使用的是可变数据，而 React(onChange/setState()模式)更强调数据的不可变 <br>
 2\. 由于一般会用 Vuex 以及 Redux 等单向数据流的状态管理框架，因此很多时候我们感受不到这一点区别
 
-## [组件通信] 单向数据流 VS 双向数据流
+## [组件通信] Context API VS
 
-![avatar](<./images/README(2).jpg>)
-
-[React] Vue 中有三种方式可以实现组件通信 <br>
+[Vue] Vue 中有三种方式可以实现组件通信 <br>
 1\. 父组件通过 props 向子组件传递数据或者回调，虽然可以传递回调，但是我们一般只传数据，而通过 事件的机制来处理子组件向父组件的通信
 
-[Vue] 响应式数据渲染，通过 getter/setter(vue2.x)以及一些函数的劫持可以精确感知数据变化
+[React] React
 
-1\. Vue 和 React 设计理念上的区别，Vue 使用的是可变数据，而 React(onChange/setState()模式)更强调数据的不可变
-2\. 由于一般会用 Vuex 以及 Redux 等单向数据流的状态管理框架，因此很多时候我们感受不到这一点区别
+1\. 父组件通过 props 向子组件传递函数，父组件可在被调用时改变自身状态
+2\. Context
 
 ## [API]
 
