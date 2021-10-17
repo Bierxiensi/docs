@@ -130,51 +130,26 @@ module.exports = {
             },
         ],
 
-        // web
-        "/Web/JavaScript/": [
-            {
-                title: "ES6 到 ES12 特性总结", // 必要的
-                path: "/Web/JavaScript/",
-            },
-            {
-                title: "JavaScript初级", // 必要的
-                collapsable: true, // 可选的, 默认值是 true,
-                children: [
-                    {
-                        title: "文本对象模型DOM",
-                        path: "/Web/JavaScript/DOM",
-                    },
-                    {
-                        title: "浏览器对象模型BOM",
-                        path: "/Web/JavaScript/BOM",
-                    },
-                    {
-                        title: "JavaScript中的this",
-                        path: "/Web/JavaScript/this",
-                    },
-                ],
-            },
+        // react
+        "/React/AntDesign/": [
+            { title: "AntDesign", path: "/React/AntDesign/" },
         ],
-        "/Web/HTML/": [
+        "/React/ReactPrimer/": [
             {
-                title: "HTML", // 必要的
-                collapsable: false, // 可选的, 默认值是 true,
-                children: [
-                    {
-                        title: "HTML5",
-                        path: "/Web/HTML/html",
-                    },
-                ],
+                title: "🔯React与Vue比较研究",
+                path: "/React/ReactPrimer/",
             },
-        ],
-        "/Web/CSS/": [
             {
-                title: "CSS", // 必要的
-                collapsable: false, // 可选的, 默认值是 true,
+                title: "React入门",
+                collapsable: true,
                 children: [
                     {
-                        title: "CSS目录",
-                        path: "/Web/CSS/",
+                        title: "React入门（JSX）",
+                        path: "/React/ReactPrimer/JSX",
+                    },
+                    {
+                        title: "React入门（一、React基础）",
+                        path: "/React/ReactPrimer/React_1",
                     },
                 ],
             },
