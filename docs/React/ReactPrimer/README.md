@@ -55,9 +55,16 @@ comments:
 1\. [React] VS [Vue] = [js 库] VS [js 框架] = [lib] VS [framwork]<br>
 2\. Vue 做的更多，React 需要开发者做的更多
 
-> -   [lib] VS [framwork] 核心 ViewModal
-> -   数据流
+从以 MVVM 角度对比
+
+> -   MVVM-ViewModal
+> -   数据流-Props
 > -   组件通信
+> -   组件-Components、HOC
+> -   状态管理-State
+
+从项目实践对比
+
 > -   项目-脚手架
 > -   项目-状态管理
 
