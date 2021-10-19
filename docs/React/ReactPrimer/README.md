@@ -140,7 +140,7 @@ Object.defineProperty(vm.prototype, "message", {
 [React] 开发者通过setState更新state的值来达到重新render <br>
 [Vue] 响应式数据渲染，通过getter/setter(vue2.x)以及一些函数的劫持可以精确感知数据变化
 
-1\. Vue 和 React 设计理念上的区别，Vue 使用的是可变数据，而React(onChange/setState()模式)更强调数据的不可变
+1\. Vue 和 React 设计理念上的区别，Vue 使用的是可变数据，而React(onChange/setState()模式)更强调数据的不可变 <br>
 2\. 由于一般会用 Vuex 以及 Redux 等单向数据流的状态管理框架，因此很多时候我们感受不到这一点区别
 
 ## [组件通信] 单向数据流 VS 双向数据流

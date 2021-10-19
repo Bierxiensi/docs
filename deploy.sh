@@ -3,6 +3,8 @@
 # 确保脚本抛出遇到的错误
 set -e
 
+git pull
+
 git push -f git@github.com:Bierxiensi/docs.git master:master
  
 # 生成静态文件
