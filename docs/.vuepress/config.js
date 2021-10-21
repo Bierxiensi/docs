@@ -73,200 +73,195 @@ module.exports = {
                 items: [
                     { text: "面试题", link: "/Others/Question/" },
                     { text: "区块链", link: "/Others/BlockChain/" },
-                    { text: "学习资源", link: "/Others/StudySource/" },
                 ],
             },
             { text: "GitHub", link: "https://github.com/bierxiensi" },
         ],
 
-        // react
-        "/React/AntDesign/": [
-            { title: "AntDesign", path: "/React/AntDesign/" },
-        ],
-        "/React/ReactPrimer/": [
-            {
-                title: "React入门",
-                collapsable: true,
-                children: [
-                    {
-                        title: "React入门（JSX）",
-                        path: "/React/ReactPrimer/JSX",
-                    },
-                    {
-                        title: "React入门（一、React基础）",
-                        path: "/React/ReactPrimer/React_1",
-                    },
-                ],
-            },
-        ],
+        sidebar: {
+            "/All/": [
+                {
+                    title: "这里是所有的路由", // 必要的
+                    collapsable: false, // 可选的, 默认值是 true,
+                },
+            ],
 
-        // app
-        "/App/App/": [
-            {
-                title: "app", // 必要的
-                collapsable: false, // 可选的, 默认值是 true,
-                children: [
-                    {
-                        title: "app",
-                        path: "/App/App/",
-                    },
-                    {
-                        title: "cordova入门",
-                        path: "/App/App/Cordova",
-                    },
-                ],
-            },
-        ],
-        "/App/Desktop/": [
-            {
-                title: "桌面应用", // 必要的
-                collapsable: false, // 可选的, 默认值是 true,
-                children: [
-                    {
-                        title: "桌面应用",
-                        path: "/App/Desktop/",
-                    },
-                ],
-            },
-        ],
+            // app
+            "/App/App/": [
+                {
+                    title: "app", // 必要的
+                    collapsable: false, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "app",
+                            path: "/App/App/",
+                        },
+                        {
+                            title: "cordova入门",
+                            path: "/App/App/Cordova",
+                        },
+                    ],
+                },
+            ],
+            "/App/Desktop/": [
+                {
+                    title: "桌面应用", // 必要的
+                    collapsable: false, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "桌面应用",
+                            path: "/App/Desktop/",
+                        },
+                    ],
+                },
+            ],
 
-        // react
-        "/React/AntDesign/": [
-            { title: "AntDesign", path: "/React/AntDesign/" },
-        ],
-        "/React/ReactPrimer/": [
-            {
-                title: "🔯React与Vue比较研究",
-                path: "/React/ReactPrimer/",
-            },
-            {
-                title: "React入门",
-                collapsable: true,
-                children: [
-                    {
-                        title: "React入门（JSX）",
-                        path: "/React/ReactPrimer/JSX",
-                    },
-                    {
-                        title: "React入门（一、React基础）",
-                        path: "/React/ReactPrimer/React_1",
-                    },
-                ],
-            },
-        ],
+            // web
+            "/Web/JavaScript/": [
+                {
+                    title: "ES6 到 ES12 特性总结", // 必要的
+                    path: "/Web/JavaScript/",
+                },
+                {
+                    title: "JavaScript初级", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "文本对象模型DOM",
+                            path: "/Web/JavaScript/DOM",
+                        },
+                        {
+                            title: "浏览器对象模型BOM",
+                            path: "/Web/JavaScript/BOM",
+                        },
+                        {
+                            title: "JavaScript中的this",
+                            path: "/Web/JavaScript/this",
+                        },
+                    ],
+                },
+            ],
+            "/Web/HTML/": [
+                {
+                    title: "HTML", // 必要的
+                    collapsable: false, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "HTML5",
+                            path: "/Web/HTML/html",
+                        },
+                    ],
+                },
+            ],
+            "/Web/CSS/": [
+                {
+                    title: "CSS", // 必要的
+                    collapsable: false, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "CSS目录",
+                            path: "/Web/CSS/",
+                        },
+                    ],
+                },
+            ],
 
-        // react
-        "/React/AntDesign/": [
-            { title: "AntDesign", path: "/React/AntDesign/" },
-        ],
-        "/React/ReactPrimer/": [
-            {
-                title: "React入门",
-                collapsable: false,
-                children: [
-                    { title: "React与Vue", path: "/React/ReactPrimer/" },
-                    {
-                        title: "React入门（JSX）",
-                        path: "/React/ReactPrimer/JSX/",
-                    },
-                    {
-                        title: "React入门（一、React基础）",
-                        path: "/React/ReactPrimer/React_1",
-                    },
-                ],
-            },
-        ],
+            // react
+            "/React/AntDesign/": [
+                { title: "AntDesign", path: "/React/AntDesign/" },
+            ],
+            "/React/ReactPrimer/": [
+                {
+                    title: "🔯React与Vue比较研究",
+                    path: "/React/ReactPrimer/",
+                },
+                {
+                    title: "React入门",
+                    collapsable: true,
+                    children: [
+                        {
+                            title: "React入门（JSX）",
+                            path: "/React/ReactPrimer/JSX",
+                        },
+                        {
+                            title: "React入门（一、React基础）",
+                            path: "/React/ReactPrimer/React_1",
+                        },
+                    ],
+                },
+            ],
 
-        // node
-        "/Node/": [
-            {
-                title: "Node",
-                collapsable: false,
-                children: [{ title: "Node", path: "/Node/" }],
-            },
-        ],
-        "/Node/Nest/": [
-            {
-                title: "Node",
-                collapsable: false,
-                children: [{ title: "Nest框架", path: "/Node/Nest" }],
-            },
-        ],
+            // node
+            "/Node/": [
+                {
+                    title: "Node",
+                    collapsable: false,
+                    children: [{ title: "Node", path: "/Node/" }],
+                },
+            ],
+            "/Node/Nest/": [
+                {
+                    title: "Node",
+                    collapsable: false,
+                    children: [{ title: "Nest框架", path: "/Node/Nest" }],
+                },
+            ],
 
-        // Tools
-        "/Tools/Server/": [
-            {
-                title: "Server端相关知识",
-                collapsable: false,
-                children: [
-                    {
-                        title: "防火墙linux",
-                        path: "/Tools/Server/linux",
-                    },
-                    {
-                        title: "nginx项目部署",
-                        path: "/Tools/Server/nginx",
-                    },
-                ],
-            },
-        ],
-        "/Tools/Webpack/": [
-            {
-                title: "Webpack相关知识",
-                collapsable: false,
-                children: [
-                    {
-                        title: "Webpack",
-                        path: "/Tools/Webpack/",
-                    },
-                ],
-            },
-        ],
+            // Tools
+            "/Tools/Server/": [
+                {
+                    title: "Server端相关知识",
+                    collapsable: false,
+                    children: [
+                        {
+                            title: "防火墙linux",
+                            path: "/Tools/Server/linux",
+                        },
+                        {
+                            title: "nginx项目部署",
+                            path: "/Tools/Server/nginx",
+                        },
+                    ],
+                },
+            ],
+            "/Tools/Webpack/": [
+                {
+                    title: "Webpack相关知识",
+                    collapsable: false,
+                    children: [
+                        {
+                            title: "Webpack",
+                            path: "/Tools/Webpack/",
+                        },
+                    ],
+                },
+            ],
 
-        // others
-        "/Others/Question/": [
-            {
-                title: "Question",
-                collapsable: false,
-                children: [
-                    {
-                        title: "前端面试题集锦",
-                        path: "/Others/Question/",
-                    },
-                ],
-            },
-        ],
-        "/Others/BlockChain/": [
-            {
-                title: "区块链",
-                collapsable: false,
-                children: [
-                    {
-                        title: "区块链基础知识",
-                        path: "/Others/BlockChain/",
-                    },
-                ],
-            },
-        ],
-        "/Others/StudySource/": [
-            {
-                title: "学习资源",
-                collapsable: false,
-                children: [
-                    {
-                        title: "Web端学习资源",
-                        path: "/Others/BlockChain/Web",
-                    },
-                    {
-                        title: "Vue学习资源",
-                        path: "/Others/BlockChain/Vue",
-                    },
-                    {
-                        title: "服务端学习资源",
-                        path: "/Others/BlockChain/Server",
-                    },
-                ],
-            },
-        ],
+            // others
+            "/Others/Question/": [
+                {
+                    title: "Question",
+                    collapsable: false,
+                    children: [
+                        {
+                            title: "前端面试题集锦",
+                            path: "/Others/Question/",
+                        },
+                    ],
+                },
+            ],
+            "/Others/BlockChain/": [
+                {
+                    title: "区块链",
+                    collapsable: false,
+                    children: [
+                        {
+                            title: "区块链基础知识",
+                            path: "/Others/BlockChain/",
+                        },
+                    ],
+                },
+            ],
+        },
     },
 };
