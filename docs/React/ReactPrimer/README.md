@@ -12,7 +12,7 @@ comments:
 ## [前置] [关注点分离原则](https://en.wikipedia.org/wiki/Separation_of_concerns#HTML.2C_CSS.2C_JavaScript) VS &nbsp;MVC & MVVM(MVP)
 
 &emsp;&emsp;网页开发有一个原则，叫做[关注点分离（separation of concerns）](https://en.wikipedia.org/wiki/Separation_of_concerns#HTML.2C_CSS.2C_JavaScript)，旨在让各种技术只负责自己的领域以减少耦合。对于网页开发来说，主要是三种技术分离。
-![avatar](<./images/README(1).jpg>)
+![avatar](<./images/README/mvc.jpg>)
 
 > -   HTML 语言：负责网页的结构，又称语义层
 > -   CSS 语言：负责网页的样式，又称视觉层
@@ -21,7 +21,7 @@ comments:
 ## 🚩 前置-[MVC & MVP & MVVM](https://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html)
 
 &emsp;&emsp; MVC 模式的意思是，软件可以分成三个部分，一般用户行为及各部分之间的通信方式如下。
-![avatar](<./images/README(4).jpg>)
+![avatar](<./images/README/mvc_behavior.jpg>)
 
 > -   View（用户界面） 传送指令到 Controller
 > -   Controller（业务逻辑） 完成业务逻辑后，要求 Model 改变状态
@@ -39,7 +39,7 @@ $('#alert-btn').on('click',function(){
 [❌] View 直接操作 DOM 代价高，Model 被弱化，而 Controller 非常厚，所有逻辑都部署在这里 <br>
 [❌] 内存浪费，程序运行缓慢效率低 <br>
 
-![avatar](<./images/README(MVP).jpg>)
+![avatar](<./images/README/mvp.jpg>)
 
 -   MVP 模式将 Controller 改名为 Presenter，同时改变了通信方向
 -   View 很薄，不部署任何业务逻辑，View 称为"被动视图"（Passive View）

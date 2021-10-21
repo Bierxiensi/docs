@@ -73,16 +73,17 @@ module.exports = {
                 items: [
                     { text: "面试题", link: "/Others/Question/" },
                     { text: "区块链", link: "/Others/BlockChain/" },
+                    { text: "学习资源", link: "/Others/StudySource/" },
                 ],
             },
             { text: "GitHub", link: "https://github.com/bierxiensi" },
         ],
 
         sidebar: {
-            "/All/": [
+            "/all/": [
                 {
                     title: "这里是所有的路由", // 必要的
-                    collapsable: false, // 可选的, 默认值是 true,
+                    collapsable: true, // 可选的, 默认值是 true,
                 },
             ],
 
@@ -90,7 +91,7 @@ module.exports = {
             "/App/App/": [
                 {
                     title: "app", // 必要的
-                    collapsable: false, // 可选的, 默认值是 true,
+                    collapsable: true, // 可选的, 默认值是 true,
                     children: [
                         {
                             title: "app",
@@ -106,7 +107,7 @@ module.exports = {
             "/App/Desktop/": [
                 {
                     title: "桌面应用", // 必要的
-                    collapsable: false, // 可选的, 默认值是 true,
+                    collapsable: true, // 可选的, 默认值是 true,
                     children: [
                         {
                             title: "桌面应用",
@@ -144,7 +145,7 @@ module.exports = {
             "/Web/HTML/": [
                 {
                     title: "HTML", // 必要的
-                    collapsable: false, // 可选的, 默认值是 true,
+                    collapsable: true, // 可选的, 默认值是 true,
                     children: [
                         {
                             title: "HTML5",
@@ -156,7 +157,7 @@ module.exports = {
             "/Web/CSS/": [
                 {
                     title: "CSS", // 必要的
-                    collapsable: false, // 可选的, 默认值是 true,
+                    collapsable: true, // 可选的, 默认值是 true,
                     children: [
                         {
                             title: "CSS目录",
@@ -181,7 +182,7 @@ module.exports = {
                     children: [
                         {
                             title: "React入门（JSX）",
-                            path: "/React/ReactPrimer/JSX",
+                            path: "/React/ReactPrimer/JSX/",
                         },
                         {
                             title: "React入门（一、React基础）",
@@ -195,14 +196,14 @@ module.exports = {
             "/Node/": [
                 {
                     title: "Node",
-                    collapsable: false,
+                    collapsable: true,
                     children: [{ title: "Node", path: "/Node/" }],
                 },
             ],
             "/Node/Nest/": [
                 {
                     title: "Node",
-                    collapsable: false,
+                    collapsable: true,
                     children: [{ title: "Nest框架", path: "/Node/Nest" }],
                 },
             ],
@@ -211,7 +212,7 @@ module.exports = {
             "/Tools/Server/": [
                 {
                     title: "Server端相关知识",
-                    collapsable: false,
+                    collapsable: true,
                     children: [
                         {
                             title: "防火墙linux",
@@ -227,7 +228,7 @@ module.exports = {
             "/Tools/Webpack/": [
                 {
                     title: "Webpack相关知识",
-                    collapsable: false,
+                    collapsable: true,
                     children: [
                         {
                             title: "Webpack",
@@ -241,7 +242,7 @@ module.exports = {
             "/Others/Question/": [
                 {
                     title: "Question",
-                    collapsable: false,
+                    collapsable: true,
                     children: [
                         {
                             title: "前端面试题集锦",
@@ -253,7 +254,7 @@ module.exports = {
             "/Others/BlockChain/": [
                 {
                     title: "区块链",
-                    collapsable: false,
+                    collapsable: true,
                     children: [
                         {
                             title: "区块链基础知识",
@@ -262,6 +263,27 @@ module.exports = {
                     ],
                 },
             ],
+            "/Others/StudySource/": [
+                {
+                    title: "学习资源",
+                    collapsable: true,
+                    children: [
+                        {
+                            title: "Web端学习资源",
+                            path: "/Others/StudySource/Web",
+                        },
+                        {
+                            title: "Vue学习资源",
+                            path: "/Others/StudySource/Vue",
+                        },
+                        {
+                            title: "服务端学习资源",
+                            path: "/Others/StudySource/Server",
+                        },
+                    ],
+                },
+            ],
         },
     },
 };
+
