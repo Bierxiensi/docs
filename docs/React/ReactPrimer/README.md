@@ -1,5 +1,5 @@
 ---
-title: React与Vue
+title: React与Vue比教学习
 search: true
 
 date: 2021-10-03 09:05:23
@@ -9,7 +9,7 @@ description:
 comments:
 ---
 
-## [前置] [关注点分离原则](https://en.wikipedia.org/wiki/Separation_of_concerns#HTML.2C_CSS.2C_JavaScript) VS &nbsp;MVC & MVVM(MVP)
+## 🚩 前置-[关注点分离原则](https://en.wikipedia.org/wiki/Separation_of_concerns#HTML.2C_CSS.2C_JavaScript) VS &nbsp;MVC & MVVM(MVP)
 
 &emsp;&emsp;网页开发有一个原则，叫做[关注点分离（separation of concerns）](https://en.wikipedia.org/wiki/Separation_of_concerns#HTML.2C_CSS.2C_JavaScript)，旨在让各种技术只负责自己的领域以减少耦合。对于网页开发来说，主要是三种技术分离。
 ![avatar](./images/README/SOC_web.jpg)
@@ -68,12 +68,12 @@ $("#alert-btn").on("click", function () {
 **简言之有以下几点**<br>
 1\. React 相比 Vue 更重运行时，因做全量 diff 会关注 fps 卡顿问题<br>  
 2\. React 强调数据不可变性，中间状态方便获取，做全量 diff，Vue1 全量响应式 watcher，Vue2 可变数据做依赖收集 做组件间 diff<br>
-3\. React 使用划时代引入了 vdom 概念，JSX 语法糖本质是 React.createElement 的，会将 html 语法转换成 js 对象，Vue 使用了 template 语法，在限制 js 语法灵活性的同时提供了一些自定义指令，编译阶段也可对这些自定义指令做标记优化
+3\. React 使用划时代引入了 vdom 概念，JSX 语法糖本质是 React.createElement 的函数，会将 html 语法转换成 js 对象，Vue 使用了 template 语法，在限制 js 语法灵活性的同时提供了一些自定义指令，编译阶段也可对这些自定义指令做标记优化
 
 从以 MVVM 角度对比
 
 > -   MVVM-ViewModal
-> -   组件-Components、HOC
+> -   MVVM-View（组件-Components、HOC）
 > -   数据流-Props 与组件通信
 
 从项目实践对比
@@ -362,12 +362,19 @@ export default {
 Vue 1 的解决方案，就是使用响应式，初始化的时候，Watcher 监听了数据的每个属性，这样数据发生变化的时候，我们就能精确地知道数据的哪个 key 变了，去针对性修改对应的 DOM
 
 [Vue]Vue 的 template 在处理上更加优雅于 React 的 jsx <br>
+
 [React]Class Component 中在 render 中会存在大量 porps, state 的解构算是一个痛点
 Vue 对 template 则不需要通过 this.data.xxx 来渲染 options api
 
 React 注重数据不可变、虚拟 DOM 和运行时；
 Angular 则在抽象这个维度又走向一个极致，生来就是为了复杂项目
 Vue 在每个维度之间，做了非常好的权衡和取舍，算是一个非常中庸且优雅的框架，兼顾响应式、虚拟 DOM、运行时和编译优化
+
+– Vue 2 是使用 Flow.js 来做类型校验。但现在 Flow.js 已经停止维护
+– Vue 2 内部运行时，是直接执行浏览器 API 的。但这样就会在 Vue 2 的跨端方案中带来问题
+– Vue 2 响应式并不是真正意义上的代理，而是基于 Object.defineProperty() 实现的，是对某个属性进行拦截，所以有很多缺陷，比如：删除数据就无法监听，需要 $delete 等 API 辅助才能监听到。
+– 对于 Option API 来说，所有的 methods、computed 都在一个对象里配置，这对小应用来说还好。但代码超过 300 行的时候，新增或者修改一个功能，就需要不停地在 data，methods 里跳转写代码，并且由于所有数据都挂载在 this 之上，因而 Options API 的写法对 TypeScript 的类型推导很不友好，并且这样也不好做 Tree-shaking 清理代码。
+– 代码不好复用，Vue 2 的组件很难抽离通用逻辑，只能使用 mixin，还会带来命名冲突的问题。
 
 ## 参考：
 
