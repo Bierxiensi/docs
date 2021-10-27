@@ -9,7 +9,7 @@ description:
 comments:
 ---
 
-## [前置] [关注点分离原则](https://en.wikipedia.org/wiki/Separation_of_concerns#HTML.2C_CSS.2C_JavaScript) VS &nbsp;MVC & MVVM(MVP)
+## 🚩 前置-[关注点分离原则](https://en.wikipedia.org/wiki/Separation_of_concerns#HTML.2C_CSS.2C_JavaScript) VS &nbsp;MVC & MVVM(MVP)
 
 &emsp;&emsp;网页开发有一个原则，叫做[关注点分离（separation of concerns）](https://en.wikipedia.org/wiki/Separation_of_concerns#HTML.2C_CSS.2C_JavaScript)，旨在让各种技术只负责自己的领域以减少耦合。对于网页开发来说，主要是三种技术分离。
 ![avatar](<./images/README/mvc.jpg>)
@@ -68,8 +68,8 @@ $('#alert-btn').on('click',function(){
 **简言之有以下几点**<br>
 1\. React相比Vue更重运行时，因做全量diff会关注fps卡顿问题<br>   
 2\. React强调数据不可变性，中间状态方便获取，做全量diff，Vue1全量响应式，Vue2做组件间diff<br>
-3\. 
-
+3\. React使用了jsx语法，具有js的动态特性，Vue使用template语法，做了更多的预处理操作（vue3做了静态标记仅更新动态数据结点）
+    
 从以 MVVM 角度对比
 
 > -   MVVM-ViewModal
@@ -165,7 +165,7 @@ vue2 this 黑盒
 react runtime 框架
 
 
-## 组件-Components、HOC
+## 🎯组件-Components、HOC
 > 如何在多个组件之间共享代码是一个重要问题，在 Vue 中组合不同功能的方式是通过 mixin，而在 React 中通过 HoC (高阶组件）
 
 React 最早也是使用 mixins 的，不过后来他们觉得这种方式对组件侵入太强会导致很多问题([由于声明式渲染和自上而下的数据流，许多团队在采用 React 时能够在发布新功能的同时修复一堆错误](https://reactjs.bootcss.com/blog/2016/07/13/mixins-considered-harmful.html))
