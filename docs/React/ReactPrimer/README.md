@@ -4,7 +4,6 @@ search: true
 
 date: 2021-10-03 09:05:23
 tags: [React, Vue]
-photos:
 description:
 comments:
 ---

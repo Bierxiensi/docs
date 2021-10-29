@@ -55,9 +55,9 @@ Tip-具有相同渲染结果
     <div />
     <div></div>
     <div>{'false'}</div>
-    <div>{true}</div>
-    <div>{null}</div>
-    <div>{undefined}</div>
+    <div>{'true'}</div>
+    <div>{'null'}</div>
+    <div>{'undefined'}</div>
 ```
 
 2\. React-DOM
