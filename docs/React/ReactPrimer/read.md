@@ -359,3 +359,15 @@ Hello World
 [CSS in JS 简介](https://www.ruanyifeng.com/blog/2017/04/css_in_js.html)
 [MVC，MVP 和 MVVM 的图示](https://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm)
 [理解 MVVM 在 react、vue 中的使用](https://www.cnblogs.com/momozjm/p/11542635.html)
+
+-   [Bem](https://juejin.cn/post/6844903672162304013) Bem 是块（block）、元素（element）、修饰符（modifier）的简写，由 Yandex 团队提出的一种前端 CSS 命名方法论。
+
+> -   中划线 ：仅作为连字符使用，表示某个块或者某个子元素的多单词之间的连接记号。
+>     \__ 双下划线：双下划线用来连接块和块的子元素
+>     _ 单下划线：单下划线用来描述一个块或者块的子元素的一种状态
+
+```Css
+block // 代表了更高级别的抽象或组件。
+block__element // 代表 .block 的后代，用于形成一个完整的 .block 的整体。
+block--modifier // 代表 .block 的不同状态或不同版本。
+```
