@@ -182,7 +182,7 @@ module.exports = {
                     children: [
                         {
                             title: "React入门（JSX）",
-                            path: "/React/ReactPrimer/JSX/",
+                            path: "/React/ReactPrimer/JSX",
                         },
                         {
                             title: "React入门（一、React基础）",
@@ -286,4 +286,3 @@ module.exports = {
         },
     },
 };
-
