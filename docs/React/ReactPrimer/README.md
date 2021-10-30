@@ -155,7 +155,9 @@ Object.defineProperty(vm.prototype, "message", {
 });
 ```
 
--   vue3 做了精确的 block 标记，静态节点提升
+-   Vue 1 的解决方案也是使用响应式，初始化的时候，Watcher 监听了数据的每个属性，这样数据发生变化的时候，我们就能精确地知道数据的哪个 key 变了，去针对性修改对应的 DOM
+
+-   vue3 使用了 Proxy 代理，在 dom 层面做了更精确的 block 标记，静态节点会提升，另外做了拆包，[@vue/reactivity](https://www.jianshu.com/p/d347958c23ff)可以引入到 react 或其他框架内实现响应式
 
 ```javascript
 var vm = new Vue({
@@ -173,8 +175,6 @@ var vm = new Vue({
 });
 ```
 
--   vue3 做了拆包将响应式[@vue/reactivity](https://www.jianshu.com/p/d347958c23ff)，可以引入到 react 或其他框架内实现响应式
-
 ### 小结
 
 vdom（响应式） 优点
@@ -182,10 +182,12 @@ vdom（响应式） 优点
 -   最短路径计算，对象描述 DOM，适合跨端开发
 
 Vue 响应式
-– Vue 2 内部运行时，直接执行浏览器 API 的。但这样就会在 Vue 2 的跨端方案中带来问题，如要兼容小程序端还要引入小程序版本的 Vue（nvue）
-– Vue 2 响应式并不是真正意义上的代理，而是基于 Object.defineProperty() 实现的，是对某个属性进行拦截，所以有很多缺陷，比如：删除数据就无法监听，需要 $delete 等 API 辅助才能监听到。
-– Vue 2 中 this 是一个黑盒，使用 Option API 来组织数据和方法，然而所有的 methods、computed 都在一个对象里配置，这对小应用来说还好。但代码超过 300 行的时候，新增或者修改一个功能，就需要不停地在 data，methods 里跳转写代码，并且由于所有数据都挂载在 this 之上，因而 Options API 的写法对 TypeScript 的类型推导很不友好，并且这样也不好做 [Tree-shaking](https://developer.mozilla.org/zh-CN/docs/Glossary/Tree_shaking)剪除无用代码。
-– Vue 2 代码不好复用，Vue 2 的组件很难抽离通用逻辑，只能使用 mixin，还会带来命名冲突的问题。
+
+-   Vue 1、2 内部运行时，直接执行浏览器 API 的。但这样就会在 Vue 的跨端方案中带来问题，如要兼容小程序端还要引入小程序版本的 Vue（nvue），Vue 3 做了拆包处理，编译器核心和运行时核心与平台无关，使得 Vue 3 更容易与任何平台
+-   Vue 2 响应式基于 Object.defineProperty() 实现，是对某个属性进行拦截，所以有很多缺陷，比如：删除数据就无法监听，需要 $delete 等 API 辅助才能监听到，Vue 3 proxy 才是真正意义上的代理。
+-   Vue 2 中 this 是一个黑盒，使用 Option API 来组织数据和方法，然而所有的 methods、computed 都在一个对象里配置，代码冗长，并且由于所有数据都挂载在 this 之上，对 TypeScript 的类型推导也不友好，并且这样也不好做 [Tree-shaking](https://developer.mozilla.org/zh-CN/docs/Glossary/Tree_shaking)剪除无用代码，Vue3 采用 Composition API
+
+-   Vue 2 代码不好复用，组件很难抽离通用逻辑，只能使用 mixin，还会带来命名冲突的问题，Vue3 采用 Composition API 借（抄）鉴（袭）了 react 的 Hooks 做视点分离，代码更内聚
 
 react 运行时
 
@@ -437,29 +439,17 @@ export default {
 };
 ```
 
-## 小结
+## ⛩️ 小结
 
-在 Vue 框架下，如果数据变了，那框架会主动告诉你修改了哪些数据；而 React 的数据变化后，我们只能通过新老数据的计算 Diff 来得知数据的变化。
+1\. 在 Vue 框架下，如果数据变了，那框架会主动告诉你修改了哪些数据；而 React 的数据变化后，我们只能通过新老数据的计算 Diff 来得知数据的变化。
 
-Vue 1 的解决方案，就是使用响应式，初始化的时候，Watcher 监听了数据的每个属性，这样数据发生变化的时候，我们就能精确地知道数据的哪个 key 变了，去针对性修改对应的 DOM
+2\. Vue 的 template 在处理上更加优雅于 React 的 jsx；而 Class Component 中在 render 中会存在大量 porps, state 的解构算是一个痛点 Vue 对 template 则不需要通过 this.data.xxx 来渲染 options api，不过在 Vue3 发布后也摒弃了单一的 template，采用了类似 Hooks 的机制，需要开发人员自己取舍。
 
-[Vue]Vue 的 template 在处理上更加优雅于 React 的 jsx <br>
+3\. Vue 作为 framWork 略厚重，在响应式、虚拟 DOM、运行时和编译优化之间，做了比较好的权衡和取舍，随着 Vue3 的发布，在给开发人员自由的同时也提供了一些比较好的效率提升工具，对新手还是友好的；React 作为 library 很轻巧，给了开发人员更多的发挥空间，也意味着开发人员要发挥更多的主观能动性。
 
-[React]Class Component 中在 render 中会存在大量 porps, state 的解构算是一个痛点
-Vue 对 template 则不需要通过 this.data.xxx 来渲染 options api
+## 📖 参考
 
-React 注重数据不可变、虚拟 DOM 和运行时；
-Angular 则在抽象这个维度又走向一个极致，生来就是为了复杂项目
-Vue 在每个维度之间，做了非常好的权衡和取舍，算是一个非常中庸且优雅的框架，兼顾响应式、虚拟 DOM、运行时和编译优化
-
-– Vue 2 是使用 Flow.js 来做类型校验。但现在 Flow.js 已经停止维护
-– Vue 2 内部运行时，是直接执行浏览器 API 的。但这样就会在 Vue 2 的跨端方案中带来问题
-– Vue 2 响应式并不是真正意义上的代理，而是基于 Object.defineProperty() 实现的，是对某个属性进行拦截，所以有很多缺陷，比如：删除数据就无法监听，需要 $delete 等 API 辅助才能监听到。
-– 对于 Option API 来说，所有的 methods、computed 都在一个对象里配置，这对小应用来说还好。但代码超过 300 行的时候，新增或者修改一个功能，就需要不停地在 data，methods 里跳转写代码，并且由于所有数据都挂载在 this 之上，因而 Options API 的写法对 TypeScript 的类型推导很不友好，并且这样也不好做 Tree-shaking 清理代码。
-– 代码不好复用，Vue 2 的组件很难抽离通用逻辑，只能使用 mixin，还会带来命名冲突的问题。
-
-## 参考：
-
-[CSS in JS 简介](https://www.ruanyifeng.com/blog/2017/04/css_in_js.html)
-[MVC，MVP 和 MVVM 的图示](https://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm)
-[理解 MVVM 在 react、vue 中的使用](https://www.cnblogs.com/momozjm/p/11542635.html)
+[CSS in JS 简介](https://www.ruanyifeng.com/blog/2017/04/css_in_js.html) <br>
+[MVC，MVP 和 MVVM 的图示](https://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm) <br>
+[理解 MVVM 在 react、vue 中的使用](https://www.cnblogs.com/momozjm/p/11542635.html) <br>
+[React Fiber 中文文档](https://www.jianshu.com/p/86366581163d/)
