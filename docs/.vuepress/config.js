@@ -101,7 +101,7 @@ module.exports = {
                     children: [
                         {
                             title: "二分查找",
-                            path: "/CS/Algorithm/binarySearch/",
+                            path: "/CS/Algorithm/binarySearch",
                         },
                     ],
                 },
