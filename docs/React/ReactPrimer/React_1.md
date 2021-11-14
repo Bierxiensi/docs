@@ -10,6 +10,7 @@ comments:
 ---
 
 ## 前置
+
 this、class、ES6、npm、原型与原型链、数组方法、模块化
 
 ## what
@@ -49,15 +50,15 @@ FaceBook 2011 Jordan Walke
 > /\_ \*/
 
 Tip-具有相同渲染结果
-```javascript
-<div />
-<div></div>
-<div>{false}</div>
-<div>{true}</div>
-<div>{null}</div>
-<div>{undefined}</div>
-```
 
+```javascript
+    <div />
+    <div></div>
+    <div>{'false'}</div>
+    <div>{'true'}</div>
+    <div>{'null'}</div>
+    <div>{'undefined'}</div>
+```
 
 2\. React-DOM
 
@@ -69,20 +70,22 @@ Tip-具有相同渲染结果
 3.1\. 函数组件
 
 定义
+
 ```javascript
 function Welcome(props) {
-  return <span>Hello, {props.name}</span>
+    return <span>Hello, {props.name}</span>;
 }
 ```
 
 3.2\. class 组件（ES6）
 
 定义
+
 ```javascript
 class Welcome extends React.Component {
-  render() {
-    return <span>Hello, {this.props.name}</span>
-  }
+    render() {
+        return <span>Hello, {this.props.name}</span>;
+    }
 }
 ```
 
@@ -92,15 +95,13 @@ class Welcome extends React.Component {
 -   JSX 所接收的属性（attributes）以及子组件（children）转换为单个对象传递给组件，这个对象被称之为 “props”
 
 定义
+
 ```javascript
 function Welcome(props) {
-  return <span>Hello, {props.name}</span>;
+    return <span>Hello, {props.name}</span>;
 }
 const element = <Welcome name="Sara" />;
-ReactDOM.render(
-  element,
-  document.getElementById('root')
-);
+ReactDOM.render(element, document.getElementById("root"));
 ```
 
 3.4\. 高阶组件(Higher-Order Component, HOC)
@@ -109,6 +110,7 @@ ReactDOM.render(
 -   入参和返回值均为组件
 
 给每个组件添加一个属性
+
 ```javascript
 const Container = (WrappedComponent) => {
     class extends React.Component{
@@ -117,7 +119,7 @@ const Container = (WrappedComponent) => {
             return <WrappedComponent {...this.props} {...newProps} />
         }
     }
-} 
+}
 
 使用方式：export时调用
 class App extends React.Component {

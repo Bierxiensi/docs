@@ -33,6 +33,10 @@ module.exports = {
         nav: [
             { text: "Home", link: "/" },
             {
+                text: "计算机基础",
+                items: [{ text: "算法", link: "/CS/Algorithm/" }],
+            },
+            {
                 text: "移动端",
                 items: [
                     { text: "App", link: "/App/App/" },
@@ -84,6 +88,22 @@ module.exports = {
                 {
                     title: "这里是所有的路由", // 必要的
                     collapsable: true, // 可选的, 默认值是 true,
+                },
+            ],
+            "/CS/Algorithm/": [
+                {
+                    title: "算法的计划与flag", // 必要的
+                    path: "/CS/Algorithm/",
+                },
+                {
+                    title: "20天算法刷题记录", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "二分查找",
+                            path: "/CS/Algorithm/binarySearch",
+                        },
+                    ],
                 },
             ],
 
@@ -182,7 +202,7 @@ module.exports = {
                     children: [
                         {
                             title: "React入门（JSX）",
-                            path: "/React/ReactPrimer/JSX/",
+                            path: "/React/ReactPrimer/JSX",
                         },
                         {
                             title: "React入门（一、React基础）",
@@ -265,6 +285,10 @@ module.exports = {
             ],
             "/Others/StudySource/": [
                 {
+                    title: "🔯学习资源汇总",
+                    path: "/Others/StudySource/",
+                },
+                {
                     title: "学习资源",
                     collapsable: true,
                     children: [
@@ -286,4 +310,3 @@ module.exports = {
         },
     },
 };
-
