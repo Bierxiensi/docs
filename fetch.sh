@@ -4,5 +4,3 @@
 set -e
 
 git pull
-
-git push -f git@github.com:Bierxiensi/docs.git master:master
