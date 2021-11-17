@@ -4,3 +4,5 @@
 set -e
 
 git pull
+
+cd -
