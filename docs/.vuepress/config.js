@@ -59,6 +59,12 @@ module.exports = {
                 ],
             },
             {
+                text: "Vue系列",
+                items: [
+                    { text: "vue进阶", link: "/Vue/VueAdvance/" },
+                ],
+            },
+            {
                 text: "Node",
                 items: [
                     { text: "Node", link: "/Node/" },
@@ -161,6 +167,20 @@ module.exports = {
                         },
                     ],
                 },
+                {
+                    title: "JavaScript进阶", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "symbol",
+                            path: "/Web/JavaScript/Advance/advance1",
+                        },
+                        {
+                            title: "浏览器对象模型BOM",
+                            path: "/Web/JavaScript/BOM",
+                        },
+                    ],
+                },
             ],
             "/Web/HTML/": [
                 {
@@ -211,6 +231,29 @@ module.exports = {
                     ],
                 },
             ],
+
+             // Vue
+             "/Vue/VueAdvance/": [
+                {
+                    title: "🔯Vue原理剖析",
+                    path: "/Vue/VueAdvance/",
+                },
+                {
+                    title: "Vue进阶",
+                    collapsable: true,
+                    children: [
+                        {
+                            title: "手写响应式",
+                            path: "/Vue/VueAdvance/advance1",
+                        },
+                        {
+                            title: "手写虚拟dom",
+                            path: "/Vue/VueAdvance/advance2",
+                        },
+                    ],
+                },
+            ],
+         
 
             // node
             "/Node/": [
