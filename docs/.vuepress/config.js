@@ -174,11 +174,7 @@ module.exports = {
                         {
                             title: "symbol",
                             path: "/Web/JavaScript/Advance/advance1",
-                        },
-                        {
-                            title: "浏览器对象模型BOM",
-                            path: "/Web/JavaScript/BOM",
-                        },
+                        }
                     ],
                 },
             ],
