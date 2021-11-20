@@ -174,6 +174,10 @@ module.exports = {
                         {
                             title: "symbol",
                             path: "/Web/JavaScript/Advance/advance1",
+                        },
+                        {
+                            title: "instanceOf",
+                            path: "/Web/JavaScript/Advance/advance2",
                         }
                     ],
                 },

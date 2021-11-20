@@ -1,9 +1,9 @@
 ---
-title: symbol
+title: instanceOf
 search: true
 
 date: 2021-11-14 09:05:23
-tags: [symbol]
+tags: [instanceOf]
 photos:
 description:
 comments:
