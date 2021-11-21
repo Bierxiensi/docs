@@ -311,6 +311,10 @@ module.exports = {
                             title: "前端面试题集锦",
                             path: "/Others/Question/",
                         },
+                        {
+                            title: "前端面试题集锦（转自https://github.com/wangjxk）",
+                            path: "/Others/Question/question1",
+                        },
                     ],
                 },
             ],
