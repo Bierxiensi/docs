@@ -8,34 +8,35 @@ photos:
 description:
 comments:
 ---
+
 ## 前置
-- 循環引用
+
+-   循环引用
 
 1\. 平时如何判断对象类型，分别适合哪些场景
 
-* typeof
-* instanceof
-* Object.prototype.tostring.call(obj)
-* Array.isArray
+-   typeof
+-   instanceof
+-   Object.prototype.tostring.call(obj)
+-   Array.isArray
 
+2\. 实现一个 instanceOf
 
-
-
-2\. 实现一个instanceOf
-```javascript 
+```javascript
 function instanceOf(left, right) {
-    if(typeof left !== 'object' || left === null){
-        return false
+    if (typeof left !== "object" || left === null) {
+        return false;
     }
 
-    while(true){
-        if(left === null){
+    while (true) {
+        if (left === null) {
             return false;
         }
-        if(left.__proto__ === right.prototype){
+        if (left.__proto__ === right.prototype) {
             return true;
         }
 
         left = left.__proto__;
     }
 }
+```
