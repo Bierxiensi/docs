@@ -160,3 +160,7 @@ plugins: UglifyjsWebpackPlugin，压缩js体积；ZipWebpackPlugin，将打出�
 ```
 每次实例化组件调用data函数，返回一个新对象，使其组件拥有独立的对象数据，防止更改原型数据导致两个new对象的数据相互污染
 ```
+
+
+
+
