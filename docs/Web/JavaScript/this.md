@@ -52,12 +52,24 @@ fn(); //finget this -> window
 ```
 
 ### 3\. 构造函数
+this指向创建出的实例
 ```javascript
 function demo() {
   this.testStr = 'this is a test';
 }
 let a = new demo();
 alert(a.testStr);  // 'this is a test'
+```
+
+### 4\. 事件函数
+元素绑定事件，事件触发后执行函数中，this指向的是当前元素
+```javascript
+window.onload = function() {
+ let $btn = document.getElementById('btn');
+ $btn.onclick = function(){
+ 		alert(this); // this -> 当前触发元素
+ }
+}
 ```
 
 
