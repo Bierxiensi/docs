@@ -72,5 +72,21 @@ window.onload = function() {
 }
 ```
 
+### 5\. 箭头函数
+触发后执行函数中，this指向的是当前元素
+```javascript
+var name = 'my name is window';
+var obj = {
+    name: 'my name is obj',
+      fn: function () {
+          var timer = null;
+          clearInterval(timer);
+          timer = setInterval(() => {
+              console.log(this.name);  //my name is obj
+          }, 1000)
+    }
+}
+```
+
 
 
