@@ -89,4 +89,48 @@ var obj = {
 ```
 
 
+### 6\. 定时器、回调函数
+定时器setTimeout或setInterval，this指向全局对window
+```javascript
+//定时器
+setTimeout(function() {
+   alert(this); // this -> window ，严格模式 也是指向window
+},500)
 
+var name = 'my name is window';
+var obj = {
+     name: 'my name is obj',
+     fn: function () {
+          var timer = null;
+          clearInterval(timer);
+          timer = setInterval(function () {
+              console.log(this.name);  //my name is window, this指向window
+          }, 1000)
+     }
+}
+```
+
+### 7\. 回调函数
+回调函数或匿名函数自调用，this指向全局对window
+
+- 函数内部的【this】指向于此函数的调用者（拥有者）。
+- 虽然【callback】函数定义于对象【o】的【say】方法中，但实际上由于【callback】是在【func】函数中进行的普通调用，那么【func】中的【callback】的调用者可以理解为是【window】对象 
+- 当使用一个对象的未定义的属性时不会报错，并返回“undefined”，而直接使用一个未定义的变量时便会报错
+
+```javascript
+//回调函数
+var o = {
+    age : 12,
+    say : function() {
+        function callback() {
+            return this.age;
+        }
+        func(callback);
+    }
+};
+function func(callback) {
+    var name = "Xiao Ming";
+    console.log(name + " is " + callback() + " years old.");
+}
+o.say(); //Xiao Ming is undefined years old.
+```
