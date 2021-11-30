@@ -134,3 +134,33 @@ function func(callback) {
 }
 o.say(); //Xiao Ming is undefined years old.
 ```
+
+### 8\. call、apply、bind
+- call和apply：改变this指向后执行函数。
+  - call(thisScope, arg1, arg2, arg3...); //多个参数
+  - apply(thisScope, [arg1, arg2, arg3...]); //两个参数
+
+- bind：改变this指向后，返回函数。
+bind(thisScope, arg1, arg2, arg3...)
+
+```javascript
+var person = {
+  name: 'pig',
+  say: function(a){
+    alert(this.name + " say " + a)
+  }
+};
+person.say('hello'); //pig say hello
+
+var name = 'duck';
+person.say.call(window, 'hello'); //duck say hello
+
+var arr = [1, 2, 3, 4];
+Math.max.apply(null, arr); //4, null表示不改变this指向
+
+function multiply (x, y, z) {
+    return x * y * z;
+}
+var double = multiply.bind(null, 2);
+//Outputs: 24
+console.log(double(3, 4));
