@@ -55,3 +55,8 @@ const transition = (promise, state, result) => {
 
 ## Then 方法
 - promise 必须有 then 方法，接受 onFulfilled 和 onRejected 参数。
+
+``js
+Promise.property.then = function(onFulFilled, onRejected){
+    
+}
