@@ -55,8 +55,20 @@ const transition = (promise, state, result) => {
 
 ## Then 方法
 - promise 必须有 then 方法，接受 onFulfilled 和 onRejected 参数。
+- onFulfilled必须是函数类型，可选，如果不是函数，应该被忽略。
+    - 只能被调用一次（实现时需使用变量来限制执行次数）
+    - 在promise变成fulfilled之前，不应该被调用
+    - 在promise变为fulfilled时，应该调用onFulfilled，参数是value
+- onRejected必须是函数类型，可选，如果不是函数，应该被忽略。
+    - 只能被调用一次
+    - 在promise变成rejected之前，不应该被调用
+    - 在promise变成rejected时，应该调用onRejected，参数是reason
+- onFulfilled和onRejected应该是微任务
 
 ``js
 Promise.property.then = function(onFulFilled, onRejected){
     
 }
+
+
+

@@ -165,6 +165,10 @@ module.exports = {
                             title: "JavaScript中的this",
                             path: "/Web/JavaScript/this",
                         },
+                        {
+                            title: "promiseA+规范与promise",
+                            path: "/Web/JavaScript/promise",
+                        },
                     ],
                 },
                 {
