@@ -68,7 +68,11 @@ Promise.property.then = function(onFulFilled, onRejected){
     - 只能被调用一次
     - 在promise变成rejected之前，不应该被调用
     - 在promise变成rejected时，应该调用onRejected，参数是reason
-- then 方法可以被调用很多次，每次注册一组 onFulfilled 和 onRejected 的 callback。它们如果被调用，必须按照注册顺序调用。
+- then 方法可以被调用很多次，每次注册一组 onFulfilled 和 onRejected 的 callback。它们如果被调用，必须按照注册顺序调用，因此then 方法必须返回 promise，从而构成了promise的链式调用（回调地狱的由来）。
+
+- onFulfilled和onRejected应该是微任务
+> onFulfilled or onRejected must not be called until the execution context stack contains only platform code.
+
 ``js
 function Promise(){
     this.state = PENDING;
@@ -78,7 +82,36 @@ function Promise(){
 
 promise2 = promise.then(onFulFilled, onRejected) 
 
-- onFulfilled和onRejected应该是微任务
+===》
+Promise.prototype.then = function(onFulFilled, onRejected){
+    // 返回promise
+    return new Promise((resolve, reject) => {
+        let callback = {onFulfilled, onRejected, resolve, reject}
+
+        if(this.state===PENDING){
+            // 链式顺序调用
+            this.callbacks.push(callback)
+        }else{
+            // 微任务入栈，确保顺序调用
+            setTimeout(()=>handleCallback(callback, this.state, this.result), 0)
+        }
+    })
+}
+
+const handleCallback = (callback, state, result) => {
+    let { onFulfilled, onRejected, resolve, reject } = callback
+    try {
+        if (state === FULFILLED) {
+            resolve(onFulfilled(state))
+        } else if(state === REJECTED) {
+            resolve(onRejected(state))
+        }
+    } catch (error) {
+        reject(error)
+    }
+}
+
+
 
 
 
