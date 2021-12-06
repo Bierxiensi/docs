@@ -9,6 +9,9 @@ description:
 comments:
 ---
 
+## 前置
+元编程：把代码作为数据，通过字符串/AST去操作数据，使代码可以根据不同条件变化，JS中常见的使用方式是eval()、new Function()
+
 ## 1\. 简单实现一个响应式函数，对一个对象内的key添加响应式
 ```javascript
 const data = {
@@ -61,7 +64,9 @@ const reactive = (obj) => {
 ## 2\. Vue对于数组的操作，怎么确定当前操作数组的方法
 
 
+
 ## 3\. Vue对于删除的操作（实现一个基于proxy的响应式，能监听基于删除的操作）
+
 
 function makeObserver(target){
     let handlerName = Symbol('handler');
