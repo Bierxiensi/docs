@@ -62,8 +62,21 @@ const reactive = (obj) => {
 }
 
 ## 2\. Vue对于数组的操作，怎么确定当前操作数组的方法
-
-
+``js
+// 拦截数组方法
+const arrayProto = Array.prototype;
+export const arrayMethods = Object.create(arrayProto);
+['push','pop','shift','unshift','splice','sort','reverse'].forEach(method => {
+    const original = arrayProto[method]
+    Object.defineProperty(arrayMethods, method, {
+        value: function mutator(...args){
+            return original.apply(this.args)
+        },
+        enumerable: false,
+        writable: true,
+        configurable: true
+    })
+})
 
 ## 3\. Vue对于删除的操作（实现一个基于proxy的响应式，能监听基于删除的操作）
 
