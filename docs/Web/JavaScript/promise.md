@@ -111,9 +111,33 @@ const handleCallback = (callback, state, result) => {
     }
 }
 
+## The Promise Resolution Procedure
+- 如果 result 是当前 promise 本身，就抛出 TypeError 错误。
+- 如果 result 是另一个 promise，那么沿用它的 state 和 result 状态。
+- 如果 result 是一个 thenable 对象。先取 then 函数，再 call then 函数，重新进入 The Promise Resolution Procedure 过程。
+- 如果不是上述情况，这个 result 成为当前 promise 的 result。
+``js
+const resolvePromise = (promise, result, resolve, reject) => {
+    if(result === promise){
+        let reason = new TypeError('Can not fufill promise with itself');
+        return reject(reason)
+    }
 
+    if(isPromise(result)){
+        return result.then(resolve, reject)
+    }
 
-
+    if(isThenable(result)){
+        try{
+            let then = result.then;
+            if(isFunction(then)){
+                return new Promise(then.bind(result).then(resolve, reject))
+            }
+        }catch(error){  
+            return reject(error)
+        }
+    }
+}
 
 
 
