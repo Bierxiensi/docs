@@ -33,6 +33,13 @@ function demo() {
    alert(this); 
 }
 demo();
+
+let a = 1 //let定义自己的作用域，不挂载至window
+function fn() {
+  var a = 2
+  console.log(this.a)
+}
+fn() //undefined
 ```
 
 ### 2\. 全局函数
@@ -73,7 +80,7 @@ window.onload = function() {
 ```
 
 ### 5\. 箭头函数
-触发后执行函数中，this指向的是当前元素
+箭头函数没有自己的this，需要看其外层的是否有函数，如果有，外层函数的this就是内部箭头函数的this，如果没有，则this是window
 ```javascript
 var name = 'my name is window';
 var obj = {
