@@ -49,6 +49,8 @@ module.exports = {
                     { text: "JavaScript", link: "/Web/JavaScript/" },
                     { text: "HTML", link: "/Web/HTML/" },
                     { text: "CSS", link: "/Web/CSS/" },
+                    { text: "HTTP", link: "/Web/HTTP/" },
+                    { text: "TypeScript", link: "/Web/TypeScript/" },
                 ],
             },
             {
@@ -60,9 +62,7 @@ module.exports = {
             },
             {
                 text: "Vue系列",
-                items: [
-                    { text: "vue进阶", link: "/Vue/VueAdvance/" },
-                ],
+                items: [{ text: "vue进阶", link: "/Vue/VueAdvance/" }],
             },
             {
                 text: "Node",
@@ -182,7 +182,23 @@ module.exports = {
                         {
                             title: "instanceOf",
                             path: "/Web/JavaScript/Advance/advance2",
-                        }
+                        },
+                        {
+                            title: "内存泄漏与垃圾回收",
+                            path: "/Web/JavaScript/Advance/advance3",
+                        },
+                        {
+                            title: "闭包",
+                            path: "/Web/JavaScript/Advance/advance4",
+                        },
+                        {
+                            title: "截流与防抖",
+                            path: "/Web/JavaScript/Advance/advance5",
+                        },
+                        {
+                            title: "javascript安全",
+                            path: "/Web/JavaScript/Advance/advance6",
+                        },
                     ],
                 },
             ],
@@ -206,6 +222,38 @@ module.exports = {
                         {
                             title: "CSS目录",
                             path: "/Web/CSS/",
+                        },
+                    ],
+                },
+            ],
+            "/Web/HTTP/": [
+                {
+                    title: "HTTP", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "HTTP目录",
+                            path: "/Web/HTTP/",
+                        },
+                        {
+                            title: "网络和并发",
+                            path: "/Web/HTTP/advance1",
+                        },
+                    ],
+                },
+            ],
+            "/Web/TypeScript/": [
+                {
+                    title: "TypeScript", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "TypeScript目录",
+                            path: "/Web/TypeScript/",
+                        },
+                        {
+                            title: "TypeScript学习记录[1]",
+                            path: "/Web/TypeScript/typescript1",
                         },
                     ],
                 },
@@ -236,8 +284,8 @@ module.exports = {
                 },
             ],
 
-             // Vue
-             "/Vue/VueAdvance/": [
+            // Vue
+            "/Vue/VueAdvance/": [
                 {
                     title: "🔯Vue原理剖析",
                     path: "/Vue/VueAdvance/",
@@ -257,7 +305,6 @@ module.exports = {
                     ],
                 },
             ],
-         
 
             // node
             "/Node/": [

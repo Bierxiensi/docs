@@ -1,5 +1,5 @@
 ---
-title: TypeScript1
+title: TypeScript学习记录[1]
 search: true
 
 date: 2021-11-27 20:05:23
@@ -8,4 +8,4 @@ description:
 comments:
 ---
 
-##  什么是typescript
+## 什么是 typescript
