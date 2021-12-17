@@ -17,5 +17,3 @@ comments:
 
 宏任务：整体代码、setTimeout、setInterval、I/O操作
 微任务：new Promise().then，MutaionObserver（前端的回溯）
-
-## 
