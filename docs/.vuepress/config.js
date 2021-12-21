@@ -177,11 +177,11 @@ module.exports = {
                     children: [
                         {
                             title: "symbol",
-                            path: "/Web/JavaScript/Advance/advance1",
+                            path: "/Web/JavaScript/Advance/symbol",
                         },
                         {
                             title: "instanceOf",
-                            path: "/Web/JavaScript/Advance/advance2",
+                            path: "/Web/JavaScript/Advance/instanceOf",
                         },
                         {
                             title: "内存泄漏与垃圾回收",
@@ -198,6 +198,10 @@ module.exports = {
                         {
                             title: "javascript安全",
                             path: "/Web/JavaScript/Advance/advance6",
+                        },
+                        {
+                            title: "eventloop",
+                            path: "/Web/JavaScript/Advance/eventloop",
                         },
                     ],
                 },
