@@ -35,6 +35,8 @@ function foo() {
 foo();
 ```
 
+[函数对象具有隐藏属性](https://static001.geekbang.org/resource/image/9e/e2/9e274227d637ce8abc4a098587613de2.jpg)
+
 -   匿名函数
     函数除了可以拥有常用类型的属性值之外，还拥有两个隐藏属性，分别是 name 属性和 code 属性。
 
@@ -46,4 +48,3 @@ foo();
 ```
 
 该函数对象的默认的 name 属性值就是 anonymous，表示该函数对象没有被设置名称。另外一个隐藏属性是 code 属性，其值表示函数代码，以字符串的形式存储在内存中。当执行到一个函数调用语句时，V8 便会从函数对象中取出 code 属性值，也就是函数代码，然后再解释执行这段函数代码。
-[函数对象具有隐藏属性](https://static001.geekbang.org/resource/image/9e/e2/9e274227d637ce8abc4a098587613de2.jpg)
