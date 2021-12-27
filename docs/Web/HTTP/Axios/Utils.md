@@ -52,3 +52,20 @@ module.exports = function bind(fn, thisArg) {
 
 
 ### 1\.
+
+```js
+// 可以通过 `toString()` 来获取每个对象的类型
+var toString = Object.prototype.toString;
+
+
+
+/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */
+function isArray(val) {
+  return toString.call(val) === '[object Array]';
+}
+```
