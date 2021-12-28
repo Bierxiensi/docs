@@ -10,7 +10,7 @@ comments:
 ---
 
 > utils is a library of generic helper functions non-specific to axios
-> utils是一个非特定于axios的通用辅助函数库
+> utils 是一个非特定于 axios 的通用辅助函数库
 
 ## 环境
 
@@ -50,14 +50,12 @@ module.exports = function bind(fn, thisArg) {
 
 ```
 
-
-### 1\.
+### 1\. isArray
 
 ```js
 // 可以通过 `toString()` 来获取每个对象的类型
+
 var toString = Object.prototype.toString;
-
-
 
 /**
  * Determine if a value is an Array
@@ -66,6 +64,28 @@ var toString = Object.prototype.toString;
  * @returns {boolean} True if value is an Array, otherwise false
  */
 function isArray(val) {
-  return toString.call(val) === '[object Array]';
+    return toString.call(val) === "[object Array]";
 }
 ```
+
+-   isArray 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 val 是否为数组
+-   Object 原型链函数 toString()在成功判断数组时固定返回'[object Array]'
+-   关于 toString 更多的性质，详情见[toString](../../JavaScript/toString.md)
+
+### 2\. isUndefined
+
+```js
+// 直接使用typeof判断，详情见typeOf
+
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+    return typeof val === "undefined";
+}
+```
+
+-
