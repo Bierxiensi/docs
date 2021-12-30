@@ -97,10 +97,20 @@ function isUndefined(val) {
  * @param {Object} val The value to test
  * @returns {boolean} True if value is a Buffer, otherwise false
  */
+
+// 先判断不是 `undefined`和`null`
+// 再判断 `val`存在构造函数，因为`Buffer`本身是一个类
+// 最后通过自身的`isBuffer`方法判断
+
 function isBuffer(val) {
-  return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor)
-    && typeof val.constructor.isBuffer === 'function' && val.constructor.isBuffer(val);
+  return val !== null 
+          && !isUndefined(val) 
+          && val.constructor !== null 
+          && !isUndefined(val.constructor)
+          && typeof val.constructor.isBuffer === 'function' 
+          && val.constructor.isBuffer(val);
 }
+
 ```
 
 ### 4\. isArrayBuffer
