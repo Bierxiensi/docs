@@ -102,3 +102,18 @@ function isBuffer(val) {
     && typeof val.constructor.isBuffer === 'function' && val.constructor.isBuffer(val);
 }
 ```
+
+### 4\. isArrayBuffer
+
+```js
+/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */
+function isArrayBuffer(val) {
+  return toString.call(val) === '[object ArrayBuffer]';
+}
+
+```
