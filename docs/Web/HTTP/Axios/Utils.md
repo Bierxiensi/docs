@@ -133,3 +133,18 @@ function isArrayBuffer(val) {
 }
 
 ```
+
+### 5\. isFormData
+
+```js
+
+/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */
+function isFormData(val) {
+  return toString.call(val) === '[object FormData]';
+}
+```
