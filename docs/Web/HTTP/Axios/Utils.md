@@ -75,8 +75,6 @@ function isArray(val) {
 ### 2\. isUndefined
 
 ```js
-// 直接使用typeof判断，详情见typeOf
-
 /**
  * Determine if a value is undefined
  *
@@ -86,6 +84,8 @@ function isArray(val) {
 function isUndefined(val) {
     return typeof val === "undefined";
 }
+
+- 直接使用typeof判断，详情见[typeOf](../../JavaScript/typeof.md)
 ```
 
 ### 3\. isBuffer
@@ -133,6 +133,7 @@ function isArrayBuffer(val) {
 }
 
 ```
+- 并未在MDN上找到示例
 
 ### 5\. isFormData
 
@@ -146,5 +147,61 @@ function isArrayBuffer(val) {
  */
 function isFormData(val) {
   return toString.call(val) === '[object FormData]';
+}
+```
+- 并未在MDN上找到示例
+
+
+### 6\. isArrayBufferView
+
+```js
+/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */
+function isArrayBufferView(val) {
+  var result;
+  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
+    result = ArrayBuffer.isView(val);
+  } else {
+    result = (val) && (val.buffer) && (isArrayBuffer(val.buffer));
+  }
+  return result;
+}
+```
+
+### 7\. isPlainObject
+
+```js
+/**
+ * Determine if a value is a plain Object
+ *
+ * @param {Object} val The value to test
+ * @return {boolean} True if value is a plain Object, otherwise false
+ */
+function isPlainObject(val) {
+  if (toString.call(val) !== '[object Object]') {
+    return false;
+  }
+
+  var prototype = Object.getPrototypeOf(val);
+  return prototype === null || prototype === Object.prototype;
+}
+```
+- 判断目标对象的原型是不是`null` 或 `Object.prototype`
+
+### 8\. isObject
+
+```js
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
 }
 ```
