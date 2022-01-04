@@ -189,6 +189,24 @@ function isPlainObject(val) {
   var prototype = Object.getPrototypeOf(val);
   return prototype === null || prototype === Object.prototype;
 }
+
+
+function Foo() {
+  this.a = 1;
+}
+
+_.isPlainObject(new Foo);
+// => false
+
+_.isPlainObject([1, 2, 3]);
+// => false
+
+_.isPlainObject({ 'x': 0, 'y': 0 });
+// => true
+
+_.isPlainObject(Object.create(null));
+// => true
+
 ```
 - 判断目标对象的原型是不是`null` 或 `Object.prototype`
 
@@ -204,4 +222,48 @@ function isPlainObject(val) {
 function isObject(val) {
   return val !== null && typeof val === 'object';
 }
+
+
+_.isObject({});
+// => true
+
+_.isObject([1, 2, 3]);
+// => true
+
+_.isObject(_.noop);
+// => true
+
+_.isObject(null);
+// => false
 ```
+
+- 检查 value 是否是普通对象
+
+### 9\. isObject
+
+```js
+/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */
+function isObject(val) {
+  return val !== null && typeof val === 'object';
+}
+
+
+_.isObject({});
+// => true
+
+_.isObject([1, 2, 3]);
+// => true
+
+_.isObject(_.noop);
+// => true
+
+_.isObject(null);
+// => false
+```
+
+- 检查 value 是否是普通对象
