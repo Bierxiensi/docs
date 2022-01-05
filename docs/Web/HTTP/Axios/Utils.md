@@ -239,31 +239,54 @@ _.isObject(null);
 
 - 检查 value 是否是普通对象
 
-### 9\. isObject
+### 9\. trim
 
 ```js
 /**
- * Determine if a value is an Object
+ * Trim excess whitespace off the beginning and end of a string
  *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an Object, otherwise false
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
  */
-function isObject(val) {
-  return val !== null && typeof val === 'object';
+function trim(str) {
+  return str.trim ? str.trim() : str.replace(/^\s+|\s+$/g, '');
 }
 
-
-_.isObject({});
-// => true
-
-_.isObject([1, 2, 3]);
-// => true
-
-_.isObject(_.noop);
-// => true
-
-_.isObject(null);
-// => false
 ```
 
-- 检查 value 是否是普通对象
+- 去除首尾空格，`trim`方法不存在的话，用正则
+
+
+### 10\. trim
+
+```js
+/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -> undefined
+ *  typeof document -> undefined
+ *
+ * react-native:
+ *  navigator.product -> 'ReactNative'
+ * nativescript
+ *  navigator.product -> 'NativeScript' or 'NS'
+ */
+function isStandardBrowserEnv() {
+  if (typeof navigator !== 'undefined' && (navigator.product === 'ReactNative' ||
+                                           navigator.product === 'NativeScript' ||
+                                           navigator.product === 'NS')) {
+    return false;
+  }
+  return (
+    typeof window !== 'undefined' &&
+    typeof document !== 'undefined'
+  );
+}
+
+```
+
+- 判断标准浏览器环境，官方不再推荐navigator.product
