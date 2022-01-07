@@ -86,6 +86,13 @@ module.exports = {
                     { text: "学习资源", link: "/Others/StudySource/" },
                 ],
             },
+            {
+                text: "Tricks",
+                items: [
+                    { text: "js tricks", link: "/Tricks/JsTricks/" },
+                    { text: "css tricks", link: "/Tricks/CssTricks/" },
+                ],
+            },
             { text: "GitHub", link: "https://github.com/bierxiensi" },
         ],
 
@@ -409,6 +416,33 @@ module.exports = {
                     ],
                 },
             ],
+
+            // Tricks
+            "/Tricks/JsTricks/": [
+                {
+                    title: "Js Tricks",
+                    collapsable: true,
+                    children: [
+                        {
+                            title: "JsTricks",
+                            path: "/Tricks/JsTricks/",
+                        },
+                    ],
+                },
+            ],
+            "/Tricks/CssTricks/": [
+                {
+                    title: "Css Tricks",
+                    collapsable: true,
+                    children: [
+                        {
+                            title: "CssTricks",
+                            path: "/Tricks/CssTricks/",
+                        },
+                    ],
+                },
+            ],
+
         },
     },
 };
