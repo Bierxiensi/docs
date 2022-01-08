@@ -252,6 +252,20 @@ module.exports = {
                         },
                     ],
                 },
+                {
+                    title: "Axios", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "Axios",
+                            path: "/Web/HTTP/Axios/",
+                        },
+                        {
+                            title: "Axios工具函数",
+                            path: "/Web/HTTP/Axios/Utils",
+                        },
+                    ],
+                },
             ],
             "/Web/TypeScript/": [
                 {
@@ -438,6 +452,10 @@ module.exports = {
                         {
                             title: "CssTricks",
                             path: "/Tricks/CssTricks/",
+                        },
+                        {
+                            title: "换行",
+                            path: "/Tricks/JsTricks/wx_text_overflow",
                         },
                     ],
                 },
