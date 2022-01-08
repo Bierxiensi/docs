@@ -455,7 +455,7 @@ module.exports = {
                         },
                         {
                             title: "换行",
-                            path: "/Tricks/JsTricks/wx_text_overflow",
+                            path: "/Tricks/CssTricks/wx_text_overflow",
                         },
                     ],
                 },
