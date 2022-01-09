@@ -274,7 +274,7 @@ function isObject(val) {
 
 ```
 
-## 4. instanceof
+## 4. [instanceof](../../JavaScript/Advance/instanceOf.md)
 
 ### 【4.1】isURLSearchParams
 ```js

@@ -10,7 +10,16 @@ comments:
 ---
 
 ## 前置
+> 用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上
+```js
+object instanceof constructor
 
+```
+- object 某个实例对象
+- constructor 某个构造函数
+即object.__proto = construct.prototype
+
+## 使用
 -   循环引用
 
 1\. 平时如何判断对象类型，分别适合哪些场景
