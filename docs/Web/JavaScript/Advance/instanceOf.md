@@ -38,7 +38,7 @@ C.prototype instanceof Object // true，同上
 C.prototype = {};
 var o2 = new C();
 
-o2 instanceof C; // true 
+o2 instanceof C; // true
 
 o instanceof C; // false，C.prototype 指向了一个空对象,这个空对象不在 o 的原型链上.
 

@@ -50,14 +50,11 @@ module.exports = function bind(fn, thisArg) {
 
 ```
 
-## 2. 使用toString()获取对象类型
+## 2. 使用`toString()`获取对象类型
+> 可以通过 `toString()` 来获取每个对象的类型，关于 toString 更多的性质，详情见[toString](../../JavaScript/toString.md)
 ### 【2.1】\. isArray
-
 ```js
-// 可以通过 `toString()` 来获取每个对象的类型
-
 var toString = Object.prototype.toString;
-
 /**
  * Determine if a value is an Array
  *
@@ -68,28 +65,11 @@ function isArray(val) {
     return toString.call(val) === "[object Array]";
 }
 ```
-
 -   isArray 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 val 是否为数组
 -   Object 原型链函数 toString()在成功判断数组时固定返回'[object Array]'
--   关于 toString 更多的性质，详情见[toString](../../JavaScript/toString.md)
 
-### 【2.2】\. isUndefined
 
-```js
-/**
- * Determine if a value is undefined
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if the value is undefined, otherwise false
- */
-function isUndefined(val) {
-    return typeof val === "undefined";
-}
-
-- 直接使用typeof判断，详情见[typeOf](../../JavaScript/typeof.md)
-```
-
-### 【2.3】\. isArrayBuffer
+### 【2.2】\. isArrayBuffer
 
 ```js
 /**
@@ -105,7 +85,7 @@ function isArrayBuffer(val) {
 ```
 - 并未在MDN上找到示例
 
-### 【2.4】\. isDate
+### 【2.3】\. isDate
 
 ```js
 /**
@@ -120,7 +100,7 @@ function isDate(val) {
 ```
 - 并未在MDN上找到示例
 
-### 【2.5】\. isFile
+### 【2.4】\. isFile
 
 ```js
 /**
@@ -135,7 +115,7 @@ function isFile(val) {
 ```
 - 并未在MDN上找到示例
 
-### 【2.6】\. isBlob
+### 【2.5】\. isBlob
 
 ```js
 /**
@@ -150,7 +130,7 @@ function isBlob(val) {
 ```
 - 并未在MDN上找到示例
 
-### 【2.7】\. isFunction
+### 【2.6】\. isFunction
 
 ```js
 /**
@@ -169,7 +149,23 @@ function isFunction(val) {
 
 ## 3. 使用typeof 获取对象类型
 
-### 【3.1】 isObject
+### 【3.1】\. isUndefined
+
+```js
+/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */
+function isUndefined(val) {
+    return typeof val === "undefined";
+}
+
+- 直接使用typeof判断，详情见[typeOf](../../JavaScript/typeof.md)
+```
+
+### 【3.2】 isObject
 
 ```js
 /**
@@ -198,7 +194,7 @@ _.isObject(null);
 
 
 
-### 【3.2】 isStandardBrowserEnv
+### 【3.3】 isStandardBrowserEnv
 
 ```js
 /**
@@ -233,7 +229,7 @@ function isStandardBrowserEnv() {
 - 判断标准浏览器环境，官方不再推荐[navigator.product](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/product)
 
 
-### 【3.3】 isString
+### 【3.4】 isString
 ```js
 /**
  * Determine if a value is a String
@@ -246,7 +242,7 @@ function isString(val) {
 }
 ```
 
-### 【3.4】 isNumber
+### 【3.5】 isNumber
 ```js
 /**
  * Determine if a value is a Number
@@ -260,7 +256,7 @@ function isNumber(val) {
 
 ```
 
-### 【3.5】 isObject
+### 【3.6】 isObject
 ```js
 /**
  * Determine if a value is an Object

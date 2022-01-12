@@ -9,7 +9,7 @@ description:
 comments:
 ---
 
-- 每个对象都有一个 toString() 方法
+- 每个`对象`都有一个 `toString()` 方法
 - 默认情况下，toString() 方法被每个 Object 对象继承
 - 如果此方法在自定义对象中未被覆盖，toString() 返回 "[object type]"，其中 type 是对象的类型
 
