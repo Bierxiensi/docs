@@ -11,7 +11,8 @@ comments:
 
 - 每个`对象`都有一个 `toString()` 方法
 - 默认情况下，toString() 方法被每个 Object 对象继承
-- 如果此方法在自定义对象中未被覆盖，toString() 返回 "[object type]"，其中 type 是对象的类型
+- 如果此方法在自定义对象中未被覆盖，toString() 返回 "[object type]"，其中 type 是对象的类型，因此也可用作检测对象类型
+- 使用valueOf检测对象类型时需要以 Function.prototype.call() 或者 Function.prototype.apply() 的形式来调用，传递要检查的对象作为第一个参数，称为 thisArg
 
 ```js
 
@@ -38,7 +39,7 @@ function Dog(name,breed,color,sex) {
 
 var theDog = new Dog("Gabby", "Lab", "chocolate", "female");
 
-// 重写前调用
+// 重写前调用-继承了原型链上的toString()方法
 theDog.toString(); // 返回 [object Object]
 
 // 重写
