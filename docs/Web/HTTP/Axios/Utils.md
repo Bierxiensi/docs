@@ -92,6 +92,7 @@ function isArrayBuffer(val) {
 ```
 
 -   并未在 MDN 上找到示例
+-   关于 ArrayBuffer 更多的性质，详情见[ArrayBuffer](../../JavaScript/Advance/ArrayBuffer.md)
 
 ### 【2.3】\. isDate
 
@@ -307,6 +308,9 @@ function isArrayBufferView(val) {
 }
 ```
 
+-   先判断不是 undefined 和 再判断 `ArrayBuffer` 原型链存在`isView`方法，如果原型链存在 isView 方法，则使用`ArrayBuffer.isView()`判断，否则调用上述封装的`isArrayBuffer()`方法
+-   关于 ArrayBuffer 更多的性质，详情见[ArrayBuffer](../../JavaScript/Advance/ArrayBuffer.md)
+
 ### 【5.3】 isPlainObject
 
 ```js
@@ -343,6 +347,7 @@ _.isPlainObject(Object.create(null));
 ```
 
 -   判断目标对象的原型是不是`null` 或 `Object.prototype`
+-   顾名思义，目标对象在原型链顶端或者其原型为 Object 类型，是纯粹的对象
 
 ### 【5.4】 isFormData
 
@@ -358,6 +363,8 @@ function isFormData(val) {
 }
 ```
 
+-   关于 FormData 更多的性质，详情见[FormData](../../JavaScript/Advance/FormData.md)
+
 ### 【5.5】 isStream
 
 ```js
@@ -371,6 +378,8 @@ function isStream(val) {
     return isObject(val) && isFunction(val.pipe);
 }
 ```
+
+-   关于 streams 流更多的概念参考[CDN Streams API](https://developer.mozilla.org/zh-CN/docs/Web/API/Streams_API)
 
 ## 6. 正则表达式
 
@@ -388,7 +397,8 @@ function trim(str) {
 }
 ```
 
--   去除首尾空格，`trim`方法不存在的话，用正则
+-   去除首尾空格，str 原型链不存在`trim`方法的话就使用正则表达式
+-   关于正则表达式更多内容见[正则表达式思维导图（学习补充 ing）](https://note.youdao.com/ynoteshare/index.html?id=7e3e1151acc297be673329bcba9c2e5b&type=note&_time=1642406764493)
 
 ## 7. 重写
 
@@ -435,6 +445,13 @@ function forEach(obj, fn) {
 }
 ```
 
+-   如果是 null 或 undefined 直接返回
+-   如果不可遍历则转换成 Array
+-   如果是 Array 类型直接循环遍历
+-   如果是 Object 类型则使用原型链上的`hasOwnProperty()`方法遍历，值得注意的是不推荐使用对象实例上的`hasOwnProperty()`，关于这一点参考[eslint no-prototype-builtins](https://eslint.org/docs/rules/no-prototype-builtins#disallow-use-of-objectprototypes-builtins-directly-no-prototype-builtins)
+
+Tips: 这是一个配合后述`merge`与`extend`工具函数的方法，因此 `call` 中必填项`thisArg`未设置指向
+
 ## 8. js strikes
 
 ### 【8.1】merge
@@ -477,6 +494,14 @@ function merge(/* obj1, obj2, obj3, ... */) {
     return result;
 }
 ````
+
+-   作用是合并有相同键的 val 值
+-   首先进入 for 循环，其中 [`arguments`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments) 是一个对应于传递给函数的参数的类数组对象
+-   配合前述`forEach`工具函数，根据`arguments`长度循环遍历其中的每一项，需要注意的是`arguments[i]`有可能是对象 Object、数组 Array、null 或者未定义 undefined
+-   每次遍历时调用`assignValue`方法，入参为`forEach`工具函数返回的内容
+-   第一层 if 判断`result`中是否有键为`key`的纯对象，并且`forEach`返回的`val`即`obj[key]` 是否是纯对象，满足条件则进入递归，将 `val` 合并至 `result` 对应的键`key`下
+-   第二层 else if `result`中是不含键为`key`的纯对象，并且 `val` 值是纯对象，满足条件则进入递归，在`result`中新建一个键为`key`的，值为`val`的纯对象
+-   第三层 else if `val` 值是数组，满足条件则进入递归，在`result`中新建一个键为`key`的，值为`val`的对象，其中`val.slice()`作用是拷贝数据
 
 ### 【8.2】extend
 
