@@ -210,6 +210,26 @@ module.exports = {
                             title: "eventloop",
                             path: "/Web/JavaScript/Advance/eventloop",
                         },
+                        {
+                            title: "Buffer",
+                            path: "/Web/JavaScript/Advance/Buffer",
+                        },
+                        {
+                            title: "ArrayBuffer",
+                            path: "/Web/JavaScript/Advance/ArrayBuffer",
+                        },
+                        {
+                            title: "FormData",
+                            path: "/Web/JavaScript/Advance/FormData",
+                        },
+                        {
+                            title: "URLSearchParams",
+                            path: "/Web/JavaScript/Advance/URLSearchParams",
+                        },
+                        {
+                            title: "function",
+                            path: "/Web/JavaScript/Advance/function",
+                        },
                     ],
                 },
             ],
@@ -460,7 +480,6 @@ module.exports = {
                     ],
                 },
             ],
-
         },
     },
 };

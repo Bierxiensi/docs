@@ -50,6 +50,8 @@ module.exports = function bind(fn, thisArg) {
 
 ```
 
+Tips: 这是一个配合后述`extend`工具函数的方法
+
 ## 2. 使用`toString()`获取对象类型
 
 > 可以通过 `toString()` 来获取每个对象的类型，关于 toString 更多的性质，详情见[toString](../../JavaScript/toString.md)
@@ -496,8 +498,9 @@ function merge(/* obj1, obj2, obj3, ... */) {
 ````
 
 -   作用是合并有相同键的 val 值
--   首先进入 for 循环，其中 [`arguments`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments) 是一个对应于传递给函数的参数的类数组对象
 -   配合前述`forEach`工具函数，根据`arguments`长度循环遍历其中的每一项，需要注意的是`arguments[i]`有可能是对象 Object、数组 Array、null 或者未定义 undefined
+-   首先进入 for 循环，其中 [`arguments`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments) 是一个对应于传递给函数的参数的类数组对象
+
 -   每次遍历时调用`assignValue`方法，入参为`forEach`工具函数返回的内容
 -   第一层 if 判断`result`中是否有键为`key`的纯对象，并且`forEach`返回的`val`即`obj[key]` 是否是纯对象，满足条件则进入递归，将 `val` 合并至 `result` 对应的键`key`下
 -   第二层 else if `result`中是不含键为`key`的纯对象，并且 `val` 值是纯对象，满足条件则进入递归，在`result`中新建一个键为`key`的，值为`val`的纯对象
@@ -526,6 +529,10 @@ function extend(a, b, thisArg) {
 }
 ```
 
+-   作用是将`Object b`的属性和方法添加到`Object a`上
+-   如果待添加的`val`是`function`且运行时存在明确的`this`指向`thisArg`，需要通过调用`bind`绑定至当前对象即`a`
+-   如果待添加的`val`是`property`，直接在`a`上添加相应的`key-val`键值对
+
 ### 【8.3】stripBOM
 
 ```js
@@ -542,6 +549,9 @@ function stripBOM(content) {
     return content;
 }
 ```
+
+-   去掉字节顺序标记 BOM
+-   字节顺序标记（英语：byte-order mark，BOM）是位于码点 U+FEFF 的统一码字符的名称。当以 UTF-16 或 UTF-32 来将 UCS/统一码字符所组成的字符串编码时，这个字符被用来标示其字节序，更多内容可以参考[MDN - TextDecoder](https://developer.mozilla.org/zh-CN/docs/Web/API/TextDecoder)
 
 ## 9 环境
 
