@@ -9,14 +9,16 @@ description:
 comments:
 ---
 
-> utils is a library of generic helper functions non-specific to axios
-> utils 是一个非特定于 axios 的通用辅助函数库
+> `utils` is a library of generic helper functions non-specific to axios
 
-# 一、环境
+> `utils` 是一个非特定于 axios 的通用辅助函数库
 
--   [网页查看](https://github1s.com/axios/axios/blob/HEAD/CONTRIBUTING.md)
+# 一、环境准备
 
--   本地调试
+-   `axios` 版本 `v0.24.0`
+
+-   通过 `github1s` 网页可以 [查看](https://github1s.com/axios/axios/blob/HEAD/CONTRIBUTING.md) axios 源码
+-   调试需要 `clone` 到本地
 
 ```shell
 git clone https://github.com/axios/axios.git
@@ -50,13 +52,15 @@ module.exports = function bind(fn, thisArg) {
 
 ```
 
-Tips: 这是一个配合后述`extend`工具函数的方法
+![image.png](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9ac5fbfede7a4a8daa04b9c81bb38d08~tplv-k3u1fbpfcp-watermark.image?)
+
+Tips: 这是一个配合后述`extend`工具函数使用的方法，作用是当运行时存在明确的`this`指向即`thisArg`时将`fn`扩展（添加）到目标对象中，如图中的 showInfo
 
 ## 2. 使用`toString()`获取对象类型
 
 > 可以通过 `toString()` 来获取每个对象的类型，关于 toString 更多的性质，详情见[toString](../../JavaScript/toString.md)
 
-### 【2.1】\. isArray
+### 【2.1】 isArray
 
 ```js
 var toString = Object.prototype.toString;
@@ -73,13 +77,13 @@ function isArray(val) {
 
 -   isArray 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 val 是否为数组
 -   Object 原型链函数 toString()在成功判断数组时固定返回'[object Array]'
--   关于 Array 类型判断详情见[ECMA-262](https://262.ecma-international.org/6.0/#sec-object.prototype.tostring) Let isArray be IsArray(Object).
+-   关于 Array 类型判断详情见[ECMA-262](https://262.ecma-international.org/6.0/#sec-object.prototype.tostring) - Let isArray be IsArray(Object).
 
-Tips: 从`ECMA-262`文档可以看出，从 es6 后 toString()在判定 Array 类型时直接使用了 IsArray 方法，所以如果环境允许，直接使用 Array.isArray()也是可行的 🐶，这点在`MDN`[Array.isArray](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)的 Polyfill 中也是有体现的。
+Tips: 从`ECMA-262`文档可以看出，从 es6 后 toString()在判定 Array 类型时直接使用了 IsArray 方法，所以如果环境允许，直接使用 Array.isArray()也是可行的 🐶，这点在[`MDN` - Array.isArray](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)的 Polyfill 中也是有体现的。
 
-Tips: `Array.isArray()` 是 es5
+Tips: `Array.isArray()` 是 es5 特性
 
-### 【2.2】\. isArrayBuffer
+### 【2.2】 isArrayBuffer
 
 ```js
 /**
@@ -96,7 +100,7 @@ function isArrayBuffer(val) {
 -   并未在 MDN 上找到示例
 -   关于 ArrayBuffer 更多的性质，详情见[ArrayBuffer](../../JavaScript/Advance/ArrayBuffer.md)
 
-### 【2.3】\. isDate
+### 【2.3】 isDate
 
 ```js
 /**
@@ -112,9 +116,9 @@ function isDate(val) {
 
 -   isArray 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 val 是否为日期类型
 -   Object 原型链函数 toString()在成功判断数组时固定返回'[object Date]'
--   关于 Date 类型判断详情见[ECMA-262](https://262.ecma-international.org/6.0/#sec-object.prototype.tostring) if Object has a [[DateValue]] internal slot, let builtinTag be "Date".
+-   关于 Date 类型判断详情见[ECMA-262](https://262.ecma-international.org/6.0/#sec-object.prototype.tostring) - if Object has a [[DateValue]] internal slot, let builtinTag be "Date".
 
-### 【2.4】\. isFile
+### 【2.4】 isFile
 
 ```js
 /**
@@ -130,7 +134,7 @@ function isFile(val) {
 
 -   并未在 MDN 上找到示例
 
-### 【2.5】\. isBlob
+### 【2.5】 isBlob
 
 ```js
 /**
@@ -146,7 +150,7 @@ function isBlob(val) {
 
 -   并未在 MDN 上找到示例
 
-### 【2.6】\. isFunction
+### 【2.6】 isFunction
 
 ```js
 /**
@@ -162,11 +166,11 @@ function isFunction(val) {
 
 -   isArray 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 val 是否为日期类型
 -   Object 原型链函数 toString()在成功判断数组时固定返回'[object Array]'
--   关于 Function 类型判断详情见[ECMA-262](https://262.ecma-international.org/6.0/#sec-object.prototype.tostring) if Object has a [[Call]] internal method, let builtinTag be "Function".
+-   关于 Function 类型判断详情见[ECMA-262](https://262.ecma-international.org/6.0/#sec-object.prototype.tostring) - if Object has a [[Call]] internal method, let builtinTag be "Function".
 
 ## 3. 使用 `typeof` 获取未经计算的操作数
 
-> 可以通过 `typeof` 来获取`未经计算的操作数`的类型，关于 typeof 更多的性质，详情见[toString](../../JavaScript/typeof.md)
+> 可以通过 `typeof` 来获取`未经计算的操作数`的类型，关于 typeof 更多的性质，详情见[typeof](../../JavaScript/typeof.md)
 
 ### 【3.1】 isUndefined
 
@@ -258,7 +262,7 @@ function isURLSearchParams(val) {
 }
 ```
 
--   关于 isURLSearchParams（ URL 的查询字符串 ） 更多的性质，详情见[toString](../../JavaScript/Advance/URLSearchParams.md)
+-   关于 isURLSearchParams（ URL 的查询字符串 ） 更多的性质，详情见[URLSearchParams](../../JavaScript/Advance/URLSearchParams.md)
 
 ## 5. 复合类型
 
@@ -381,7 +385,7 @@ function isStream(val) {
 }
 ```
 
--   关于 streams 流更多的概念参考[CDN Streams API](https://developer.mozilla.org/zh-CN/docs/Web/API/Streams_API)
+-   关于 streams 流更多的概念参考[`MDN` - Streams API](https://developer.mozilla.org/zh-CN/docs/Web/API/Streams_API)
 
 ## 6. 正则表达式
 
@@ -551,7 +555,7 @@ function stripBOM(content) {
 ```
 
 -   去掉字节顺序标记 BOM
--   字节顺序标记（英语：byte-order mark，BOM）是位于码点 U+FEFF 的统一码字符的名称。当以 UTF-16 或 UTF-32 来将 UCS/统一码字符所组成的字符串编码时，这个字符被用来标示其字节序，更多内容可以参考[MDN - TextDecoder](https://developer.mozilla.org/zh-CN/docs/Web/API/TextDecoder)
+-   字节顺序标记（英语：byte-order mark，BOM）是位于码点 U+FEFF 的统一码字符的名称。当以 UTF-16 或 UTF-32 来将 UCS/统一码字符所组成的字符串编码时，这个字符被用来标示其字节序，更多内容可以参考[`MDN` - TextDecoder](https://developer.mozilla.org/zh-CN/docs/Web/API/TextDecoder)
 
 ## 9 环境
 
@@ -587,3 +591,11 @@ function isStandardBrowserEnv() {
 ```
 
 -   判断标准浏览器环境，官方不再推荐[navigator.product](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/product)
+
+# 三、参考
+
+1\. `Ethan01`的文章[阅读 axios 源码，发现了这些实用的基础工具函数](https://juejin.cn/post/7042610679815241758#heading-19)
+
+2\. `李冰`老师的专栏[图解 Google V8 - 一篇文章彻底搞懂 JavaScript 的函数特点](https://time.geekbang.org/column/article/212123)
+
+3\. [MDN](https://developer.mozilla.org/zh-CN/)
