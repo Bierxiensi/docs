@@ -9,26 +9,25 @@ description:
 comments:
 ---
 
-- 每个`对象`都有一个 `toString()` 方法
-- 默认情况下，toString() 方法被每个 Object 对象继承
-- 如果此方法在自定义对象中未被覆盖，toString() 返回 "[object type]"，其中 type 是对象的类型，因此也可用作检测对象类型
-- 使用valueOf检测对象类型时需要以 Function.prototype.call() 或者 Function.prototype.apply() 的形式来调用，传递要检查的对象作为第一个参数，称为 thisArg
+-   每个`对象`都有一个 `toString()` 方法
+-   默认情况下，toString() 方法被每个 Object 对象继承
+-   如果此方法在自定义对象中未被覆盖，toString() 返回 "[object type]"，其中 type 是对象的类型，因此也可用作检测对象类型
+-   使用如果此方法在自定义对象中未被覆盖，toString()检测对象类型时需要以 Function.prototype.call() 或者 Function.prototype.apply() 的形式来调用，传递要检查的对象作为第一个参数，称为 thisArg
 
 ```js
-
 var toString = Object.prototype.toString;
 
-toString.call(new Date); // [object Date]
-toString.call(new String); // [object String]
+toString.call(new Date()); // [object Date]
+toString.call(new String()); // [object String]
 toString.call(Math); // [object Math]
 
 //Since JavaScript 1.8.5
 toString.call(undefined); // [object Undefined]
 toString.call(null); // [object Null]
-
 ```
 
-重写Object原型链上的toString方法
+重写 Object 原型链上的 toString 方法
+
 ```js
 function Dog(name,breed,color,sex) {
   this.name = name;
