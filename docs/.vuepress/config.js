@@ -284,6 +284,10 @@ module.exports = {
                             title: "Axios工具函数",
                             path: "/Web/HTTP/Axios/Utils",
                         },
+                        {
+                            title: "Axios实例化配置函数",
+                            path: "/Web/HTTP/Axios/Default",
+                        },
                     ],
                 },
             ],
