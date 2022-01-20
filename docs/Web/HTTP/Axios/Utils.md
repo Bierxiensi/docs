@@ -164,7 +164,7 @@ function isFunction(val) {
 }
 ```
 
--   isArray 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 val 是否为日期类型
+-   isArray 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 val 是否为 Function 函数类型
 -   Object 原型链函数 toString()在成功判断数组时固定返回'[object Array]'
 -   关于 Function 类型判断详情见[ECMA-262](https://262.ecma-international.org/6.0/#sec-object.prototype.tostring) - if Object has a [[Call]] internal method, let builtinTag be "Function".
 
