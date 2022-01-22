@@ -397,6 +397,10 @@ module.exports = {
                             title: "Webpack",
                             path: "/Tools/Webpack/",
                         },
+                        {
+                            title: "【手写loader】- 在webpack打包阶段检测失效图片资源并替换",
+                            path: "/Tools/Webpack/ReplaceLegalImg",
+                        },
                     ],
                 },
             ],
