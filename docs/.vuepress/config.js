@@ -288,6 +288,14 @@ module.exports = {
                             title: "Axios实例化配置函数",
                             path: "/Web/HTTP/Axios/Default",
                         },
+                        {
+                            title: "过度选项校验函数Validator研读解析",
+                            path: "/Web/HTTP/Axios/Default",
+                        },
+                        {
+                            title: "【axios源码】- 取消请求cancel模块研读解析",
+                            path: "/Web/HTTP/Axios/Cancel",
+                        },
                     ],
                 },
             ],
