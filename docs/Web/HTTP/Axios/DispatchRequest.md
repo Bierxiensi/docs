@@ -1,9 +1,9 @@
 ---
-title: 【axios源码】- 请求分发函数requestDispatch研读解析
+title: 【axios源码】- 请求分发函数DispatchRequest研读解析
 search: true
 
 date: 2022-01-25 14:05:23
-tags: [axios, requestDispatch]
+tags: [axios, DispatchRequest]
 photos:
 description:
 comments:
