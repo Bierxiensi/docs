@@ -293,8 +293,12 @@ module.exports = {
                             path: "/Web/HTTP/Axios/Default",
                         },
                         {
-                            title: "【axios源码】- 取消请求cancel模块研读解析",
+                            title: "取消请求cancel模块研读解析",
                             path: "/Web/HTTP/Axios/Cancel",
+                        },
+                        {
+                            title: "请求分发函数DispatchRequest研读解析",
+                            path: "/Web/HTTP/Axios/DispatchRequest",
                         },
                     ],
                 },
