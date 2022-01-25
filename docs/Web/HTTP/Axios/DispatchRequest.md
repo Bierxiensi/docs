@@ -9,8 +9,6 @@ description:
 comments:
 ---
 
-> 用来调用 `http` 请求`适配器`方法发送请求
-
 # 一、环境准备
 
 -   `axios` 版本 `v0.24.0`
