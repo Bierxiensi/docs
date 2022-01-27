@@ -64,9 +64,11 @@ var defaults = require("../defaults");
 var Cancel = require("../cancel/Cancel");
 ```
 
-我们找到其中使用到的 helper 函数 cookies、buildURL、parseHeaders、isURLSameOrigin
+我们找到其中使用到的 `helper` 函数 `cookies、buildURL、parseHeaders、isURLSameOrigin`
 
 ## 2. 辅助函数 cookies
+
+> 在浏览器环境对 `cookie` 进行增删查改
 
 ```js
 "use strict";
@@ -131,17 +133,17 @@ module.exports = utils.isStandardBrowserEnv()
       })();
 ```
 
--   引用了工具函数 utils，使用其中的 isStandardBrowserEnv 方法判断是否标准开发环境
+-   引用了工具函数 `utils`，使用其中的 `isStandardBrowserEnv` 方法判断是否标准开发环境
 -   根据判断结果进入对应 `IIFE(Immediately Invoked Function Expression)`立即调用函数表达式
 
-Tips： 标准开发环境提供了 document api，可以操作 cookie
-Tips： 在 ES6 推出块级作用域前 IIFE 是一种常用的作用域隔离手段，所以在这里使用 IIFE 也是为了兼容宿主环境不支持 ES6 的情形
-Tips： 函数除了常用类型的属性值之外还拥有两个隐藏属性，分别是 name 属性和 code 属性，IIFE 函数默认的 name 属性值就是 anonymous，因此也被称为匿名函数
+Tips： 标准开发环境提供了 `document api`，可以操作 `cookie`
+Tips： 在 `ES6` 推出块级作用域前 `IIFE` 是一种常用的作用域隔离手段，所以在这里使用 `IIFE` 也是为了兼容宿主环境不支持 `ES6` 的情形
+Tips： 函数除了常用类型的属性值之外还拥有两个隐藏属性，分别是 `name` 属性和 `code` 属性，`IIFE` 函数默认的 `name` 属性值就是 `anonymous`，因此也被称为匿名函数
 ![函数对象的隐藏属性](./images/IIFE.png)
 
 ## 3. 辅助函数 buildURL
 
-> 为了避免服务器收到不可预知的请求，对任何用户输入的作为 URL 部分的内容都需要用 [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) 进行转义
+> 为了避免服务器收到不可预知的请求，对任何用户输入的作为 `URL` 部分的内容都需要用 [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) 进行转义
 
 ```js
 "use strict";
@@ -177,6 +179,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
     } else if (utils.isURLSearchParams(params)) {
         serializedParams = params.toString();
     } else {
+        // 默认序列化方法
         var parts = [];
 
         utils.forEach(params, function serialize(val, key) {
@@ -192,6 +195,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
             utils.forEach(val, function parseValue(v) {
                 if (utils.isDate(v)) {
+                    // 如果v是date对象使用ISO-8601标准进行格式化处理，结果为YYYY-MM-DDTHH:mm:ss.sssZ形式
                     v = v.toISOString();
                 } else if (utils.isObject(v)) {
                     v = JSON.stringify(v);
@@ -216,14 +220,16 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 };
 ```
 
--   encode 封装的 encodeURIComponent 将对 URL 中的参数进行转义
--   根据入参 paramsSerializer 和 params 格式选择对应的序列化逻辑，其中 paramsSerializer 是用户给定的序列化方法
--   如果用户未给定 encodeURIComponent 且 params 是一个 URLSearchParams 对象，就返回 toString()的结果
--
+-   `encode` 封装的 `encodeURIComponent` 将对 `URL` 中的参数进行转义，但其中包含的一些合法字符不转义，包含`: $ , + [ ]`
+-   根据入参 `paramsSerializer` 和 `params` 格式选择对应的序列化逻辑，其中 `paramsSerializer` 是用户给定的序列化方法
+-   如果用户未给定 `encodeURIComponent` 且 `params` 是一个 `URLSearchParams` 对象，就返回 `toString()`的结果
+-   如果用户未给定序列化方法且 URL 也不是 URLSearchParams 类型就进入默认序列化逻辑
+
+Tips：`encodeURIComponent` 不转义的字符包括`A-Z a-z 0-9 - \_ . ! ~ \* ' ( )`
 
 ## 4. 辅助函数 parseHeaders
 
-> 通过换行符 \n 将 headers 进行分解，转化为一个对象
+> 通过换行符 `\n` 分割 `Headers` 并转化为一个对象
 
 ````js
 "use strict";
@@ -281,9 +287,11 @@ module.exports = function parseHeaders(headers) {
         val = utils.trim(line.substr(i + 1));
 
         if (key) {
+            // 忽略ignoreDuplicateOf中的重复配置
             if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
                 return;
             }
+            // 多个相同键配置项，其中set-cookie类型使用数组存储，其他用逗号分隔，参见下图http请求头header
             if (key === "set-cookie") {
                 parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
             } else {
@@ -296,11 +304,16 @@ module.exports = function parseHeaders(headers) {
 };
 ````
 
--
+![http请求报文](./images/httpHeader.png)
+
+-   忽略`ignoreDuplicateOf`中的重复的请求头配置项
+-   `http`协议规定应用程序间的内容传输采用文本形式，一个 `HTTP` 请求报文由请求行`request line`、请求头部 `Headers`、空行和请求数据 4 个部分组成。其中请求头部 `Headers` 使用换行符 `\n` 隔开， `parser`函数主要用于处理请求头信息
+
+![http请求头Headers](./images/httpHeader.jpg)
 
 ## 5. 辅助函数 isURLSameOrigin
 
-> 判断 location 和给定的 url 是否同源。在这里借助了浏览器的 a 标签进行 url 解析，然后判断协议、主机和端口是否相同
+> 判断 `location` 和给定的 `url` 是否同源
 
 ```js
 "use strict";
@@ -308,16 +321,15 @@ module.exports = function parseHeaders(headers) {
 var utils = require("./../utils");
 
 module.exports = utils.isStandardBrowserEnv()
-    ? // Standard browser envs have full support of the APIs needed to test
-      // whether the request URL is of the same origin as current location.
+    ? //  标准浏览器完支持给定URL与当前URL是否同源的检测
       (function standardBrowserEnv() {
+          //  判断是否IE浏览器
           var msie = /(msie|trident)/i.test(navigator.userAgent);
           var urlParsingNode = document.createElement("a");
           var originURL;
 
           /**
-           * Parse a URL to discover it's components
-           *
+           * 解析一个URL，将其分解为各个部分
            * @param {String} url The URL to be parsed
            * @returns {Object}
            */
@@ -325,14 +337,14 @@ module.exports = utils.isStandardBrowserEnv()
               var href = url;
 
               if (msie) {
-                  // IE needs attribute set twice to normalize properties
+                  // IE浏览器需要设置两次才能标准化属性
                   urlParsingNode.setAttribute("href", href);
                   href = urlParsingNode.href;
               }
 
               urlParsingNode.setAttribute("href", href);
 
-              // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
+              // urlParsingNode 提供了 UrlUtils 接口 - http://url.spec.whatwg.org/#urlutils
               return {
                   href: urlParsingNode.href,
                   protocol: urlParsingNode.protocol
@@ -357,8 +369,7 @@ module.exports = utils.isStandardBrowserEnv()
           originURL = resolveURL(window.location.href);
 
           /**
-           * Determine if a URL shares the same origin as the current location
-           *
+           * 判断URL与location是否同源，需要protocol、hostname、port都相等
            * @param {String} requestURL The URL to test
            * @returns {boolean} True if URL shares the same origin, otherwise false
            */
@@ -372,7 +383,7 @@ module.exports = utils.isStandardBrowserEnv()
               );
           };
       })()
-    : // Non standard browser envs (web workers, react-native) lack needed support.
+    : // 非标准的浏览器环境(web workers, react-native)默认为同源
       (function nonStandardBrowserEnv() {
           return function isURLSameOrigin() {
               return true;
@@ -380,7 +391,11 @@ module.exports = utils.isStandardBrowserEnv()
       })();
 ```
 
--
+-   引用了工具函数 `utils`，使用其中的 `isStandardBrowserEnv` 方法判断是否标准开发环境
+-   根据判断结果进入对应 `IIFE(Immediately Invoked Function Expression)`立即调用函数表达式
+-   借助了浏览器的 `a` 标签进行 `url` 解析，然后判断协议、主机和端口是否相同
+
+Tips：关于为什么 `IE` 浏览器需要设置两次`href`，我也不知道，网上也没有找到对这个问题的解答，可以看一下[stack overflow](https://stackoverflow.com/questions/49272427/why-setattributehref-need-twice-in-ie)关注一下这个问题
 
 # 三、参考
 
