@@ -64,319 +64,156 @@ var defaults = require("../defaults");
 var Cancel = require("../cancel/Cancel");
 ```
 
-我们找到其中使用到的 core 函数 settle、buildFullPath、createError、enhanceError
+我们找到其中使用到的 `core` 函数 `settle`、`buildFullPath`、`createError`、`enhanceError`
 
 ## 2. 辅助函数 settle
 
+> Resolve or reject a Promise based on response status
+> 依据响应状态来 resolve 或 reject 一个 Promise
+
 ```js
-"use strict";
+'use strict';
 
-var utils = require("./../utils");
+var createError = require('./createError');
 
-module.exports = utils.isStandardBrowserEnv()
-    ? // Standard browser envs support document.cookie
-      (function standardBrowserEnv() {
-          return {
-              write: function write(
-                  name,
-                  value,
-                  expires,
-                  path,
-                  domain,
-                  secure
-              ) {
-                  var cookie = [];
-                  cookie.push(name + "=" + encodeURIComponent(value));
+/**
+ * @param {Function} resolve A function that resolves the promise.
+ * @param {Function} reject A function that rejects the promise.
+ * @param {object} response The response.
+ */
+module.exports = function settle(resolve, reject, response) {
+  var validateStatus = response.config.validateStatus;
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(createError(
+      'Request failed with status code ' + response.status,
+      response.config,
+      null,
+      response.request,
+      response
+    ));
+  }
+};
 
-                  if (utils.isNumber(expires)) {
-                      cookie.push("expires=" + new Date(expires).toGMTString());
-                  }
-
-                  if (utils.isString(path)) {
-                      cookie.push("path=" + path);
-                  }
-
-                  if (utils.isString(domain)) {
-                      cookie.push("domain=" + domain);
-                  }
-
-                  if (secure === true) {
-                      cookie.push("secure");
-                  }
-
-                  document.cookie = cookie.join("; ");
-              },
-
-              read: function read(name) {
-                  var match = document.cookie.match(
-                      new RegExp("(^|;\\s*)(" + name + ")=([^;]*)")
-                  );
-                  return match ? decodeURIComponent(match[3]) : null;
-              },
-
-              remove: function remove(name) {
-                  this.write(name, "", Date.now() - 86400000);
-              },
-          };
-      })()
-    : // Non standard browser env (web workers, react-native) lack needed support.
-      (function nonStandardBrowserEnv() {
-          return {
-              write: function write() {},
-              read: function read() {
-                  return null;
-              },
-              remove: function remove() {},
-          };
-      })();
 ```
+-   根据 `http` 响应状态，改变 `Promise` 的状态
+-   在 `reject` 时使通过调用自定义的 `createError` 方法生成 `reject` 返回内容
 
--   引用了工具函数 urils，使用其中的 isStandardBrowserEnv 方法判断是否标准开发环境
--   标准开发环境提供了 document，可以操作 cookie
 
 ## 3. 辅助函数 buildFullPath
 
+> Creates a new URL by combining the baseURL with the requestedURL, only when the requestedURL is not already an absolute URL
+> 仅当请求的 URL 不是绝对 URL 时，才通过将 baseURL 与请求的 URL 组合来创建新 URL
+> If the requestURL is absolute, this function returns the requestedURL untouched
+> 如果请求的 URL 是绝对URL，此函数会原封不动地返回所请求的 URL
+
 ```js
-"use strict";
+'use strict';
 
-var utils = require("./../utils");
-
-function encode(val) {
-    return encodeURIComponent(val)
-        .replace(/%3A/gi, ":")
-        .replace(/%24/g, "$")
-        .replace(/%2C/gi, ",")
-        .replace(/%20/g, "+")
-        .replace(/%5B/gi, "[")
-        .replace(/%5D/gi, "]");
-}
+var isAbsoluteURL = require('../helpers/isAbsoluteURL');
+var combineURLs = require('../helpers/combineURLs');
 
 /**
- * Build a URL by appending params to the end
- *
- * @param {string} url The base of the url (e.g., http://www.google.com)
- * @param {object} [params] The params to be appended
- * @returns {string} The formatted url
+ * @param {string} baseURL The base URL
+ * @param {string} requestedURL Absolute or relative URL to combine
+ * @returns {string} The combined full path
  */
-module.exports = function buildURL(url, params, paramsSerializer) {
-    /*eslint no-param-reassign:0*/
-    if (!params) {
-        return url;
-    }
-
-    var serializedParams;
-    if (paramsSerializer) {
-        serializedParams = paramsSerializer(params);
-    } else if (utils.isURLSearchParams(params)) {
-        serializedParams = params.toString();
-    } else {
-        var parts = [];
-
-        utils.forEach(params, function serialize(val, key) {
-            if (val === null || typeof val === "undefined") {
-                return;
-            }
-
-            if (utils.isArray(val)) {
-                key = key + "[]";
-            } else {
-                val = [val];
-            }
-
-            utils.forEach(val, function parseValue(v) {
-                if (utils.isDate(v)) {
-                    v = v.toISOString();
-                } else if (utils.isObject(v)) {
-                    v = JSON.stringify(v);
-                }
-                parts.push(encode(key) + "=" + encode(v));
-            });
-        });
-
-        serializedParams = parts.join("&");
-    }
-
-    if (serializedParams) {
-        var hashmarkIndex = url.indexOf("#");
-        if (hashmarkIndex !== -1) {
-            url = url.slice(0, hashmarkIndex);
-        }
-
-        url += (url.indexOf("?") === -1 ? "?" : "&") + serializedParams;
-    }
-
-    return url;
+module.exports = function buildFullPath(baseURL, requestedURL) {
+  if (baseURL && !isAbsoluteURL(requestedURL)) {
+    return combineURLs(baseURL, requestedURL);
+  }
+  return requestedURL;
 };
 ```
 
--   引用了工具函数 urils，使用其中的 isStandardBrowserEnv 方法判断是否标准开发环境
--   标准开发环境提供了 document，可以操作 cookie
+- 其中 `isAbsoluteURL` 和 `combineURLs` 是两个正则表达式，分别会监测当前 `requestedURL` 是否为 `AbsoluteURL` 以及连接 `baseURL` 与 `requestedURL`， 最终目的让返回的 `url` 必须为一个绝对地址
+
+Tips：`AbsoluteURL` 的判断规则是是否以 `scheme://` 开头或者是一个 [`协议相对URL(protocol-relative URL)`](https://www.ludou.org/the-protocol-relative-url.html) 即 `//`开头 
 
 ## 4. 辅助函数 createError
 
+>  Create an Error with the specified message, config, error code, request and response
+
+> 使用指定的message、配置、错误代码、请求和响应来创建Error
+
 ````js
-"use strict";
+'use strict';
 
-var utils = require("./../utils");
-
-// Headers whose duplicates are ignored by node
-// c.f. https://nodejs.org/api/http.html#http_message_headers
-var ignoreDuplicateOf = [
-    "age",
-    "authorization",
-    "content-length",
-    "content-type",
-    "etag",
-    "expires",
-    "from",
-    "host",
-    "if-modified-since",
-    "if-unmodified-since",
-    "last-modified",
-    "location",
-    "max-forwards",
-    "proxy-authorization",
-    "referer",
-    "retry-after",
-    "user-agent",
-];
+var enhanceError = require('./enhanceError');
 
 /**
- * Parse headers into an object
- *
- * ```
- * Date: Wed, 27 Aug 2014 08:58:49 GMT
- * Content-Type: application/json
- * Connection: keep-alive
- * Transfer-Encoding: chunked
- * ```
- *
- * @param {String} headers Headers needing to be parsed
- * @returns {Object} Headers parsed into an object
+ * @param {string} message The error message.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The created error.
  */
-module.exports = function parseHeaders(headers) {
-    var parsed = {};
-    var key;
-    var val;
-    var i;
-
-    if (!headers) {
-        return parsed;
-    }
-
-    utils.forEach(headers.split("\n"), function parser(line) {
-        i = line.indexOf(":");
-        key = utils.trim(line.substr(0, i)).toLowerCase();
-        val = utils.trim(line.substr(i + 1));
-
-        if (key) {
-            if (parsed[key] && ignoreDuplicateOf.indexOf(key) >= 0) {
-                return;
-            }
-            if (key === "set-cookie") {
-                parsed[key] = (parsed[key] ? parsed[key] : []).concat([val]);
-            } else {
-                parsed[key] = parsed[key] ? parsed[key] + ", " + val : val;
-            }
-        }
-    });
-
-    return parsed;
+module.exports = function createError(message, config, code, request, response) {
+  var error = new Error(message);
+  return enhanceError(error, config, code, request, response);
 };
 ````
 
--   引用了工具函数 urils，使用其中的 isStandardBrowserEnv 方法判断是否标准开发环境
--   标准开发环境提供了 document，可以操作 cookie
+-   `createError`中使用 `new Error` 创建了一个错误对象
+-   `Error` 对象刚生成的时候只有一个 `message` 属性，需要使用 `enhanceError` 来增强返回的 `error` 信息
 
 ## 5. 辅助函数 enhanceError
 
+> Update an Error with the specified config, error code, and response
+
+> 使用指定的配置、错误代码和响应来升级Error
+
 ```js
-"use strict";
+'use strict';
 
-var utils = require("./../utils");
+/**
+ * @param {Error} error The error to update.
+ * @param {Object} config The config.
+ * @param {string} [code] The error code (for example, 'ECONNABORTED').
+ * @param {Object} [request] The request.
+ * @param {Object} [response] The response.
+ * @returns {Error} The error.
+ */
+module.exports = function enhanceError(error, config, code, request, response) {
+  error.config = config;
+  if (code) {
+    error.code = code;
+  }
 
-module.exports = utils.isStandardBrowserEnv()
-    ? // Standard browser envs have full support of the APIs needed to test
-      // whether the request URL is of the same origin as current location.
-      (function standardBrowserEnv() {
-          var msie = /(msie|trident)/i.test(navigator.userAgent);
-          var urlParsingNode = document.createElement("a");
-          var originURL;
+  error.request = request;
+  error.response = response;
+  error.isAxiosError = true;
 
-          /**
-           * Parse a URL to discover it's components
-           *
-           * @param {String} url The URL to be parsed
-           * @returns {Object}
-           */
-          function resolveURL(url) {
-              var href = url;
+  error.toJSON = function toJSON() {
+    return {
+      // Standard
+      message: this.message,
+      name: this.name,
+      // Microsoft
+      description: this.description,
+      number: this.number,
+      // Mozilla
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      // Axios
+      config: this.config,
+      code: this.code,
+      status: this.response && this.response.status ? this.response.status : null
+    };
+  };
+  return error;
+};
 
-              if (msie) {
-                  // IE needs attribute set twice to normalize properties
-                  urlParsingNode.setAttribute("href", href);
-                  href = urlParsingNode.href;
-              }
-
-              urlParsingNode.setAttribute("href", href);
-
-              // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
-              return {
-                  href: urlParsingNode.href,
-                  protocol: urlParsingNode.protocol
-                      ? urlParsingNode.protocol.replace(/:$/, "")
-                      : "",
-                  host: urlParsingNode.host,
-                  search: urlParsingNode.search
-                      ? urlParsingNode.search.replace(/^\?/, "")
-                      : "",
-                  hash: urlParsingNode.hash
-                      ? urlParsingNode.hash.replace(/^#/, "")
-                      : "",
-                  hostname: urlParsingNode.hostname,
-                  port: urlParsingNode.port,
-                  pathname:
-                      urlParsingNode.pathname.charAt(0) === "/"
-                          ? urlParsingNode.pathname
-                          : "/" + urlParsingNode.pathname,
-              };
-          }
-
-          originURL = resolveURL(window.location.href);
-
-          /**
-           * Determine if a URL shares the same origin as the current location
-           *
-           * @param {String} requestURL The URL to test
-           * @returns {boolean} True if URL shares the same origin, otherwise false
-           */
-          return function isURLSameOrigin(requestURL) {
-              var parsed = utils.isString(requestURL)
-                  ? resolveURL(requestURL)
-                  : requestURL;
-              return (
-                  parsed.protocol === originURL.protocol &&
-                  parsed.host === originURL.host
-              );
-          };
-      })()
-    : // Non standard browser envs (web workers, react-native) lack needed support.
-      (function nonStandardBrowserEnv() {
-          return function isURLSameOrigin() {
-              return true;
-          };
-      })();
 ```
 
--   引用了工具函数 urils，使用其中的 isStandardBrowserEnv 方法判断是否标准开发环境
--   标准开发环境提供了 document，可以操作 cookie
+-  入参 `error` 是一个使用 `new Error` 创建的错误对象
+-  enhanceError 方法就是单纯为了升级 Error 对象，给 Axios 生成的错误对象添加 config、code、request 和 response 属性
+-  另外根据不同的浏览器环境返回了一些对应的补充信息，`reject` 返回的内容将是一个包含了这些补充信息的 `error` 类型信息
 
 # 三、参考
 
-1\. `仙凌阁`的文章[详细 Axios 源码解读](https://blog.csdn.net/qq_39221436/article/details/120652086)
-
-2\. `林景宜`的文章[林景宜的记事本 - Axios 源码解析（五）：核心工具方法](https://linjingyi.cn/posts/f3c7b914.html#more)
-
-3\. `若川`的文章[学习 axios 源码整体架构，打造属于自己的请求库](https://juejin.cn/post/6844904019987529735#heading-26)
-
-4\. `杰凌`的文章[深入解读 axios 源码](https://zhuanlan.zhihu.com/p/376289400)
+1\. `林景宜`的文章[林景宜的记事本 - Axios 源码解析（五）：核心工具方法](https://linjingyi.cn/posts/f3c7b914.html#more)
