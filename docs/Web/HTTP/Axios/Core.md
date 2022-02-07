@@ -12,7 +12,7 @@ comments:
 
 -   `axios` 版本 `v0.24.0`
 
--   通过 `github1s` 网页可以 [查看](https://github1s.com/axios/axios/blob/HEAD/lib/core/dispatchRequest.js) axios 源码
+-   通过 `github1s` 网页可以 [查看](https://github1s.com/axios/axios/blob/HEAD/lib/core/settle.js) axios 源码
 -   调试需要 `clone` 到本地
 
 ```shell
@@ -69,7 +69,8 @@ var Cancel = require("../cancel/Cancel");
 ## 2. 辅助函数 settle
 
 > Resolve or reject a Promise based on response status
-> 依据响应状态来 resolve 或 reject 一个 Promise
+
+> 依据响应状态来 `resolve` 或 `reject` 一个 `Promise`
 
 ```js
 'use strict';
@@ -104,9 +105,12 @@ module.exports = function settle(resolve, reject, response) {
 ## 3. 辅助函数 buildFullPath
 
 > Creates a new URL by combining the baseURL with the requestedURL, only when the requestedURL is not already an absolute URL
-> 仅当请求的 URL 不是绝对 URL 时，才通过将 baseURL 与请求的 URL 组合来创建新 URL
+
+> 仅当请求的 `URL` 不是绝对 `URL` 时，才通过将 `baseURL` 与请求的 `URL` 组合来创建新 `URL`
+
 > If the requestURL is absolute, this function returns the requestedURL untouched
-> 如果请求的 URL 是绝对URL，此函数会原封不动地返回所请求的 URL
+
+> 如果请求的 `URL` 是绝对 `URL`，此函数会原封不动地返回所请求的 `URL`
 
 ```js
 'use strict';
@@ -135,7 +139,7 @@ Tips：`AbsoluteURL` 的判断规则是是否以 `scheme://` 开头或者是一�
 
 >  Create an Error with the specified message, config, error code, request and response
 
-> 使用指定的message、配置、错误代码、请求和响应来创建Error
+> 使用指定的 `message`、`config`、`code`、`request` 和 `resopnse` 来创建 `Error`
 
 ````js
 'use strict';
@@ -163,7 +167,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 > Update an Error with the specified config, error code, and response
 
-> 使用指定的配置、错误代码和响应来升级Error
+> 使用指定的配置、错误代码和响应来升级 `Error`
 
 ```js
 'use strict';
