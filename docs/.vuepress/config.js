@@ -300,6 +300,18 @@ module.exports = {
                             title: "请求分发函数DispatchRequest研读解析",
                             path: "/Web/HTTP/Axios/DispatchRequest",
                         },
+                        {
+                            title: "适配器中的辅助函数helper研读解析",
+                            path: "/Web/HTTP/Axios/Helper",
+                        },
+                        {
+                            title: "适配器中的核心函数core研读解析",
+                            path: "/Web/HTTP/Axios/Core",
+                        },
+                        {
+                            title: "浏览器端适配器xhr研读解析",
+                            path: "/Web/HTTP/Axios/Xhr",
+                        },
                     ],
                 },
             ],
