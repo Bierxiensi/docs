@@ -55,13 +55,13 @@ var Cancel = require("../cancel/Cancel");
 
 ## 2. 正文分析
 
-在 node 环境中，Axios 封装的是 http 库 `，httpAdapter` 的工作流程大致如下所示：
+在 node 环境中，Axios 封装的是 http 库，`httpAdapter` 的工作流程大致如下所示：
 
 1\. 配置请求头信息
 2\. 请求参数信息格式化处理
 3\. 解析 URL 并选择与之对应的请求协议
 4\. 创建请求
-5\. 添加 `error` 、`timeout` 以及针对 `steam` 流的 `data`、`end`、`aborted` 等响应事件
+5\. 添加 `error` 、`timeout` 以及针对 `stream` 流的 `data`、`end`、`aborted` 等响应事件
 6\. 发送请求
 
 接下来我们按照上述流程分步骤研读前三个部分
