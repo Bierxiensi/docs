@@ -312,6 +312,14 @@ module.exports = {
                             title: "浏览器端适配器xhr研读解析",
                             path: "/Web/HTTP/Axios/Xhr",
                         },
+                        {
+                            title: "【axios 源码】- node适配器 http 研读解析【上】",
+                            path: "/Web/HTTP/Axios/Http1",
+                        },
+                        {
+                            title: "【axios 源码】- node适配器 http 研读解析【下】",
+                            path: "/Web/HTTP/Axios/Http2",
+                        },
                     ],
                 },
             ],
