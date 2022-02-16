@@ -37,20 +37,22 @@ module.exports = {
                 items: [{ text: "算法", link: "/CS/Algorithm/" }],
             },
             {
-                text: "移动端",
+                text: "读源码",
                 items: [
-                    { text: "App", link: "/App/App/" },
-                    { text: "桌面应用", link: "/App/Desktop/" },
+                    { text: "Axios", link: "/SourceCode/Axios/" },
+                    { text: "Lodash", link: "/SourceCode/Lodash/" },
                 ],
             },
             {
-                text: "Web端",
+                text: "Web端/移动端",
                 items: [
                     { text: "JavaScript", link: "/Web/JavaScript/" },
                     { text: "HTML", link: "/Web/HTML/" },
                     { text: "CSS", link: "/Web/CSS/" },
                     { text: "HTTP", link: "/Web/HTTP/" },
                     { text: "TypeScript", link: "/Web/TypeScript/" },
+                    { text: "App", link: "/App/App/" },
+                    { text: "桌面应用", link: "/App/Desktop/" },
                 ],
             },
             {
@@ -119,6 +121,93 @@ module.exports = {
                     ],
                 },
             ],
+
+            // SourceCode
+            "/SourceCode/Axios/": [
+                {
+                    title: "Axios", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "Axios",
+                            path: "/SourceCode/Axios/",
+                        },
+                        {
+                            title: "Axios工具函数",
+                            path: "/SourceCode/Axios/Utils",
+                        },
+                        {
+                            title: "Axios实例化配置函数",
+                            path: "/SourceCode/Axios/Default",
+                        },
+                        {
+                            title: "过度选项校验函数Validator研读解析",
+                            path: "/SourceCode/Axios/Default",
+                        },
+                        {
+                            title: "取消请求cancel模块研读解析",
+                            path: "/SourceCode/Axios/Cancel",
+                        },
+                        {
+                            title: "请求分发函数DispatchRequest研读解析",
+                            path: "/SourceCode/Axios/DispatchRequest",
+                        },
+                        {
+                            title: "适配器中的辅助函数helper研读解析",
+                            path: "/SourceCode/Axios/Helper",
+                        },
+                        {
+                            title: "适配器中的核心函数core研读解析",
+                            path: "/SourceCode/Axios/Core",
+                        },
+                        {
+                            title: "浏览器端适配器xhr研读解析",
+                            path: "/SourceCode/Axios/Xhr",
+                        },
+                        {
+                            title: "【axios 源码】- node适配器 http 研读解析【上】",
+                            path: "/SourceCode/Axios/Http1",
+                        },
+                        {
+                            title: "【axios 源码】- node适配器 http 研读解析【下】",
+                            path: "/SourceCode/Axios/Http2",
+                        },
+                    ],
+                },
+            ],
+
+            "/SourceCode/Lodash/": [
+                {
+                    title: "Axios", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "Axios",
+                            path: "/SourceCode/Lodash/",
+                        },
+                        {
+                            title: "lodash-chunk源码研读解析【上】",
+                            path: "/SourceCode/Lodash/Chunk1",
+                        },
+                        {
+                            title: "lodash-chunk 源码研读解析【下】",
+                            path: "/SourceCode/Lodash/Chunk2",
+                        },
+                        {
+                            title: "lodash-compact源码研读解析",
+                            path: "/SourceCode/Lodash/Compact",
+                        },
+                        {
+                            title: "lodash-difference源码研读解析【pre-cache】",
+                            path: "/SourceCode/Lodash/Difference(Cache)",
+                        },
+                        
+                    ],
+                },
+               
+            ],
+
+            
 
             // app
             "/App/App/": [
@@ -269,56 +358,6 @@ module.exports = {
                         {
                             title: "网络和并发",
                             path: "/Web/HTTP/advance1",
-                        },
-                    ],
-                },
-                {
-                    title: "Axios", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "Axios",
-                            path: "/Web/HTTP/Axios/",
-                        },
-                        {
-                            title: "Axios工具函数",
-                            path: "/Web/HTTP/Axios/Utils",
-                        },
-                        {
-                            title: "Axios实例化配置函数",
-                            path: "/Web/HTTP/Axios/Default",
-                        },
-                        {
-                            title: "过度选项校验函数Validator研读解析",
-                            path: "/Web/HTTP/Axios/Default",
-                        },
-                        {
-                            title: "取消请求cancel模块研读解析",
-                            path: "/Web/HTTP/Axios/Cancel",
-                        },
-                        {
-                            title: "请求分发函数DispatchRequest研读解析",
-                            path: "/Web/HTTP/Axios/DispatchRequest",
-                        },
-                        {
-                            title: "适配器中的辅助函数helper研读解析",
-                            path: "/Web/HTTP/Axios/Helper",
-                        },
-                        {
-                            title: "适配器中的核心函数core研读解析",
-                            path: "/Web/HTTP/Axios/Core",
-                        },
-                        {
-                            title: "浏览器端适配器xhr研读解析",
-                            path: "/Web/HTTP/Axios/Xhr",
-                        },
-                        {
-                            title: "【axios 源码】- node适配器 http 研读解析【上】",
-                            path: "/Web/HTTP/Axios/Http1",
-                        },
-                        {
-                            title: "【axios 源码】- node适配器 http 研读解析【下】",
-                            path: "/Web/HTTP/Axios/Http2",
                         },
                     ],
                 },

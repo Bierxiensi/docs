@@ -34,9 +34,8 @@ npm run test
 
 ![](./images/difference_relation.jpg)
 
-&emsp;&emsp;这是一张 `difference` 依赖引用路径图，相对复杂一些，按照功能划分，大致包括cache模块、index模块和flatten模块。，接下来会自底向上分析各个依赖模块。由于依赖较多，篇幅较长，将按照模块分成四个部分，本篇主要讲述 `cache` 模块，包含 `Hash`、`MapCache`、`SetCache`。
+&emsp;&emsp;这是一张 `difference` 依赖引用路径图，相对复杂一些，按照功能划分，大致包括 `Cache` 模块、`index` 模块和 `flatten` 模块。接下来会自底向上分析各个依赖模块。由于依赖较多，篇幅较长，将按照模块分成四个部分，本篇主要讲述 `Cache` 模块，包含 `Hash`、`MapCache`、`SetCache`三部分的解读。
 
-![](./images/cache.png)
 
 # 三、函数研读
 
@@ -256,8 +255,13 @@ export default MapCache
 -   由于 `__data__` 是一个包含了 `hash` , `map` , `string` 三种类型的 `object`，所以在进行`has`、`set`、`get` 操作时无法直接通过 `key` 直接查找/操作 `__data__`。这时候需要一个辅助函数来帮助我们找到 `key` 所对应的键值对集合是 `hash` , `map` , `string` 三种类型中的哪一种，然后才进行操作，所以相比`Hash` 类多了两个内部辅助函数 `getMapData`、`isKeyable`。
 -   `isKeyable` 用于判断 `key` 类型，如果key是 `string`, `number`, `boolean`, `symbol`, `null`中的一种且不是`__proto__`就会去`hash`, `string` 两种类型中查找，两者均由 `Hash` 类构造生成，否则去 `map` 中查找。（`null` 判断和 非`__proto__`判断 互斥）
 
-&emsp;&emsp;`getMapData`、`isKeyable`有些云里雾里，主要是没有联系到全局来看
 
+
+Tips：理解 `getMapData`、`isKeyable` 的关键在于为什么有三种存储的数据类型？为什么`hash|string`类型使用自定义的 `Hash` 类存储？我们知道 `Hash` 类是按照 `Object` 存储，而 `map` 使用的js自身的 `Map` 类型是按照 `map` 存储，一个`Object`的键只能是`String`或者`Symbol`，但一个 `Map` 的键可以是任意值，包括函数、对象、基本类型。
+
+Tips：关于对`value !== '__proto__'`的单独判断主要是由于 `'__proto__'`的特殊性。作为一个 `Property`，如果 `'__proto__'`被当做一个 `Object` 的 `key` 去进行读写操作，将会直接读取/修改当前原型信息。为了修复这个问题，一般会采取转义操作，将 `__proto__` 转义成 `__proto__%`，更多内容可以查看《Speaking JavaScript》这本书，相信面试遇到这个问题，也是一个考察点。
+
+![Speaking JavaScript](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/98839b079d144caa9bc3077bf551dc92~tplv-k3u1fbpfcp-zoom-1.image)
 
 ## 3. SetCache 类
 
@@ -313,4 +317,4 @@ SetCache.prototype.push = SetCache.prototype.add
 export default SetCache
 ```
 
--  
+-  操作同上述分析，需要注意的是 `this.__data__ = new MapCache` 这里，一般来说，我们都会写 `new MapCahe()`， 区别在于后续的运算优先级。由于 `new` 运算优先级要小于 `.` 运算优先级，如 `new MapCache.add()` 会报错，因为会先执行 `MapCache.add` 然后才执行 `new`。
