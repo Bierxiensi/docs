@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: zhangxiangyu
+ * @Date: 2022-02-09 18:29:37
+ * @LastEditors: zhangxiangyu
+ * @LastEditTime: 2022-02-16 14:23:40
+-->
 ---
 title: 前端工程化学习资源
 search: true
@@ -10,3 +18,5 @@ comments:
 ---
 
 [Node.js 依赖管理（一）—区分 dependencies 和 devDependencies](https://www.cnblogs.com/luowen075/p/10361211.html)
+
+[全新Chrome Devtool Performance使用指南](https://zhuanlan.zhihu.com/p/29879682)
