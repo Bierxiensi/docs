@@ -17,7 +17,7 @@ comments:
 
 -   `lodash` 版本 `v4.0.0`
 
--   通过 `github1s` 网页可以 [查看](https://github1s.com/lodash/lodash/blob/HEAD/chunk.js) `lodash - chunk` 源码
+-   通过 `github1s` 网页可以 [查看](https://github1s.com/lodash/lodash/blob/HEAD/difference.js) `lodash - difference` 源码
 -   调试测试用例可以 `clone` 到本地
 
 ```shell
@@ -32,238 +32,288 @@ npm run test
 
 # 二、结构分析
 
-![](./images/chunk.png)
+![](./images/difference_relation.jpg)
 
-&emsp;&emsp;这是一张 `chunk` 依赖引用路径图，其中使用到了 `slice`、`toInteger`、`toFinite`、`toNumber`、`isObject`、`isSymbol`、`internal/getTag`，接下来会自底向上分析各个依赖模块。由于依赖较多，篇幅较长，分成上下两部分，上篇涉及到 `toFinite`、`toNumber`、`isObject`、`isSymbol`、`internal/getTag` 五个部分。
-
-![](./images/lodash_chunk.png)
-
-&emsp;&emsp;这是一张 `lodash` 项目结构图，其中 `internal` 为内部函数库，其余对外暴露的功能模块如 `chunk` 在根目录下。
+&emsp;&emsp;这是一张 `difference` 依赖引用路径图，相对复杂一些，按照功能划分，大致包括 `cache` 模块、 `index` 模块和  `flatten` 模块。接下来会自底向上分析各个依赖模块。由于依赖较多，篇幅较长，将按照模块分成四个部分，本篇主要讲述 `difference` 主体模块，包含 `isArrayLike`、`isObjectLike`、`isArrayLikeObject`、`arrayIncludesWith`、`map`、`cacheHas`、`baseDifference`、`difference`。
 
 # 三、函数研读
 
-## 1. internal/getTag 模块
+## 1. isArrayLike 模块
 
->
+**检查 `value` 是否与数组类似。值被视为数组，它不是函数并且有一个 `value.length` ，这是一个大于等于'0'且小于 `MAX_SAFE_INTEGER`的 `Number` **
 
 ```js
-const toString = Object.prototype.toString;
-
+import isLength from './isLength.js'
 /**
- * Gets the `toStringTag` of `value`.
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
  *
+ * isArrayLike([1, 2, 3])
+ * // => true
+ *
+ * isArrayLike(document.body.children)
+ * // => true
+ *
+ * isArrayLike('abc')
+ * // => true
+ *
+ * isArrayLike(Function)
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && typeof value !== 'function' && isLength(value.length)
+}
+
+export default isArrayLike
+
+```
+
+-  重点关注 `isLength`，判断规则是 `typeof value === 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER`，其中 `value % 1 == 0` 确保 `value` 是整数，`MAX_SAFE_INTEGER = 9007199254740991`
+
+## 2. isObjectLike 模块
+
+**检查“value”是否与对象类似，如果不为空则是一个对象，并且会有一个“typeof”运算结果为“object”返回值**
+
+```js
+/**
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * isObjectLike({})
+ * // => true
+ *
+ * isObjectLike([1, 2, 3])
+ * // => true
+ *
+ * isObjectLike(Function)
+ * // => false
+ *
+ * isObjectLike(null)
+ * // => false
+ */
+function isObjectLike(value) {
+  return typeof value === 'object' && value !== null
+}
+
+export default isObjectLike
+
+```
+
+-   可以通过 `typeof` 来获取 `未经计算的操作数` 的类型，下面是一个 `typeof` 运算结果集
+
+|                      类型                       | 结果              |
+| :---------------------------------------------: | :---------------- |
+|                    Undefined                    | "undefined"       |
+|                      Null                       | "object"          |
+|                     Boolean                     | "boolean"         |
+|                     Number                      | "number"          |
+|          BigInt(ECMAScript 2020 新增)           | "bigint"          |
+|                     String                      | "string"          |
+|          Symbol (ECMAScript 2015 新增)          | "symbol"          |
+|           宿主对象（由 JS 环境提供）            | 取决于具体实现    |
+| Function 对象 (按照 ECMA-262 规范实现 [[Call]]) | "function"        |
+|                  其他任何对象                   | "object"          |
+
+
+## 3. isArrayLikeObject 模块
+
+**此方法类似于 `isArrayLike`，只是它还检查 `value` 是一个 `Object`**
+
+```js
+import isArrayLike from './isArrayLike.js'
+import isObjectLike from './isObjectLike.js'
+/**
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array-like object,
+ *  else `false`.
+ * @example
+ *
+ * isArrayLikeObject([1, 2, 3])
+ * // => true
+ *
+ * isArrayLikeObject(document.body.children)
+ * // => true
+ *
+ * isArrayLikeObject('abc')
+ * // => false
+ *
+ * isArrayLikeObject(Function)
+ * // => false
+ */
+function isArrayLikeObject(value) {
+  return isObjectLike(value) && isArrayLike(value)
+}
+
+export default isArrayLikeObject
+
+```
+
+-  封装了 `isObjectLike` 与 `isArrayLike`，当 `value` 同时符合两者所检测的目标类型时返回 `true`，否则返回 `false`
+
+## 4. arrayIncludesWith 模块
+
+**这个函数类似于 `arrayIncludes`，只是它接受一个比较器(comparator)**
+
+```js
+/**
  * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
+ * @param {Array} [array] The array to inspect.
+ * @param {*} target The value to search for.
+ * @param {Function} comparator The comparator invoked per element.
+ * @returns {boolean} Returns `true` if `target` is found, else `false`.
  */
-function getTag(value) {
-    if (value == null) {
-        return value === undefined ? "[object Undefined]" : "[object Null]";
+function arrayIncludesWith(array, target, comparator) {
+  if (array == null) {
+    return false
+  }
+
+  for (const value of array) {
+    if (comparator(target, value)) {
+      return true
     }
-    return toString.call(value);
+  }
+  return false
 }
 
-export default getTag;
+export default arrayIncludesWith
+
 ```
 
--   getTag 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 value 是否为 Undefined 或者 Null
+- 如果待搜索数组 `array` 是 `null`，直接返回 `false`
+- 使用 `for...of` 迭代待搜索数组 `array` 中的每一项，使用 `if` 判断比较器 `comparator(target, value)` 的返回值并给出对应返回结果 🐶
 
-## 2. isSymbol 模块
+## 5. map 模块
 
-```js
-import getTag from "./.internal/getTag.js";
-
-/**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * isSymbol(Symbol.iterator)
- * // => true
- *
- * isSymbol('abc')
- * // => false
- */
-function isSymbol(value) {
-    const type = typeof value;
-    return (
-        type == "symbol" ||
-        (type === "object" &&
-            value != null &&
-            getTag(value) == "[object Symbol]")
-    );
-}
-
-export default isSymbol;
-```
-
--   可以通过 `typeof` 来获取 `未经计算的操作数` 的类型
-
-## 3. isObject 模块
+**通过 `iteratee` 运行 `array` 的每个元素来创建一个数组 `result`。`iteratee` 由三个参数调用：(value, index, array)。**
 
 ```js
 /**
- * Checks if `value` is the
- * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
- * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @since 5.0.0
+ * @category Array
+ * @param {Array} array The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
  * @example
  *
- * isObject({})
- * // => true
+ * function square(n) {
+ *   return n * n
+ * }
  *
- * isObject([1, 2, 3])
- * // => true
- *
- * isObject(Function)
- * // => true
- *
- * isObject(null)
- * // => false
+ * map([4, 8], square)
+ * // => [16, 64]
  */
-function isObject(value) {
-    const type = typeof value;
-    return value != null && (type === "object" || type === "function");
+function map(array, iteratee) {
+  let index = -1
+  const length = array == null ? 0 : array.length
+  const result = new Array(length)
+
+  while (++index < length) {
+    result[index] = iteratee(array[index], index, array)
+  }
+  return result
 }
 
-export default isObject;
+export default map
+
 ```
 
--   检查 value 是否是普通对象，即排除掉 null 类型的所有对象类型，包含 array、date、function 等对象类型
+-  使用 `new Array` 创建一个对应其长度的数组 `result`，其中 `array` 为 `null` 时，长度为 `0`，将会创建一个空数组
+-  按照 `array` 长度循环调用 `iteratee`，每次循环步长 + 1
 
-## 4. toNumber 模块
 
->
+## 6. cacheHas 模块
+
+**检查 `key` 的 `cache` 值是否存在**
 
 ```js
-import isObject from "./isObject.js";
-import isSymbol from "./isSymbol.js";
-
-/** 用作各种“数字”常量的引用 */
-const NAN = 0 / 0;
-
-/** 用于匹配前导和尾随空格 */
-const reTrim = /^\s+|\s+$/g;
-
-/** 用于检测错误的有符号十六进制字符串值 */
-const reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-
-/** 用于检测二进制字符串值 */
-const reIsBinary = /^0b[01]+$/i;
-
-/** 用于检测八进制字符串值 */
-const reIsOctal = /^0o[0-7]+$/i;
-
-/** 不依赖 `root` 的内置方法引用 */
-const freeParseInt = parseInt;
-
 /**
- * 将 `value` 转换成 number
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to process.
- * @returns {number} Returns the number.
- * @see isInteger, toInteger, isNumber
- * @example
- *
- * toNumber(3.2)
- * // => 3.2
- *
- * toNumber(Number.MIN_VALUE)
- * // => 5e-324
- *
- * toNumber(Infinity)
- * // => Infinity
- *
- * toNumber('3.2')
- * // => 3.2
+ * @private
+ * @param {Object} cache The cache to query.
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
  */
-function toNumber(value) {
-    if (typeof value === "number") {
-        return value;
-    }
-    if (isSymbol(value)) {
-        return NAN;
-    }
-    if (isObject(value)) {
-        const other =
-            typeof value.valueOf === "function" ? value.valueOf() : value;
-        value = isObject(other) ? `${other}` : other;
-    }
-    if (typeof value !== "string") {
-        return value === 0 ? value : +value;
-    }
-    value = value.replace(reTrim, "");
-    const isBinary = reIsBinary.test(value);
-    return isBinary || reIsOctal.test(value)
-        ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
-        : reIsBadHex.test(value)
-        ? NAN
-        : +value;
+function cacheHas(cache, key) {
+  return cache.has(key)
 }
 
-export default toNumber;
+export default cacheHas
 ```
 
--   `NAN` 是一个不可写、不可配置、不可枚举的数据类型，表示未定义或不可表示的值。常在浮点数运算中使用。首次引入 NaN 的是 1985 年的 IEEE 754 浮点数标准。比如 0/0、0×∞、∞ + (−∞)、∞ - ∞、NANx1、ix1 等计算结果均会返回`NAN`
+- `cache` 和 `key` 均为入参
 
--   如果是 Number 类型则直接返回，如果是 symbol 类型返回 `NAN`
--   valueOf() 方法返回指定对象的原始值，配合 `typeof value.valueOf === "function"`，如果是 `function`类型则会返回函数本身，如果是其他非 `null`类型的 object 类型，则会返回对象本身
--   如果是非 string 类型且不为 0 则使用 + 操作符转换成 Number 类型
--   去掉首尾空格
--   在返回前对二进制、八进制、十六进制数据格式做最后检查，如果正确就使用 + 操作符转换成 Number 类型返回否则返回 NUll 🐶
+## 7. baseDifference 模块
 
-## 5. toFinite 模块
+**像 `difference` 这样的方法的基本实现，不支持排除多个数组**
 
 ```js
-import toNumber from "./toNumber.js";
+import SetCache from './SetCache.js'
+import arrayIncludes from './arrayIncludes.js'
+import arrayIncludesWith from './arrayIncludesWith.js'
+import map from '../map.js'
+import cacheHas from './cacheHas.js'
 
-/** 用作各种“数字”常量的引用 */
-const INFINITY = 1 / 0;
-const MAX_INTEGER = 1.7976931348623157e308;
+/** Used as the size to enable large array optimizations. */
+const LARGE_ARRAY_SIZE = 200
 
 /**
- *  将 `value` 转换成有限 number
- * @since 4.12.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {number} Returns the converted number.
- * @example
- *
- * toFinite(3.2)
- * // => 3.2
- *
- * toFinite(Number.MIN_VALUE)
- * // => 5e-324
- *
- * toFinite(Infinity)
- * // => 1.7976931348623157e+308
- *
- * toFinite('3.2')
- * // => 3.2
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {Array} values The values to exclude.
+ * @param {Function} [iteratee] 每个元素调用的迭代对象
+ * @param {Function} [comparator] 每个元素调用的比较器
+ * @returns {Array} Returns the new array of filtered values.
  */
-function toFinite(value) {
-    if (!value) {
-        return value === 0 ? value : 0;
+function baseDifference(array, values, iteratee, comparator) {
+  let includes = arrayIncludes
+  let isCommon = true
+  const result = []
+  const valuesLength = values.length
+
+  if (!array.length) {
+    return result
+  }
+  if (iteratee) {
+    values = map(values, (value) => iteratee(value))
+  }
+  if (comparator) {
+    includes = arrayIncludesWith
+    isCommon = false
+  } else if (values.length >= LARGE_ARRAY_SIZE) {
+    includes = cacheHas
+    isCommon = false
+    values = new SetCache(values)
+  }
+  outer:
+  for (let value of array) {
+    const computed = iteratee == null ? value : iteratee(value)
+
+    value = (comparator || value !== 0) ? value : 0
+    if (isCommon && computed === computed) {
+      let valuesIndex = valuesLength
+      while (valuesIndex--) {
+        if (values[valuesIndex] === computed) {
+          continue outer
+        }
+      }
+      result.push(value)
+    } else if (!includes(values, computed, comparator)) {
+      result.push(value)
     }
-    value = toNumber(value);
-    if (value === INFINITY || value === -INFINITY) {
-        const sign = value < 0 ? -1 : 1;
-        return sign * MAX_INTEGER;
-    }
-    return value === value ? value : 0;
+  }
+  return result
 }
 
-export default toFinite;
+export default baseDifference
 ```
 
--   首先拿到 toNumber 返回的 value 值，判断是否为正负无穷，然后根据其正负状态转换成 js 可以表示的双精度浮点数。其中使用常量`INFINITY = 1 / 0` 表示无穷。
-
+- 要检查的 `array` 为空（`array.length = 0`），直接返回空数组
+- 迭代器 `iteratee` 存在，则在 `map` 内完成对待排除内容数组 `values` 每一项元素的迭代，返回一个符合迭代器规则的待排除数组 `values`
+- 比较器 `comparator` 存在，则设定排除方法 `includes = arrayIncludesWith`，若待排除内容过大 `values.length >= LARGE_ARRAY_SIZE = 200` 则不宜使用数组间比较，而是使用 `cache` 中的 `map` 做存储比较（`values = new SetCache(values)`），这样虽然牺牲了空间，但可以用 `map` 操作时间短的优势弥补，典型的牺牲空间换时间策略

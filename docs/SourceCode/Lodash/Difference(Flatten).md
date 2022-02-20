@@ -17,7 +17,7 @@ comments:
 
 -   `lodash` 版本 `v4.0.0`
 
--   通过 `github1s` 网页可以 [查看](https://github1s.com/lodash/lodash/blob/HEAD/chunk.js) `lodash - chunk` 源码
+-   通过 `github1s` 网页可以 [查看](https://github1s.com/lodash/lodash/blob/HEAD/difference.js) `lodash - difference` 源码
 -   调试测试用例可以 `clone` 到本地
 
 ```shell
@@ -32,19 +32,13 @@ npm run test
 
 # 二、结构分析
 
-![](./images/chunk.png)
+![](./images/difference_relation.jpg)
 
-&emsp;&emsp;这是一张 `chunk` 依赖引用路径图，其中使用到了 `slice`、`toInteger`、`toFinite`、`toNumber`、`isObject`、`isSymbol`、`internal/getTag`，接下来会自底向上分析各个依赖模块。由于依赖较多，篇幅较长，分成上下两部分，上篇涉及到 `toFinite`、`toNumber`、`isObject`、`isSymbol`、`internal/getTag` 五个部分。
-
-![](./images/lodash_chunk.png)
-
-&emsp;&emsp;这是一张 `lodash` 项目结构图，其中 `internal` 为内部函数库，其余对外暴露的功能模块如 `chunk` 在根目录下。
+&emsp;&emsp;这是一张 `difference` 依赖引用路径图，相对复杂一些，按照功能划分，大致包括cache模块、index模块和flatten模块。接下来会自底向上分析各个依赖模块。由于依赖较多，篇幅较长，将按照模块分成四个部分，本篇主要讲述 `flatten` 模块，包含 `getTag`、`isObjectLike`、`isArguments`、`isFlattenable`、`baseFlatten`。
 
 # 三、函数研读
 
 ## 1. internal/getTag 模块
-
->
 
 ```js
 const toString = Object.prototype.toString;
@@ -66,204 +60,161 @@ function getTag(value) {
 export default getTag;
 ```
 
--   getTag 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 value 是否为 Undefined 或者 Null
+-   getTag 封装了 Object 原型链函数 toString()，借助 toString() 判断属性类型的性质判断 value 是否为 Undefined 或者 Null
 
-## 2. isSymbol 模块
+## 2. isObjectLike 模块
+
+**检查“value”是否与对象类似，如果不为空则是一个对象，并且会有一个“typeof”运算结果为“object”返回值**
 
 ```js
-import getTag from "./.internal/getTag.js";
-
 /**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
  * @since 4.0.0
  * @category Lang
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
  * @example
  *
- * isSymbol(Symbol.iterator)
+ * isObjectLike({})
  * // => true
  *
- * isSymbol('abc')
+ * isObjectLike([1, 2, 3])
+ * // => true
+ *
+ * isObjectLike(Function)
+ * // => false
+ *
+ * isObjectLike(null)
  * // => false
  */
-function isSymbol(value) {
-    const type = typeof value;
-    return (
-        type == "symbol" ||
-        (type === "object" &&
-            value != null &&
-            getTag(value) == "[object Symbol]")
-    );
+function isObjectLike(value) {
+  return typeof value === 'object' && value !== null
 }
 
-export default isSymbol;
+export default isObjectLike
+
 ```
 
--   可以通过 `typeof` 来获取 `未经计算的操作数` 的类型
+-   可以通过 `typeof` 来获取 `未经计算的操作数` 的类型，下面是一个 `typeof` 运算结果集
 
-## 3. isObject 模块
+|                      类型                       | 结果              |
+| :---------------------------------------------: | :---------------- |
+|                    Undefined                    | "undefined"       |
+|                      Null                       | "object"          |
+|                     Boolean                     | "boolean"         |
+|                     Number                      | "number"          |
+|          BigInt(ECMAScript 2020 新增)           | "bigint"          |
+|                     String                      | "string"          |
+|          Symbol (ECMAScript 2015 新增)          | "symbol"          |
+|           宿主对象（由 JS 环境提供）            | 取决于具体实现    |
+| Function 对象 (按照 ECMA-262 规范实现 [[Call]]) | "function"        |
+|                  其他任何对象                   | "object"          |
+
+
+## 3. isArguments 模块
+
+**检查'value'是否与'arguments'对象类似**
 
 ```js
+import getTag from './.internal/getTag.js'
+import isObjectLike from './isObjectLike.js'
+
 /**
- * Checks if `value` is the
- * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
- * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
  * @since 0.1.0
  * @category Lang
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object, else `false`.
  * @example
  *
- * isObject({})
+ * isArguments(function() { return arguments }())
  * // => true
  *
- * isObject([1, 2, 3])
- * // => true
- *
- * isObject(Function)
- * // => true
- *
- * isObject(null)
+ * isArguments([1, 2, 3])
  * // => false
  */
-function isObject(value) {
-    const type = typeof value;
-    return value != null && (type === "object" || type === "function");
+function isArguments(value) {
+  return isObjectLike(value) && getTag(value) == '[object Arguments]'
 }
 
-export default isObject;
+export default isArguments
 ```
+-  `arguments` 对象是所有（非箭头）函数中都可用的局部变量。你可以使用 `arguments` 对象在函数中引用函数的参数。此对象包含传递给函数的每个参数，第一个参数在索引 `0` 处。
+-  需要注意的是，`arguments` 对象不是一个 `Array`，它类似于 `Array`，但除了 `length` 属性和索引元素之外没有任何 `Array` 属性。例如，它没有 `pop` 方法。
+-  `arguments` 对象只能在函数内使用，对其使用 `Object.prototype.toString.call(arguments)` 运算的返回值是 `[object Arguments]`
 
--   检查 value 是否是普通对象，即排除掉 null 类型的所有对象类型，包含 array、date、function 等对象类型
+![](./images/difference_flatten.png)
 
-## 4. toNumber 模块
+## 4. isFlattenable 模块
 
->
+**检查'value'是否为可展平的'arguments'对象或数组**
 
 ```js
-import isObject from "./isObject.js";
-import isSymbol from "./isSymbol.js";
+import isArguments from '../isArguments.js'
 
-/** 用作各种“数字”常量的引用 */
-const NAN = 0 / 0;
-
-/** 用于匹配前导和尾随空格 */
-const reTrim = /^\s+|\s+$/g;
-
-/** 用于检测错误的有符号十六进制字符串值 */
-const reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-
-/** 用于检测二进制字符串值 */
-const reIsBinary = /^0b[01]+$/i;
-
-/** 用于检测八进制字符串值 */
-const reIsOctal = /^0o[0-7]+$/i;
-
-/** 不依赖 `root` 的内置方法引用 */
-const freeParseInt = parseInt;
+/** Built-in value reference. */
+const spreadableSymbol = Symbol.isConcatSpreadable
 
 /**
- * 将 `value` 转换成 number
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to process.
- * @returns {number} Returns the number.
- * @see isInteger, toInteger, isNumber
- * @example
- *
- * toNumber(3.2)
- * // => 3.2
- *
- * toNumber(Number.MIN_VALUE)
- * // => 5e-324
- *
- * toNumber(Infinity)
- * // => Infinity
- *
- * toNumber('3.2')
- * // => 3.2
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is flattenable, else `false`.
  */
-function toNumber(value) {
-    if (typeof value === "number") {
-        return value;
-    }
-    if (isSymbol(value)) {
-        return NAN;
-    }
-    if (isObject(value)) {
-        const other =
-            typeof value.valueOf === "function" ? value.valueOf() : value;
-        value = isObject(other) ? `${other}` : other;
-    }
-    if (typeof value !== "string") {
-        return value === 0 ? value : +value;
-    }
-    value = value.replace(reTrim, "");
-    const isBinary = reIsBinary.test(value);
-    return isBinary || reIsOctal.test(value)
-        ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
-        : reIsBadHex.test(value)
-        ? NAN
-        : +value;
+function isFlattenable(value) {
+  return Array.isArray(value) || isArguments(value) ||
+    !!(value && value[spreadableSymbol])
 }
 
-export default toNumber;
+export default isFlattenable
 ```
 
--   `NAN` 是一个不可写、不可配置、不可枚举的数据类型，表示未定义或不可表示的值。常在浮点数运算中使用。首次引入 NaN 的是 1985 年的 IEEE 754 浮点数标准。比如 0/0、0×∞、∞ + (−∞)、∞ - ∞、NANx1、ix1 等计算结果均会返回`NAN`
+-  重点关注 `value[spreadableSymbol]`，在这之前我们需要知道 `Array` 的 `concat` 运算，正常情况下 `['a', 'b', 'c'].concat([1, 2, 3]) = ["a", "b", "c", 1, 2, 3]`，但可通过设定被连接 `array`，`array[Symbol.isConcatSpreadable] = false;`，使得 `array` 不被展开到发起连接的 `array` 而是作为一个元素连接到其中，如 `['a', 'b', 'c'].concat([1, 2, 3]) = ["a", "b", "c", [ 1, 2, 3] ]`
+-  前文介绍过 `!!` 运算符表示逻辑非的取反运算，如`!!obj`与 `obj != null && typeof obj === undefined && obj != "" && obj != false` 在计算上等价
+  
 
--   如果是 Number 类型则直接返回，如果是 symbol 类型返回 `NAN`
--   valueOf() 方法返回指定对象的原始值，配合 `typeof value.valueOf === "function"`，如果是 `function`类型则会返回函数本身，如果是其他非 `null`类型的 object 类型，则会返回对象本身
--   如果是非 string 类型且不为 0 则使用 + 操作符转换成 Number 类型
--   去掉首尾空格
--   在返回前对二进制、八进制、十六进制数据格式做最后检查，如果正确就使用 + 操作符转换成 Number 类型返回否则返回 NUll 🐶
+## 5. baseFlatten 模块
 
-## 5. toFinite 模块
+**扁平化”的基本实现，支持限制扁平化**
 
 ```js
-import toNumber from "./toNumber.js";
-
-/** 用作各种“数字”常量的引用 */
-const INFINITY = 1 / 0;
-const MAX_INTEGER = 1.7976931348623157e308;
+import isFlattenable from './isFlattenable.js'
 
 /**
- *  将 `value` 转换成有限 number
- * @since 4.12.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {number} Returns the converted number.
- * @example
- *
- * toFinite(3.2)
- * // => 3.2
- *
- * toFinite(Number.MIN_VALUE)
- * // => 5e-324
- *
- * toFinite(Infinity)
- * // => 1.7976931348623157e+308
- *
- * toFinite('3.2')
- * // => 3.2
+ * @private
+ * @param {Array} array The array to flatten.
+ * @param {number} depth 最大递归深度
+ * @param {boolean} [predicate=isFlattenable] 每次迭代调用的函数
+ * @param {boolean} [isStrict] 限制为通过“谓词”检查的值
+ * @param {Array} [result=[]] 初始结果值
+ * @returns {Array} 返回新的展平数组
  */
-function toFinite(value) {
-    if (!value) {
-        return value === 0 ? value : 0;
+function baseFlatten(array, depth, predicate, isStrict, result) {
+  predicate || (predicate = isFlattenable)
+  result || (result = [])
+
+  if (array == null) {
+    return result
+  }
+
+  for (const value of array) {
+    if (depth > 0 && predicate(value)) {
+      if (depth > 1) {
+        // 递归展平阵列（易受调用堆栈限制的影响）
+        baseFlatten(value, depth - 1, predicate, isStrict, result)
+      } else {
+        result.push(...value)
+      }
+    } else if (!isStrict) {
+      result[result.length] = value
     }
-    value = toNumber(value);
-    if (value === INFINITY || value === -INFINITY) {
-        const sign = value < 0 ? -1 : 1;
-        return sign * MAX_INTEGER;
-    }
-    return value === value ? value : 0;
+  }
+  return result
 }
 
-export default toFinite;
+export default baseFlatten
+
 ```
 
--   首先拿到 toNumber 返回的 value 值，判断是否为正负无穷，然后根据其正负状态转换成 js 可以表示的双精度浮点数。其中使用常量`INFINITY = 1 / 0` 表示无穷。
+- 如果待展平数组 `array` 是 `null`，直接返回 `result` (result=[]) 
+- 使用 `for...of` 迭代待展平 `array` 中的每一项，如果最大递归深度  `depth` 仍然未减至 `1` 则递归调用 `baseFlatten`，每次`depth - 1`，直至 `depth = 1` 将返回值放入 `result`。
+- `depth = 1` 时由于所有项都已展平 `predicate(value)` 返回 `false`，进入 `else if (!isStrict)` 语句块，目的是限制“谓词”展平到`result`，这里我们就需要了解谓词的概念了
+- 谓词是一个可调用的表达式，其返回结果是一个能用作条件的值。通俗的说就是一个函数，会返回一个符合该条件(“truthy值”)的数组🐶
 

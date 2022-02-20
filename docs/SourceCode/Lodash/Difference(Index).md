@@ -34,233 +34,142 @@ npm run test
 
 ![](./images/difference_relation.jpg)
 
-&emsp;&emsp;这是一张 `difference` 依赖引用路径图，相对复杂一些，按照功能划分，大致包括cache模块、index模块和flatten模块。，接下来会自底向上分析各个依赖模块。由于依赖较多，篇幅较长，将按照模块分成四个部分，本篇主要讲述 `cache` 模块，包含 `Hash`、`MapCache`、`SetCache`。
+&emsp;&emsp;这是一张 `difference` 依赖引用路径图，相对复杂一些，按照功能划分，大致包括cache模块、index模块和flatten模块。接下来会自底向上分析各个依赖模块。由于依赖较多，篇幅较长，将按照模块分成四个部分，本篇主要讲述 `Index` 模块，包含 `arrayIncludes`、`baseIndexOf`、`baseFindIndex`、`baseIsNaN`、`strictIndexOf`。
 
-![](./images/cache.png)
 
 # 三、函数研读
 
-## 1. internal/getTag 模块
+## 1. strictIndexOf 模块
 
->
+**indexOf的一个特殊版本，它执行严格的相等用于比较value，比如`===`**
 
 ```js
-const toString = Object.prototype.toString;
-
 /**
- * Gets the `toStringTag` of `value`.
- *
  * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
+ * @param {Array} array The array to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} fromIndex The index to search from.
+ * @returns {number} Returns the index of the matched value, else `-1`.
  */
-function getTag(value) {
-    if (value == null) {
-        return value === undefined ? "[object Undefined]" : "[object Null]";
+function strictIndexOf(array, value, fromIndex) {
+  let index = fromIndex - 1
+  const { length } = array
+
+  while (++index < length) {
+    if (array[index] === value) {
+      return index
     }
-    return toString.call(value);
+  }
+  return -1
 }
 
-export default getTag;
+export default strictIndexOf
 ```
 
--   getTag 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 value 是否为 Undefined 或者 Null
+- 重点关注[MDN - Strict equality (===)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Strict_equality)，全等运算符与相等运算符 `==` 最显著的区别是，如果操作数的类型不同，`==` 运算符会在比较之前尝试将它们转换为相同的类型。
 
-## 2. isSymbol 模块
+## 2. baseIsNaN 模块
+
+**'isNaN'的基本实现，不支持数字对象**
 
 ```js
-import getTag from "./.internal/getTag.js";
-
 /**
- * Checks if `value` is classified as a `Symbol` primitive or object.
- *
- * @since 4.0.0
- * @category Lang
+ * @private
  * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
- * @example
- *
- * isSymbol(Symbol.iterator)
- * // => true
- *
- * isSymbol('abc')
- * // => false
+ * @returns {boolean} Returns `true` if `value` is `NaN`, else `false`.
  */
-function isSymbol(value) {
-    const type = typeof value;
-    return (
-        type == "symbol" ||
-        (type === "object" &&
-            value != null &&
-            getTag(value) == "[object Symbol]")
-    );
+function baseIsNaN(value) {
+  return value !== value
 }
 
-export default isSymbol;
+export default baseIsNaN
 ```
 
--   可以通过 `typeof` 来获取 `未经计算的操作数` 的类型
+-   重点关注全局属性 [NaN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/NaN), `NaN` 的值表示不是一个数字（Not-A-Number）,在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性
+-   在执行自比较之中：NaN，也只有NaN，比较之中不等于它自己，`NaN === NaN;  // false`
 
-## 3. isObject 模块
+
+## 3. baseFindIndex 模块
+
+**'findIndex'和'findLastIndex'的基本实现**
 
 ```js
 /**
- * Checks if `value` is the
- * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
- * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
- * @example
- *
- * isObject({})
- * // => true
- *
- * isObject([1, 2, 3])
- * // => true
- *
- * isObject(Function)
- * // => true
- *
- * isObject(null)
- * // => false
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {Function} predicate 每次迭代调用的函数
+ * @param {number} fromIndex The index to search from.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {number} Returns the index of the matched value, else `-1`.
  */
-function isObject(value) {
-    const type = typeof value;
-    return value != null && (type === "object" || type === "function");
+function baseFindIndex(array, predicate, fromIndex, fromRight) {
+  const { length } = array
+  let index = fromIndex + (fromRight ? 1 : -1)
+
+  while ((fromRight ? index-- : ++index < length)) {
+    if (predicate(array[index], index, array)) {
+      return index
+    }
+  }
+  return -1
 }
 
-export default isObject;
+export default baseFindIndex
 ```
 
--   检查 value 是否是普通对象，即排除掉 null 类型的所有对象类型，包含 array、date、function 等对象类型
+-  重点关注 `index = fromIndex + (fromRight ? 1 : -1)` ，由于支持从右向左的迭代，起始`index`应该`+1`以防止`index--`越过`0`从而进入死循环，同理从左侧查起要确保查到`array[0]`从而起始 `index` 需要加一
 
-## 4. toNumber 模块
+## 4. baseIndexOf 模块
 
->
+**没有`fromIndex`边界检查的`indexOf`的基本实现**
 
 ```js
-import isObject from "./isObject.js";
-import isSymbol from "./isSymbol.js";
-
-/** 用作各种“数字”常量的引用 */
-const NAN = 0 / 0;
-
-/** 用于匹配前导和尾随空格 */
-const reTrim = /^\s+|\s+$/g;
-
-/** 用于检测错误的有符号十六进制字符串值 */
-const reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
-
-/** 用于检测二进制字符串值 */
-const reIsBinary = /^0b[01]+$/i;
-
-/** 用于检测八进制字符串值 */
-const reIsOctal = /^0o[0-7]+$/i;
-
-/** 不依赖 `root` 的内置方法引用 */
-const freeParseInt = parseInt;
+import baseFindIndex from './baseFindIndex.js'
+import baseIsNaN from './baseIsNaN.js'
+import strictIndexOf from './strictIndexOf.js'
 
 /**
- * 将 `value` 转换成 number
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to process.
- * @returns {number} Returns the number.
- * @see isInteger, toInteger, isNumber
- * @example
- *
- * toNumber(3.2)
- * // => 3.2
- *
- * toNumber(Number.MIN_VALUE)
- * // => 5e-324
- *
- * toNumber(Infinity)
- * // => Infinity
- *
- * toNumber('3.2')
- * // => 3.2
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} fromIndex The index to search from.
+ * @returns {number} Returns the index of the matched value, else `-1`.
  */
-function toNumber(value) {
-    if (typeof value === "number") {
-        return value;
-    }
-    if (isSymbol(value)) {
-        return NAN;
-    }
-    if (isObject(value)) {
-        const other =
-            typeof value.valueOf === "function" ? value.valueOf() : value;
-        value = isObject(other) ? `${other}` : other;
-    }
-    if (typeof value !== "string") {
-        return value === 0 ? value : +value;
-    }
-    value = value.replace(reTrim, "");
-    const isBinary = reIsBinary.test(value);
-    return isBinary || reIsOctal.test(value)
-        ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
-        : reIsBadHex.test(value)
-        ? NAN
-        : +value;
+function baseIndexOf(array, value, fromIndex) {
+  return value === value
+    ? strictIndexOf(array, value, fromIndex)
+    : baseFindIndex(array, baseIsNaN, fromIndex)
 }
 
-export default toNumber;
+export default baseIndexOf
 ```
 
--   `NAN` 是一个不可写、不可配置、不可枚举的数据类型，表示未定义或不可表示的值。常在浮点数运算中使用。首次引入 NaN 的是 1985 年的 IEEE 754 浮点数标准。比如 0/0、0×∞、∞ + (−∞)、∞ - ∞、NANx1、ix1 等计算结果均会返回`NAN`
+-  `value` 如果不是 `NaN`，进入 `strictIndexOf`，从 `array[fromIndex]` 开始按序严格比较是否与 `value` 相等，若相等返回对应 `index`，否则返回 `-1`
+-  `value` 如果是 `NaN`，进入 `strictIndexOf`，将 `baseIsNaN` 作为 `baseFindIndex` 的入参迭代函数 `predicate` 并开始从 `array[fromIndex]` 开始判断是否为 `NaN`，若找到 `NaN` 就返回对应 `index`，否则返回 `-1`
+   
+Tips：可以看到 `baseFindIndex` 模块中的有些形参是没有用到的，比如查找时是按照从左往右的顺序查找，并没有传入 `fromRight`，但提前占了坑，体现了很好的扩展性🐶
 
--   如果是 Number 类型则直接返回，如果是 symbol 类型返回 `NAN`
--   valueOf() 方法返回指定对象的原始值，配合 `typeof value.valueOf === "function"`，如果是 `function`类型则会返回函数本身，如果是其他非 `null`类型的 object 类型，则会返回对象本身
--   如果是非 string 类型且不为 0 则使用 + 操作符转换成 Number 类型
--   去掉首尾空格
--   在返回前对二进制、八进制、十六进制数据格式做最后检查，如果正确就使用 + 操作符转换成 Number 类型返回否则返回 NUll 🐶
+## 5. arrayIncludes 模块
 
-## 5. toFinite 模块
+**不支持从数组指定位置搜索的includes**
 
 ```js
-import toNumber from "./toNumber.js";
-
-/** 用作各种“数字”常量的引用 */
-const INFINITY = 1 / 0;
-const MAX_INTEGER = 1.7976931348623157e308;
+import baseIndexOf from './baseIndexOf.js'
 
 /**
- *  将 `value` 转换成有限 number
- * @since 4.12.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {number} Returns the converted number.
- * @example
- *
- * toFinite(3.2)
- * // => 3.2
- *
- * toFinite(Number.MIN_VALUE)
- * // => 5e-324
- *
- * toFinite(Infinity)
- * // => 1.7976931348623157e+308
- *
- * toFinite('3.2')
- * // => 3.2
+ * @private
+ * @param {Array} [array] The array to inspect.
+ * @param {*} target The value to search for.
+ * @returns {boolean} Returns `true` if `target` is found, else `false`.
  */
-function toFinite(value) {
-    if (!value) {
-        return value === 0 ? value : 0;
-    }
-    value = toNumber(value);
-    if (value === INFINITY || value === -INFINITY) {
-        const sign = value < 0 ? -1 : 1;
-        return sign * MAX_INTEGER;
-    }
-    return value === value ? value : 0;
+function arrayIncludes(array, value) {
+  const length = array == null ? 0 : array.length
+  return !!length && baseIndexOf(array, value, 0) > -1
 }
 
-export default toFinite;
+export default arrayIncludes
 ```
 
--   首先拿到 toNumber 返回的 value 值，判断是否为正负无穷，然后根据其正负状态转换成 js 可以表示的双精度浮点数。其中使用常量`INFINITY = 1 / 0` 表示无穷。
+- 如果 length 不存在（包含null、0）或者没有找到 index 都会返回false
+
+Tips：`!!` 运算符表示逻辑非的取反运算，如`!!obj`与 `obj != null && typeof obj === undefined && obj != "" && obj != false` 在计算上等价
