@@ -1,9 +1,9 @@
 ---
-title: differenceBy
+title: differenceWith
 search: true
 
-date: 2022-02-22 20:05:23
-tags: [lodash, differenceBy]
+date: 2022-02-23 20:05:23
+tags: [lodash, differenceWith]
 photos:
 description:
 comments:
@@ -33,15 +33,50 @@ npm run test
 
 # 二、结构分析
 
-![](./images/differenceBy.png)
+![](./images/differenceWith.png)
 
-&emsp;&emsp;这是一张 `differenceBy` 依赖引用路径图，还记得我们之前分析的 `difference`，`differenceBy` 相比 `difference`  只多了一个 `last` 依赖，下面将会全篇分析一下设计思路，详情部分可以关注前面的 [Difference](https://juejin.cn/post/7066424341025521671)、[Difference(Cache)](https://juejin.cn/post/7065293553043734536)、[Difference(Flatten)](https://juejin.cn/post/7066053963854020645)、[Difference(Index)](https://juejin.cn/post/7065675978437034021)。
+&emsp;&emsp;这是一张 `differenceWith` 依赖引用路径图，还记得我们之前分析的 `difference`，`differenceBy` 相比 `difference`  只多了一个 `last` 依赖，下面将会全篇分析一下设计思路，详情部分可以关注前面的 [Difference](https://juejin.cn/post/7066424341025521671)、[Difference(Cache)](https://juejin.cn/post/7065293553043734536)、[Difference(Flatten)](https://juejin.cn/post/7066053963854020645)、[Difference(Index)](https://juejin.cn/post/7065675978437034021)。
 
 # 三、模块分析
 
 ## differenceBy
 
-**这个方法类似_.difference ，除了它接受一个 iteratee （迭代器）**
+**这个方法类似_.difference ，除了它接受一个 comparator （比较器），调用它来比较'array'和'values'的元素。命令和结果值的引用由第一个数组确定。比较器通过两个参数调用：（arrVal，othVal）。**
+
+```js
+import baseDifference from './.internal/baseDifference.js'
+import baseFlatten from './.internal/baseFlatten.js'
+import isArrayLikeObject from './isArrayLikeObject.js'
+import last from './last.js'
+
+/**
+ * **Note:** Unlike `pullAllWith`, this method returns a new array.
+ *
+ * @since 4.0.0
+ * @category Array
+ * @param {Array} array 要检查的数组
+ * @param {...Array} [values] 排除的值
+ * @param {Function} [comparator] comparator 调用每个元素
+ * @returns {Array} 返回一个过滤值后的新数组
+ * @example
+ *
+ * const objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }]
+ *
+ * differenceWith(objects, [{ 'x': 1, 'y': 2 }], isEqual)
+ * // => [{ 'x': 2, 'y': 1 }]
+ */
+function differenceWith(array, ...values) {
+  let comparator = last(values)
+  if (isArrayLikeObject(comparator)) {
+    comparator = undefined
+  }
+  return isArrayLikeObject(array)
+    ? baseDifference(array, baseFlatten(values, 1, isArrayLikeObject, true), undefined, comparator)
+    : []
+}
+
+export default differenceWith
+```
 
 ### 1. internal/baseDifference
 
