@@ -60,7 +60,11 @@ function getTag(value) {
 export default getTag;
 ```
 
--   getTag 封装了 Object 原型链函数 toString()，借助 toString() 判断属性类型的性质判断 value 是否为 Undefined 或者 Null
+- 使用非严格等 `==` 无法判断 `value` 是 `null` or `undefined`
+- 使用严格等 `===` 判断 `value` 是 `null` or `undefined` 并设定 [toStringTag](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag)(准确的说应该是`Symbol.toStringTag`)
+- 如果 `null` or `undefined` 直接使用 `Object` 原型链函数 `toString()` 获取 `toStringTag`
+
+Tips：许多内置的 `JavaScript` 对象类型即便没有 `toStringTag` 属性，也能被 `toString()` 方法识别并返回特定的类型标签，比如：`Object.prototype.toString.call([1, 2]);   // "[object Array]"`，但是有些对象类型则不然，`toString()` 方法能识别它们是因为`引擎`为它们设置好了 `toStringTag` 标签，比如：`Object.prototype.toString.call(new Map());   // "[object Map]"`
 
 ## 2. isObjectLike 模块
 
