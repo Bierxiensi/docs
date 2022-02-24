@@ -349,7 +349,7 @@ export default isFlattenable
 
        isArguments: `arguments` 对象是所有（非箭头）函数中都可用的局部变量，可以按照操作数组的方式获取参数，封装了 `getTag` 和 `isObjectLike`。
          
-       getTag: 封装了 `Object` 原型链函数 `toString()`，借助 `toString()` 判断属性类型的性质判断 `value` 是否为 `Undefined` 或者 `Null`
+       getTag: 使用非严格等 `==` 无法判断 `value` 是 `null` or `undefined`，使用严格等 `===` 判断 `value` 是 `null` or `undefined` 并设定 [toStringTag](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag)(准确的说应该是`Symbol.toStringTag`)，如果 `null` or `undefined` 直接使用 `Object` 原型链函数 `toString()` 获取 `toStringTag`
        isObjectLike: 借助 `typeof` 可以获取 `未经计算的操作数` 的类型的性质判断 `value` 是否为非 `Null` 的 `object` 类型（js设计缺陷使得 `typeof null = Object`）
 
 ### 3. isArrayLikeObject
