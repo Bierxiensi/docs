@@ -1,9 +1,9 @@
 ---
-title: drop
+title: FindLastIndex
 search: true
 
-date: 2022-02-24 20:05:23
-tags: [lodash, dropRight]
+date: 2022-02-27 20:05:23
+tags: [lodash, FindLastIndex]
 photos:
 description:
 comments:
@@ -17,7 +17,7 @@ comments:
 
 -   `lodash` 版本 `v4.0.0`
 
--   通过 `github1s` 网页可以 [查看](https://github1s.com/lodash/lodash/blob/HEAD/dropRight.js) `lodash - drop` 源码
+-   通过 `github1s` 网页可以 [查看](https://github1s.com/lodash/lodash/blob/HEAD/findLastIndex.js) `lodash - findLastIndex` 源码
 -   调试测试用例可以 `clone` 到本地
 
 ```shell
@@ -32,9 +32,9 @@ npm run test
 
 # 二、结构分析
 
-![](./images/drop.jpg)
+![](./images/findLastIndex.png)
 
-&emsp;&emsp;这是一张 `dropRight` 依赖引用路径图，其中使用到了 `slice`、`toInteger`、`toFinite`、`toNumber`、`isObject`、`isSymbol`、`internal/getTag`，接下来会自底向上分析各个依赖模块。
+&emsp;&emsp;这是一张 `findLastIndex` 依赖引用路径图，其中使用到了 `baseFindIndex`、`toInteger`、`toFinite`、`toNumber`、`isObject`、`isSymbol`、`internal/getTag`，接下来会自底向上分析各个依赖模块。
 # 三、函数研读
 
 ## 1. internal/getTag 模块
@@ -130,7 +130,7 @@ function isObject(value) {
 export default isObject;
 ```
 
--   检查 value 是否是普通对象，即排除掉 null 类型的所有对象类型，包含 array、date、function 等对象类型
+-   检查 `value` 是否是普通对象，即排除掉 `null` 类型的所有对象类型，包含 `array`、`date`、`function` 等对象类型
 
 ## 4. toNumber 模块
 
@@ -306,104 +306,86 @@ export default toInteger;
 -   将 value 转换成整形操作步骤很简单，关键在于处理各种边界情况，相信也是日常开发以及面试的考察点。
 -   这里主要是使用了 toFinite 做了边界处理，然后使用求余运算 `Number.MIN_VALUE`的余数为其本身，其余整数余数为 0 的性质将 `Number.MIN_VALUE`返回值置成 0
 
-## 7. slice 模块
+## 7. baseFindIndex 模块
 
-**裁剪数组`array`，从 `start` 位置开始到`end`结束，但不包括 `end` 本身的位置**
+**`findIndex` 和 `findLastIndex` 的基本实现`**
 
 ```js
 /**
- * **Note:** This method is used instead of
- * [`Array#slice`](https://mdn.io/Array/slice) to ensure dense arrays are
- * returned.
- *
- * @since 3.0.0
- * @category Array
- * @param {Array} array The array to slice.
- * @param {number} [start=0] The start position. 负索引将被视为与末尾的偏移量
- * @param {number} [end=array.length] The end position. 负索引将被视为与末尾的偏移量
- * @returns {Array} Returns the slice of `array`.
- * @example
- *
- * var array = [1, 2, 3, 4]
- *
- * _.slice(array, 2)
- * // => [3, 4]
+ * @private
+ * @param {Array} array 要检查的阵列
+ * @param {Function} predicate 每次迭代调用的函数
+ * @param {number} fromIndex 要从中搜索的索引
+ * @param {boolean} [fromRight] 指定从右向左迭代
+ * @returns {number} 返回匹配值的索引，否则为 -1 
  */
-function slice(array, start, end) {
-    let length = array == null ? 0 : array.length;
-    if (!length) {
-        return [];
-    }
-    start = start == null ? 0 : start;
-    end = end === undefined ? length : end;
+function baseFindIndex(array, predicate, fromIndex, fromRight) {
+  const { length } = array
+  let index = fromIndex + (fromRight ? 1 : -1)
 
-    if (start < 0) {
-        start = -start > length ? 0 : length + start;
+  while ((fromRight ? index-- : ++index < length)) {
+    if (predicate(array[index], index, array)) {
+      return index
     }
-    end = end > length ? length : end;
-    if (end < 0) {
-        end += length;
-    }
-    length = start > end ? 0 : (end - start) >>> 0;
-    start >>>= 0;
-
-    let index = -1;
-    const result = new Array(length);
-    while (++index < length) {
-        result[index] = array[index + start];
-    }
-    return result;
+  }
+  return -1
 }
 
-export default slice;
+export default baseFindIndex
+
 ```
+ 
+-  重点关注 `index = fromIndex + (fromRight ? 1 : -1)` ，由于支持从右向左的迭代，起始 `index` 应该 `+1` 以防止 `index--` 越过`0` 从而进入死循环，同理从左侧查起要确保查到 `array[0]` 从而起始 `index` 需要加一
 
--   如果 array 是 null 直接返回空数组
--   如果 start 是 null 则默认为 0
--   如果 end 未定义则默认为 array 的 length 值
--   start 为负数即负索引，则将被视为与末尾的偏移量，需要注意的是如果偏移量大于 length 则默认为 0
--   end 为负数即负索引，则将被视为与末尾的偏移量，若为正数即正索引且大于 length 则默认与 length 值相等
--   根据 start 与 end 计算返回区间，其中 `>>> 0` 确保了 start 和 length 落在 js 双精度有效表达范围【0 ～ 0xFFFFFFFF】中，详情可以查看[js 中表达式 >>> 0 浅析](https://segmentfault.com/a/1190000014613703)
--   最后使用 `new Array(length)`重新创建一个 slice 数组并逐一赋值后返回
+## 8. findLastIndex 模块
 
-## 8. dropRight 模块
-
-**创建一个`array`片段，从末尾删除`n`个元素**
+**这个方式类似_.findIndex， 区别是它是从右到左的迭代集合array中的元素**
 
 ```js
-import slice from './slice.js'
+import baseFindIndex from './.internal/baseFindIndex.js'
 import toInteger from './toInteger.js'
+
 /**
- * @since 3.0.0
+ * @since 2.0.0
  * @category Array
- * @param {Array} array The array to query.
- * @param {number} [n=1] The number of elements to drop.
- * @returns {Array} Returns the slice of `array`.
+ * @param {Array} array 要检查的阵列
+ * @param {Function} predicate 每次迭代调用的函数
+ * @param {number} [fromIndex=array.length-1] 要从中搜索的索引
+ * @returns {number} 返回匹配值的索引，否则为 -1 
+ * @see find, findIndex, findKey, findLast, findLastKey
  * @example
  *
- * dropRight([1, 2, 3])
- * // => [1, 2]
+ * const users = [
+ *   { 'user': 'barney',  'active': true },
+ *   { 'user': 'fred',    'active': false },
+ *   { 'user': 'pebbles', 'active': false }
+ * ]
  *
- * dropRight([1, 2, 3], 2)
- * // => [1]
- *
- * dropRight([1, 2, 3], 5)
- * // => []
- *
- * dropRight([1, 2, 3], 0)
- * // => [1, 2, 3]
+ * findLastIndex(users, ({ user }) => user == 'pebbles')
+ * // => 2
  */
-function dropRight(array, n=1) {
+function findLastIndex(array, predicate, fromIndex) {
   const length = array == null ? 0 : array.length
-  n = length - toInteger(n)
-  return length ? slice(array, 0, n < 0 ? 0 : n) : []
+  if (!length) {
+    return -1
+  }
+  let index = length - 1
+  if (fromIndex !== undefined) {
+    index = toInteger(fromIndex)
+    index = fromIndex < 0
+      ? Math.max(length + index, 0)
+      : Math.min(index, length - 1)
+  }
+  return baseFindIndex(array, predicate, index, true)
 }
 
-export default dropRight
+export default findLastIndex
+
 ```
 
 - `array` 为 `null` 或 `undefined`，则 `length = 0` 否则取 `array.length`
-- `array` 为 `null` 或 `undefined` 或 `[]` 返回 `[]`，否则进入 `slice` 逻辑
+- `array` 为 `null` 或 `undefined` 或 `[]` 返回 `-1`，否则进入 `if(fromIndex !== undefined)` 逻辑
+- 重点关注 `index = fromIndex < 0 ? Math.max(length + index, 0) : Math.min(index, length - 1)`，为了确保起始 `index` 为自然数，需要对其进行取整操作（toInteger），同时为了确保起始位置落在合法的查找区间需要对上下边界进行约束，最大不能超过`length - 1`(Math.min(index, length - 1))，最小也不能低于 `0`（Math.max(length + index, 0)）
 
 # 四、参考
 
