@@ -32,7 +32,7 @@ npm run test
 
 # 二、结构分析
 
-![](./images/drop.jpg)
+![](./images/dropRight.jpg)
 
 &emsp;&emsp;这是一张 `dropRight` 依赖引用路径图，其中使用到了 `slice`、`toInteger`、`toFinite`、`toNumber`、`isObject`、`isSymbol`、`internal/getTag`，接下来会自底向上分析各个依赖模块。
 # 三、函数研读
