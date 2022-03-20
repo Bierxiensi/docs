@@ -41,3 +41,31 @@ comments:
 
 **编译时**
 - 灵活性不足，用户输入内容必须编译后才能使用
+
+## 如何刚好的设计面向用户的框架
+
+**提升开发体验**
+- 清晰丰富的`warning`信息
+- 直观的数据打印，如借助`chrome`浏览器`DevTools`的`formatter`（Vue中的initCustomFormatter）
+  
+**控制代码体积**
+- 使用开关（Vue中的__DEV__）控制打包出的版本，如一些`warning`信息可不包含在生产环境包（.prod.js）中
+  
+**良好的Tree-Shaking** 
+- 模块必须是`ESM`（ES Module），`Tree-Shaking`依赖`ESM`静态结构
+- `Tree-Shaking`只会筛掉`dead code`，不会筛掉产生副作用的函数，因而要擅于使用无副作用声明机制，如rollup中的`/*#__PURE__*/`注释
+
+**框架的输出产物**
+- 为了支持浏览器端`<script>`标签引入，打包产物应为`IIFE`，在`rollup`中配置`format: iife`
+- 在浏览器支持`ESM`情形下，在`rollup`中需要配置为`format: esm`
+- 为了支持node，打包产物应为`cjs`模块资源，在`rollup`中需要配置`format: cjs`
+- `-bundler.js`一般为打包工具使用资源，`-browser.js`一般为提供给浏览器使用资源，区别在于特性开关的控制，其中打包工具一般使用`process.env.NODE_ENV === 'production'`来判断所处环境，而特性开关由开发者控制
+
+**特性开关**
+- 一般以下划线链接大写字母命名，如`vue`中`__DEV__`
+
+**错误处理**
+- 统一的错误处理函数，如`vue`中的`registerErrorHandler`函数（思考所采用的设计模式） 
+
+**Typescript类型支持**
+
