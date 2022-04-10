@@ -9,7 +9,10 @@ description:
 comments:
 ---
 
-
+## what
+- Dynamically Typed Language 动态类型语言
+- 运行时检查类型
+- 借助eslint等实现运行时类型检查
 
 ##### 1\. 变量提升
 >var命令会发生“变量提升”现象，即变量可以在声明之前使用，值为undefined，let、const命令会报错
