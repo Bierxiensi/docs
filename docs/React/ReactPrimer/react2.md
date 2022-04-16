@@ -182,3 +182,8 @@ componentDidMount, componentDidUpdate
 useEffect：执行副作用（一段和当前执行结果无关的代码。不影响渲染出来的 UI 的。）
 
 对应到 Class 组件，useEffect 涵盖了 ComponentDidMount、componentDidUpdate 和 componentWillUnmount 三个生命周期方法。不要把 useEffect 对应到某个或者某几个生命周期的方法。只要记住，useEffect 是每次组件 render 完后判断依赖并执行。
+
+## 状态提升与单向数据流
+
+- 共享的数据提升到最近的父组件管理（状态管理）
+- 任何可变数据应只有一个单一数据源，且应保持自上而下的数据流（单向数据流）
