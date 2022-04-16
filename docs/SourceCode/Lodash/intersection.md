@@ -3,7 +3,7 @@ title: lodash-intersection源码研读解析
 search: true
 
 date: 2022-04-08 14:05:23
-tags: [lodash, intersection]
+tags: [lodash, intersection, baseIntersection]
 photos:
 description:
 comments:
@@ -39,465 +39,159 @@ npm run test
 
 # 三、函数研读
 
-## 1. strictIndexOf 模块
+## 1. isArrayLike 模块
 
-**indexOf的一个特殊版本，它执行严格的相等用于比较value，比如`===`**
+**检查 `value` 是否与数组类似。值被视为数组，它不是函数并且有一个 `value.length` ，这是一个大于等于'0'且小于 `MAX_SAFE_INTEGER`的 `Number`**
+
+```js
+import isLength from './isLength.js'
+/**
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value 要检查的值
+ * @returns {boolean} 如果'value'类似于数组，则返回'true'，否则返回'false'
+ * @example
+ *
+ * isArrayLike([1, 2, 3])
+ * // => true
+ *
+ * isArrayLike(document.body.children)
+ * // => true
+ *
+ * isArrayLike('abc')
+ * // => true
+ *
+ * isArrayLike(Function)
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && typeof value !== 'function' && isLength(value.length)
+}
+
+export default isArrayLike
+
+```
+
+-  重点关注 `isLength`，判断规则是 `typeof value === 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER`，其中 `value % 1 == 0` 确保 `value` 是整数，`MAX_SAFE_INTEGER = 9007199254740991`
+
+## 2. isObjectLike 模块
+
+**检查“value”是否与对象类似，如果不为空则是一个对象，并且会有一个“typeof”运算结果为“object”返回值**
 
 ```js
 /**
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} value The value to search for.
- * @param {number} fromIndex The index to search from.
- * @returns {number} Returns the index of the matched value, else `-1`.
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value 要检查的值
+ * @returns {boolean} 如果'value'类似对象，则返回'true'，否则返回'false'
+ * @example
+ *
+ * isObjectLike({})
+ * // => true
+ *
+ * isObjectLike([1, 2, 3])
+ * // => true
+ *
+ * isObjectLike(Function)
+ * // => false
+ *
+ * isObjectLike(null)
+ * // => false
  */
-function strictIndexOf(array, value, fromIndex) {
-  let index = fromIndex - 1
-  const { length } = array
-
-  while (++index < length) {
-    if (array[index] === value) {
-      return index
-    }
-  }
-  return -1
+function isObjectLike(value) {
+  return typeof value === 'object' && value !== null
 }
 
-export default strictIndexOf
+export default isObjectLike
+
 ```
 
-- 重点关注[MDN - Strict equality (===)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Strict_equality)，全等运算符与相等运算符 `==` 最显著的区别是，如果操作数的类型不同，`==` 运算符会在比较之前尝试将它们转换为相同的类型。
+-   除了纯对象，`null` 使用 `typeof` 获取类型结果也是 `object`，为了后续的使用，这里需要过滤掉
+-   可以通过 `typeof` 来获取 `未经计算的操作数` 的类型，下面是一个 `typeof` 运算结果集
 
-## 2. baseIsNaN 模块
+|                      类型                       | 结果              |
+| :---------------------------------------------: | :---------------- |
+|                    Undefined                    | "undefined"       |
+|                      Null                       | "object"          |
+|                     Boolean                     | "boolean"         |
+|                     Number                      | "number"          |
+|          BigInt(ECMAScript 2020 新增)           | "bigint"          |
+|                     String                      | "string"          |
+|          Symbol (ECMAScript 2015 新增)          | "symbol"          |
+|           宿主对象（由 JS 环境提供）            | 取决于具体实现    |
+| Function 对象 (按照 ECMA-262 规范实现 [[Call]]) | "function"        |
+|                  其他任何对象                   | "object"          |
 
-**'isNaN'的基本实现，不支持数字对象**
+
+## 3. isArrayLikeObject 模块
+
+**此方法类似于 `isArrayLike`，只是它还检查 `value` 是否为一个 `Object`**
 
 ```js
+import isArrayLike from './isArrayLike.js'
+import isObjectLike from './isObjectLike.js'
 /**
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is `NaN`, else `false`.
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value 要检查的值
+ * @returns {boolean} 如果 value 是一个类数组对象，那么返回 true，否则返回 false
+ * @example
+ *
+ * isArrayLikeObject([1, 2, 3])
+ * // => true
+ *
+ * isArrayLikeObject(document.body.children)
+ * // => true
+ *
+ * isArrayLikeObject('abc')
+ * // => false
+ *
+ * isArrayLikeObject(Function)
+ * // => false
  */
-function baseIsNaN(value) {
-  return value !== value
+function isArrayLikeObject(value) {
+  return isObjectLike(value) && isArrayLike(value)
 }
 
-export default baseIsNaN
+export default isArrayLikeObject
+
 ```
 
--   重点关注全局属性 [NaN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/NaN), `NaN` 的值表示不是一个数字（Not-A-Number）,在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性
--   在执行自比较之中：NaN，也只有NaN，比较之中不等于它自己，`NaN === NaN;  // false`
+-  封装了 `isObjectLike` 与 `isArrayLike`，当 `value` 同时符合两者所检测的目标类型时返回 `true`，否则返回 `false`
 
+## 4. castArrayLikeObject 模块
 
-## 3. baseFindIndex 模块
-
-**'findIndex'和'findLastIndex'的基本实现**
+**如果不是类数组对象，则将“value”强制转换为空数组**
 
 ```js
-/**
- * @private
- * @param {Array} array The array to inspect.
- * @param {Function} predicate 每次迭代调用的函数
- * @param {number} fromIndex The index to search from.
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function baseFindIndex(array, predicate, fromIndex, fromRight) {
-  const { length } = array
-  let index = fromIndex + (fromRight ? 1 : -1)
-
-  while ((fromRight ? index-- : ++index < length)) {
-    if (predicate(array[index], index, array)) {
-      return index
-    }
-  }
-  return -1
-}
-
-export default baseFindIndex
-```
-
--  重点关注 `index = fromIndex + (fromRight ? 1 : -1)` ，由于支持从右向左的迭代，起始`index`应该`+1`以防止`index--`越过`0`从而进入死循环，同理从左侧查起要确保查到`array[0]`从而起始 `index` 需要加一
-
-## 4. baseIndexOf 模块
-
-**没有`fromIndex`边界检查的`indexOf`的基本实现**
-
-```js
-import baseFindIndex from './baseFindIndex.js'
-import baseIsNaN from './baseIsNaN.js'
-import strictIndexOf from './strictIndexOf.js'
-
-/**
- * @private
- * @param {Array} array The array to inspect.
- * @param {*} value The value to search for.
- * @param {number} fromIndex The index to search from.
- * @returns {number} Returns the index of the matched value, else `-1`.
- */
-function baseIndexOf(array, value, fromIndex) {
-  return value === value
-    ? strictIndexOf(array, value, fromIndex)
-    : baseFindIndex(array, baseIsNaN, fromIndex)
-}
-
-export default baseIndexOf
-```
-
--  `value` 如果不是 `NaN`，进入 `strictIndexOf`，从 `array[fromIndex]` 开始按序严格比较是否与 `value` 相等，若相等返回对应 `index`，否则返回 `-1`
--  `value` 如果是 `NaN`，进入 `baseFindIndex`，将 `baseIsNaN` 作为 `baseFindIndex` 的入参迭代函数 `predicate` 并开始从 `array[fromIndex]` 开始判断是否为 `NaN`，若找到 `NaN` 就返回对应 `index`，否则返回 `-1`
-   
-Tips：可以看到 `baseFindIndex` 模块中的有些形参是没有用到的，比如查找时是按照从左往右的顺序查找，并没有传入 `fromRight`，但提前占了坑，体现了很好的扩展性🐶
-
-## 5. arrayIncludes 模块
-
-**不支持从数组指定位置搜索的includes**
-
-```js
-import baseIndexOf from './baseIndexOf.js'
+import isArrayLikeObject from '../isArrayLikeObject.js'
 
 /**
  * @private
- * @param {Array} [array] The array to inspect.
- * @param {*} target The value to search for.
- * @returns {boolean} Returns `true` if `target` is found, else `false`.
+ * @param {*} value  要检查的值
+ * @returns {Array|Object} 返回类似于cast数组的对象
  */
-function arrayIncludes(array, value) {
-  const length = array == null ? 0 : array.length
-  return !!length && baseIndexOf(array, value, 0) > -1
+function castArrayLikeObject(value) {
+  return isArrayLikeObject(value) ? value : []
 }
 
-export default arrayIncludes
-```
-
-- 如果 length 不存在（包含null、0）或者没有找到 index 都会返回false
-
-Tips：`!!` 运算符表示逻辑非的取反运算，如`!!obj`与 `obj != null && typeof obj === undefined && obj != "" && obj != false` 在计算上等价
-
-## 6. Hash 类
-
-> Used to stand-in for `undefined` hash values.
-> 用于替代 “未定义” 的哈希值
-
-```js
-const HASH_UNDEFINED = '__lodash_hash_undefined__'
-
-class Hash {
-  /**
-   * 创建一个 hash object.
-   * @private
-   * @constructor
-   * @param {Array} [entries] 需要缓存的 key-value 对
-   */
-  constructor(entries) {
-    let index = -1
-    const length = entries == null ? 0 : entries.length
-
-    this.clear()
-    while (++index < length) {
-      const entry = entries[index]
-      this.set(entry[0], entry[1])
-    }
-  }
-
-  /**
-   * 从hash中删除所有的 key-value 
-   * @memberOf Hash
-   */
-  clear() {
-    this.__data__ = Object.create(null)
-    this.size = 0
-  }
-
-  /**
-   * Removes `key` and its value from the hash.
-   * @memberOf Hash
-   * @param {string} key The key of the value to remove.
-   * @returns {boolean} Returns `true` if the entry was removed, else `false`.
-   */
-  delete(key) {
-    const result = this.has(key) && delete this.__data__[key]
-    this.size -= result ? 1 : 0
-    return result
-  }
-
-  /**
-   * Gets the hash value for `key`.
-   * @memberOf Hash
-   * @param {string} key The key of the value to get.
-   * @returns {*} Returns the entry value.
-   */
-  get(key) {
-    const data = this.__data__
-    const result = data[key]
-    return result === HASH_UNDEFINED ? undefined : result
-  }
-
-  /**
-   * Checks if a hash value for `key` exists.
-   * @memberOf Hash
-   * @param {string} key The key of the entry to check.
-   * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
-   */
-  has(key) {
-    const data = this.__data__
-    return data[key] !== undefined
-  }
-
-  /**
-   * Sets the hash `key` to `value`.
-   * @memberOf Hash
-   * @param {string} key The key of the value to set.
-   * @param {*} value The value to set.
-   * @returns {Object} Returns the hash instance.
-   */
-  set(key, value) {
-    const data = this.__data__
-    this.size += this.has(key) ? 0 : 1
-    data[key] = value === undefined ? HASH_UNDEFINED : value
-    return this
-  }
-}
-
-export default Hash
+export default castArrayLikeObject
 
 ```
 
--   使用了 [`es6-class`](https://es6.ruanyifeng.com/#docs/class) 语法，导出一个 `Hash` 类
--   在构造函数 `constructor` 中遍历 `entries`，按需调用 `set` 方法存储键值对信息，遍历前调用 `clear()` 清除缓存
--   `clear()` 内通过将全局变量 `__data__` 设定为 `null`，并将对应 `size` 置成 `0` 实现 `clear`
--   `has`、`set`、`get` 直接通过 `key` 查找/操作 `__data__`，在遇到 `value === undefined` 情形时 `set` 存储常量 `HASH_UNDEFINED = '__lodash_hash_undefined__'` 达到替换未定义键值效果
+- 封装了 `isArrayLikeObject` ，当 `value` 同时符合 `isArrayLikeObject` 所检测的目标类型时返回 `true`，此时返回 `value`，否则返回空数组
 
+## 5. map 模块
 
-## 7. MapCache 类
-
-```js
-import Hash from './Hash.js'
-
-/**
- * Gets the data for `map`.
- * @private
- * @param {Object} map The map to query.
- * @param {string} key The reference key.
- * @returns {*} Returns the map data.
- */
-function getMapData({ __data__ }, key) {
-  const data = __data__
-  return isKeyable(key)
-    ? data[typeof key === 'string' ? 'string' : 'hash']
-    : data.map
-}
-
-/**
- * Checks if `value` is suitable for use as unique object key.
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
- */
-function isKeyable(value) {
-  const type = typeof value
-  return (type === 'string' || type === 'number' || type === 'symbol' || type === 'boolean')
-    ? (value !== '__proto__')
-    : (value === null)
-}
-
-class MapCache {
-
-  /**
-   * 创建一个 map 缓存对象去存储 key-value 对
-   * @private
-   * @constructor
-   * @param {Array} [entries] The key-value pairs to cache.
-   */
-  constructor(entries) {
-    let index = -1
-    const length = entries == null ? 0 : entries.length
-
-    this.clear()
-    while (++index < length) {
-      const entry = entries[index]
-      this.set(entry[0], entry[1])
-    }
-  }
-
-  /**
-   * Removes all key-value entries from the map.
-   * @memberOf MapCache
-   */
-  clear() {
-    this.size = 0
-    this.__data__ = {
-      'hash': new Hash,
-      'map': new Map,
-      'string': new Hash
-    }
-  }
-
-  /**
-   * Removes `key` and its value from the map.
-   * @memberOf MapCache
-   * @param {string} key The key of the value to remove.
-   * @returns {boolean} Returns `true` if the entry was removed, else `false`.
-   */
-  delete(key) {
-    const result = getMapData(this, key)['delete'](key)
-    this.size -= result ? 1 : 0
-    return result
-  }
-
-  /**
-   * Gets the map value for `key`.
-   * @memberOf MapCache
-   * @param {string} key The key of the value to get.
-   * @returns {*} Returns the entry value.
-   */
-  get(key) {
-    return getMapData(this, key).get(key)
-  }
-
-  /**
-   * Checks if a map value for `key` exists.
-   * @memberOf MapCache
-   * @param {string} key The key of the entry to check.
-   * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
-   */
-  has(key) {
-    return getMapData(this, key).has(key)
-  }
-
-  /**
-   * Sets the map `key` to `value`.
-   * @memberOf MapCache
-   * @param {string} key The key of the value to set.
-   * @param {*} value The value to set.
-   * @returns {Object} Returns the map cache instance.
-   */
-  set(key, value) {
-    const data = getMapData(this, key)
-    const size = data.size
-
-    data.set(key, value)
-    this.size += data.size == size ? 0 : 1
-    return this
-  }
-}
-
-export default MapCache
-```
-
--   使用了 [`es6-class`](https://es6.ruanyifeng.com/#docs/class) 语法，导出一个 `MapCache` 类
--   构造函数 `constructor` 逻辑同 `Hash` 类中构造函数逻辑，不同的是调用的 `clear()` 函数内部逻辑不同
--   `clear()` 内通过将全局变量 `__data__` 通过 `new` 操作符初始化为包含 `hash` , `map` , `string` 三种类型的 `object`，并将对应 `size` 置成 `0` 实现 `clear`
--   由于 `__data__` 是一个包含了 `hash` , `map` , `string` 三种类型的 `object`，所以在进行`has`、`set`、`get` 操作时无法直接通过 `key` 直接查找/操作 `__data__`。这时候需要一个辅助函数来帮助我们找到 `key` 所对应的键值对集合是 `hash` , `map` , `string` 三种类型中的哪一种，然后才进行操作，所以相比`Hash` 类多了两个内部辅助函数 `getMapData`、`isKeyable`。
--   `isKeyable` 用于判断 `key` 类型，如果key是 `string`, `number`, `boolean`, `symbol`, `null`中的一种且不是`__proto__`就会去`hash`, `string` 两种类型中查找，两者均由 `Hash` 类构造生成，否则去 `map` 中查找。（`null` 判断和 非`__proto__`判断 互斥）
-
-
-
-Tips：理解 `getMapData`、`isKeyable` 的关键在于为什么有三种存储的数据类型？为什么`hash|string`类型使用自定义的 `Hash` 类存储？我们知道 `Hash` 类是按照 `Object` 存储，而 `map` 使用的js自身的 `Map` 类型是按照 `map` 存储，一个`Object`的键只能是`String`或者`Symbol`，但一个 `Map` 的键可以是任意值，包括函数、对象、基本类型。
-
-Tips：关于对`value !== '__proto__'`的单独判断主要是由于 `'__proto__'`的特殊性。作为一个 `Property`，如果 `'__proto__'`被当做一个 `Object` 的 `key` 去进行读写操作，将会直接读取/修改当前原型信息。为了修复这个问题，一般会采取转义操作，将 `__proto__` 转义成 `__proto__%`，更多内容可以查看《Speaking JavaScript》这本书，相信面试遇到这个问题，也是一个考察点。
-
-![Speaking JavaScript](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/98839b079d144caa9bc3077bf551dc92~tplv-k3u1fbpfcp-zoom-1.image)
-
-## 8. SetCache 类
-
-```js
-import MapCache from './MapCache.js'
-
-/** Used to stand-in for `undefined` hash values. */
-const HASH_UNDEFINED = '__lodash_hash_undefined__'
-
-class SetCache {
-
-  /**
-   * Creates an array cache object to store unique values.
-   * @private
-   * @constructor
-   * @param {Array} [values] The values to cache.
-   */
-  constructor(values) {
-    let index = -1
-    const length = values == null ? 0 : values.length
-
-    this.__data__ = new MapCache
-    while (++index < length) {
-      this.add(values[index])
-    }
-  }
-
-  /**
-   * Adds `value` to the array cache.
-   * @memberOf SetCache
-   * @alias push
-   * @param {*} value The value to cache.
-   * @returns {Object} Returns the cache instance.
-   */
-  add(value) {
-    this.__data__.set(value, HASH_UNDEFINED)
-    return this
-  }
-
-  /**
-   * Checks if `value` is in the array cache.
-   * @memberOf SetCache
-   * @param {*} value The value to search for.
-   * @returns {boolean} Returns `true` if `value` is found, else `false`.
-   */
-  has(value) {
-    return this.__data__.has(value)
-  }
-}
-
-SetCache.prototype.push = SetCache.prototype.add
-
-export default SetCache
-```
-
--  操作同上述分析，需要注意的是 `this.__data__ = new MapCache` 这里，一般来说，我们都会写 `new MapCahe()`， 区别在于后续的运算优先级。由于 `new` 运算优先级要小于 `.` 运算优先级，如 `new MapCache.add()` 会报错，因为会先执行 `MapCache.add` 然后才执行 `new`。
-
-## 9. arrayIncludesWith 模块
-
-**这个函数类似于 `arrayIncludes`，只是它接受一个比较器(comparator)**
-
-```js
-/**
- * @private
- * @param {Array} [array] The array to inspect.
- * @param {*} target The value to search for.
- * @param {Function} comparator The comparator invoked per element.
- * @returns {boolean} Returns `true` if `target` is found, else `false`.
- */
-function arrayIncludesWith(array, target, comparator) {
-  if (array == null) {
-    return false
-  }
-
-  for (const value of array) {
-    if (comparator(target, value)) {
-      return true
-    }
-  }
-  return false
-}
-
-export default arrayIncludesWith
-
-```
-
-- 如果待搜索数组 `array` 是 `null`，直接返回 `false`
-- 使用 `for...of` 迭代待搜索数组 `array` 中的每一项，使用 `if` 判断比较器 `comparator(target, value)` 的返回值并给出对应返回结果 🐶
-
-## 10. map 模块
-
-**通过 `iteratee` 运行 `array` 的每个元素来创建一个数组 `result`。`iteratee` 由三个参数调用：(value, index, array)。**
+**创建一个数组， value（值） 是 iteratee（迭代函数）遍历 collection（集合）中的每个元素后返回的结果。 iteratee（迭代函数）调用3个参数(value, index|key, collection)**
 
 ```js
 /**
  * @since 5.0.0
  * @category Array
- * @param {Array} array The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
+ * @param {Array} array 用来迭代的集合
+ * @param {Function} iteratee  每次迭代调用的函数
+ * @returns {Array} 返回新的映射后数组
  * @example
  *
  * function square(n) {
@@ -525,102 +219,69 @@ export default map
 -  使用 `new Array` 创建一个对应其长度的数组 `result`，其中 `array` 为 `null` 时，长度为 `0`，将会创建一个空数组
 -  按照 `array` 长度循环调用 `iteratee`，每次循环步长 + 1
 
+Tip: `lodash` 中有许多方法是防止作为其他方法的迭代函数（注：即不能作为iteratee参数传递给其他方法），例如：`_.every`,`_.filter`,`_.map`,`_.mapValues`,`_.reject`, 和`_.some`。
 
-## 11. cacheHas 模块
+Tips: 受保护的方法有（注：即这些方法不能使用 `_.every`, `_.filter`, `_.map,_`. `mapValues`, `_.reject`, 和 `_.some` 作为 `iteratee` 迭代函数参数）：`ary`, `chunk`, `curry`, `curryRight`, `drop`, `dropRight`, `every`, `fill`, `invert`, `parseInt`, `random`, `range`, `rangeRight`, `repeat`, `sampleSize`, `slice`, `some`, `sortBy`, `split`, `take`, `takeRight`, `template`, `trim`, `trimEnd`, `trimStart`, `words`。
 
-**检查 `key` 的 `cache` 值是否存在**
 
-```js
-/**
- * @private
- * @param {Object} cache The cache to query.
- * @param {string} key The key of the entry to check.
- * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
- */
-function cacheHas(cache, key) {
-  return cache.has(key)
-}
+## 6. intersection 模块
 
-export default cacheHas
-```
-
-- `cache` 和 `key` 均为入参
-
-## 12. basee4Intersection 模块
-
-**“intersection”之类的方法的基本实现，接受要检查的数组**
+**创建唯一值的数组，这个数组包含所有给定数组都包含的元素，使用[SameValueZero]((http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero))进行相等性比较**
 
 ```js
-import SetCache from './SetCache.js'
-import arrayIncludes from './arrayIncludes.js'
-import arrayIncludesWith from './arrayIncludesWith.js'
-import map from '../map.js'
-import cacheHas from './cacheHas.js'
+import map from './map.js'
+import baseIntersection from './.internal/baseIntersection.js'
+import castArrayLikeObject from './.internal/castArrayLikeObject.js'
 
 /**
- * @private
- * @param {Array} arrays 要检查的阵列
- * @param {Function} [iteratee] 每个元素调用的迭代对象
- * @param {Function} [comparator] 每个元素调用的比较器
- * @returns {Array} 返回共享值的新数组
+ * @since 0.1.0
+ * @category Array
+ * @param {...Array} [arrays] 待检查的数组
+ * @returns {Array} 返回一个包含所有传入数组交集元素的新数组(给定数组的交集)
+ * @example
+ *
+ * intersection([2, 1], [2, 3])
+ * // => [2]
  */
-function baseIntersection(arrays, iteratee, comparator) {
-  const includes = comparator ? arrayIncludesWith : arrayIncludes
-  const length = arrays[0].length
-  const othLength = arrays.length
-  const caches = new Array(othLength)
-  const result = []
-
-  let array
-  let maxLength = Infinity
-  let othIndex = othLength
-
-  while (othIndex--) {
-    array = arrays[othIndex]
-    if (othIndex && iteratee) {
-      array = map(array, (value) => iteratee(value))
-    }
-    maxLength = Math.min(array.length, maxLength)
-    caches[othIndex] = !comparator && (iteratee || (length >= 120 && array.length >= 120))
-      ? new SetCache(othIndex && array)
-      : undefined
-  }
-  array = arrays[0]
-
-  let index = -1
-  const seen = caches[0]
-
-  outer:
-  while (++index < length && result.length < maxLength) {
-    let value = array[index]
-    const computed = iteratee ? iteratee(value) : value
-
-    value = (comparator || value !== 0) ? value : 0
-    if (!(seen
-      ? cacheHas(seen, computed)
-      : includes(result, computed, comparator)
-    )) {
-      othIndex = othLength
-      while (--othIndex) {
-        const cache = caches[othIndex]
-        if (!(cache
-          ? cacheHas(cache, computed)
-          : includes(arrays[othIndex], computed, comparator))
-        ) {
-          continue outer
-        }
-      }
-      if (seen) {
-        seen.push(computed)
-      }
-      result.push(value)
-    }
-  }
-  return result
+function intersection(...arrays) {
+  const mapped = map(arrays, castArrayLikeObject)
+  return (mapped.length && mapped[0] === arrays[0])
+    ? baseIntersection(mapped)
+    : []
 }
 
-export default baseIntersection
+export default intersection
 ```
 
-- 要检查的 `array` 过长（length > 120）时使用 `caches` 做缓存
-- `outer` 执行多层嵌套语句
+- 首先使用 `map` 配合迭代器 `castArrayLikeObject` 检测入参 `arrays` 是否是合法数组，返回 `mapped`
+- 如 `mapped` 存在并且入参第一项 `arrays` 是合法数组，则调用 `baseIntersection` 检测公共元素，否则返回空数组  
+
+**创建唯一值的数组，这个数组包含所有给定数组都包含的元素，使用[SameValueZero]((http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero))进行相等性比较**
+
+```js
+import map from './map.js'
+import baseIntersection from './.internal/baseIntersection.js'
+import castArrayLikeObject from './.internal/castArrayLikeObject.js'
+
+/**
+ * @since 0.1.0
+ * @category Array
+ * @param {...Array} [arrays] 待检查的数组
+ * @returns {Array} 返回一个包含所有传入数组交集元素的新数组(给定数组的交集)
+ * @example
+ *
+ * intersection([2, 1], [2, 3])
+ * // => [2]
+ */
+function intersection(...arrays) {
+  const mapped = map(arrays, castArrayLikeObject)
+  return (mapped.length && mapped[0] === arrays[0])
+    ? baseIntersection(mapped)
+    : []
+}
+
+export default intersection
+```
+
+- 首先使用 `map` 配合迭代器 `castArrayLikeObject` 检测入参 `arrays` 是否是合法数组，返回 `mapped`
+- 如 `mapped` 存在并且入参第一项 `arrays` 是合法数组，则调用 `baseIntersection` 检测公共元素，否则返回空数组  
