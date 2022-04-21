@@ -19,5 +19,25 @@ comments:
 
 - 无需清除的effect
 
-
 - 需要清除的effect
+
+## 控制副作用运行时机
+
+useEffect(() => {}, [deps])
+
+## hooks
+- 将组件逻辑提取到可重用函数中
+
+## Hoc
+- 添加逻辑
+- 难以理解
+
+## ref
+
+- ref 在所有 render 中保持唯一引用，ref 包含所有引用的最终状态，不会因为 render 的不同而不同
+- 对 ref 的更新不会引发重新渲染
+- 访问 dom 节点
+
+## context
+- 解决多层属性传值问题
+- 创建时时 `A = React.createContext(data)`，使用时 `<A.provider value={data}>` `useContext(A)`
