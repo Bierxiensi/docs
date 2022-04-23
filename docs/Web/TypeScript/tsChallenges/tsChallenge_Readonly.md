@@ -17,7 +17,10 @@ comments:
 在这之前需要掌握一点Ts基础知识，可以参考学习记录[TypeScript学习记录-[数据类型]](./../typescript1.md)、[TypeScript学习记录-[类和接口]](./../typescript1.md)、[TypeScript学习记录-[枚举和泛型]](./../typescript1.md)、[TypeScript学习记录-[类型别名]](./../typescript1.md)
 
 # 二、题目分析
+
 ## 1. readonly
+
+**Readonly 会接收一个 泛型参数，并返回一个完全一样的类型，只是所有属性都会被 readonly 所修饰**
 
 ```js
 type MyReadonly<T> = {
@@ -40,8 +43,6 @@ interface Todo1 {
     author: string
   }
 }
-
-
 ```
 
 ## 2.readonly

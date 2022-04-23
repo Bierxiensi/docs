@@ -41,3 +41,12 @@ useEffect(() => {}, [deps])
 ## context
 - 解决多层属性传值问题
 - 创建时时 `A = React.createContext(data)`，使用时 `<A.provider value={data}>` `useContext(A)`
+
+## 规则
+
+- 只在最顶层使用（循环、条件、嵌套函数中不可使用）
+- 只在 `react` 函数中调用
+
+## useReducer
+
+## useCallback(性能调优)

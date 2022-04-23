@@ -62,3 +62,58 @@ Hello.defaultProps = {
 
 export default Hello;
 ```
+
+## 样式方案分析
+> [Styling and CSS](https://reactjs.org/docs/faq-styling.html#gatsby-focus-wrapper)
+
+
+- 全局变量
+- 依赖
+- 可重用性
+- 可扩展性
+...
+
+**lnline css**
+- js中计算
+- 
+
+**CSS in JS**
+
+**Styled Component**
+
+**Sass/Less**
+
+### 色彩体系
+
+**系统色板 = 基础色板 + 中性色板**
+
+**产品色板 = 品牌色 + 功能色板**
+
+
+## 字体变量方案
+
+**组件库样式变量分类**
+
+- 基础色彩系统
+- 字体系统
+- 表单
+- 按钮
+- 边框阴影
+- 可配置开关
+
+- 无衬线字体
+- 等宽字体
+
+## normalize.css
+> 只是一个很小的CSS文件，但它在默认的HTML元素样式上提供了跨浏览器的高度一致性。相比于传统的CSS reset，Normalize.css是一种现代的、为HTML5准备的优质替代方案。
+
+- 保护有用的浏览器默认样式而不是完全去掉它们
+- 一般化的样式：为大部分HTML元素提供
+- 修复浏览器自身的bug并保证各浏览器的一致性
+- 优化CSS可用性：用一些小技巧
+- 解释代码：用注释和详细的文档来
+
+**scss**
+@import 引入，无需额外发送http请求
+
+_ 下划线开头称之为parital文件，编译器无需编译到css
