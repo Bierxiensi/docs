@@ -1,5 +1,5 @@
 ---
-title: TypeScript学习记录-[ts-challenge-Readonly]
+title: TypeScript学习记录-[ts-challenge-Readonly|omit]
 search: true
 
 date: 2022-04-20 21:05:23
@@ -12,7 +12,7 @@ comments:
 
 ## 前置知识
 
-> 今日 【easy - 7.readonly】、【middle - 3.omit】】
+> 今日 【easy - 7.readonly】、【middle - 3.omit】
 
 在这之前需要掌握一点Ts基础知识，可以参考学习记录[TypeScript学习记录-[数据类型]](./../typescript1.md)、[TypeScript学习记录-[类和接口]](./../typescript1.md)、[TypeScript学习记录-[枚举和泛型]](./../typescript1.md)、[TypeScript学习记录-[类型别名]](./../typescript1.md)
 
