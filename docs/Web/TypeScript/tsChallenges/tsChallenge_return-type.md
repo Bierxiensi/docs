@@ -1,11 +1,3 @@
-<!--
- * @Descripttion: 
- * @version: 
- * @Author: zhangxiangyu
- * @Date: 2022-04-25 18:50:06
- * @LastEditors: zhangxiangyu
- * @LastEditTime: 2022-04-25 19:06:33
--->
 ---
 title: TypeScript学习记录-[ts-challenge-return-type|omit]
 search: true
