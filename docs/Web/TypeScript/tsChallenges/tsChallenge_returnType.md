@@ -12,7 +12,7 @@ comments:
 
 ## 前置知识
 
-> 今日 【middle - 5.return-type】
+> 今日 【middle - 2.return-type】
 
 在这之前需要掌握一点Ts基础知识，可以参考学习记录[TypeScript学习记录-[数据类型]](./../typescript1.md)、[TypeScript学习记录-[类和接口]](./../typescript1.md)、[TypeScript学习记录-[枚举和泛型]](./../typescript1.md)、[TypeScript学习记录-[类型别名]](./../typescript1.md)
 
@@ -49,5 +49,20 @@ const fn = (v: boolean) => v ? 1 : 2
 const fn1 = (v: boolean, w: any) => v ? 1 : 2
 ```
 
-- 首先可以确定的是返回类型是 `object`（索引类型index Type）
+- 首先可以确定的是返回类型是 `{}[keyof T]`
+
+
+```js
+/**
+ * @description 获取只读`key`
+ * @tips 1.利用联合类型分发`key`
+ *       2.通过`Pick`提取当前`key`的类型
+ *       3.通过`Equal`判断,只读与不只读是否一致
+ */
+type GetReadonlyKeys<T, K = keyof T> = K extends keyof T
+  ? Equal<Pick<T, K>, Readonly<Pick<T, K>>> extends true
+    ? K
+    : never
+  : never
+```
 
