@@ -472,19 +472,19 @@ module.exports = {
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-Hello World]",
-                            path: "/Web/TypeScript/tsChallenge_HelloWorld",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_HelloWorld",
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-实现Pick]",
-                            path: "/Web/TypeScript/tsChallenge_Pick",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_Pick",
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-Readonly|omit]",
-                            path: "/Web/TypeScript/tsChallenge_Readonly|omit",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_Readonly|omit",
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-returnType]",
-                            path: "/Web/TypeScript/tsChallenge_returnType",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_returnType",
                         }
                     ],
                 },
