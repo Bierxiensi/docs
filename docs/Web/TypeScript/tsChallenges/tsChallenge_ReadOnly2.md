@@ -51,6 +51,6 @@ interface Expected {
   completed: boolean
 }
 ```
-
+- `type MyReadonly2<T, keys extends keyof T = keyof T> =  { readonly [key in keys]: T[key] } & { [key in keyof T as key extends keys ? never : key]: T[key] }`
 - 首先可以确定的是返回类型是 `object`（索引类型index Type）， 且其属性都会被 `readonly`，即 `type MyReadonly<T> = { readonly key：value }`，且包含的键值对个数
 - `key` 应循环取自泛型 `T` 的索引，`value` 应循环取自泛型 `T` 的索引的值 `T[Key]`，需使用 `keyof T` 查询索引类型中所有的索引，结合运算符 `in ` 进行遍历，从而得到 `type MyReadonly<T> = { readonly [k in keyof T]: T[k] }`
