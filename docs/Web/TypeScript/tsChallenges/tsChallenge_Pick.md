@@ -1,9 +1,9 @@
 ---
-title: TypeScript学习记录-[ts-challenge-实现 Pick]
+title: TypeScript学习记录-[ts-challenge-实现Pick]
 search: true
 
 date: 2022-04-17 20:05:23
-tags: [TypeScript]
+tags: [TypeScript, Pick]
 description:
 comments:
 ---
