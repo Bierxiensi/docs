@@ -16,6 +16,10 @@
 
 ### [CSS](../Web/CSS)
 
+### [HTTP](../Web/HTTP)
+
+### [TypeScript](../Web/TypeScript)
+
 <br>
 
 ## [React 系列](../React)

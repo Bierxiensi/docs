@@ -105,6 +105,7 @@ module.exports = {
                     collapsable: true, // 可选的, 默认值是 true,
                 },
             ],
+            // CS/Algorithm
             "/CS/Algorithm/": [
                 {
                     title: "算法的计划与flag", // 必要的
@@ -122,7 +123,7 @@ module.exports = {
                 },
             ],
 
-            // SourceCode 源码
+            // SourceCode/Axios
             "/SourceCode/Axios/": [
                 {
                     title: "Axios", // 必要的
@@ -175,7 +176,7 @@ module.exports = {
                     ],
                 },
             ],
-
+            // SourceCode/Lodash
             "/SourceCode/Lodash/": [
                 {
                     title: "Axios", // 必要的
@@ -292,7 +293,7 @@ module.exports = {
 
             
 
-            // app
+            // App/App
             "/App/App/": [
                 {
                     title: "app", // 必要的
@@ -309,6 +310,7 @@ module.exports = {
                     ],
                 },
             ],
+            // App/Desktop
             "/App/Desktop/": [
                 {
                     title: "桌面应用", // 必要的
@@ -322,7 +324,7 @@ module.exports = {
                 },
             ],
 
-            // web
+            // web/JavaScript
             "/Web/JavaScript/": [
                 {
                     title: "ES6 到 ES12 特性总结", // 必要的
@@ -405,6 +407,7 @@ module.exports = {
                     ],
                 },
             ],
+            // Web/HTML
             "/Web/HTML/": [
                 {
                     title: "HTML", // 必要的
@@ -417,6 +420,7 @@ module.exports = {
                     ],
                 },
             ],
+            // Web/CSS
             "/Web/CSS/": [
                 {
                     title: "CSS", // 必要的
@@ -429,6 +433,7 @@ module.exports = {
                     ],
                 },
             ],
+            // Web/HTTP
             "/Web/HTTP/": [
                 {
                     title: "HTTP", // 必要的
@@ -445,6 +450,7 @@ module.exports = {
                     ],
                 },
             ],
+            // web/TypeScript
             "/Web/TypeScript/": [
                 {
                     title: "TypeScript", // 必要的
@@ -490,10 +496,11 @@ module.exports = {
                 },
             ],
 
-            // react
+            // React/AntDesign
             "/React/AntDesign/": [
                 { title: "AntDesign", path: "/React/AntDesign/" },
             ],
+            // React/ReactPrimer
             "/React/ReactPrimer/": [
                 {
                     title: "🔯React与Vue比较研究",
@@ -515,7 +522,7 @@ module.exports = {
                 },
             ],
 
-            // Vue
+            // Vue/VueAdvance
             "/Vue/VueAdvance/": [
                 {
                     title: "🔯Vue原理剖析",
@@ -537,7 +544,7 @@ module.exports = {
                 },
             ],
 
-            // node
+            // Node
             "/Node/": [
                 {
                     title: "Node",
@@ -545,6 +552,7 @@ module.exports = {
                     children: [{ title: "Node", path: "/Node/" }],
                 },
             ],
+            // Node/Nest
             "/Node/Nest/": [
                 {
                     title: "Node",
@@ -553,7 +561,7 @@ module.exports = {
                 },
             ],
 
-            // Tools
+            // Tools/Server
             "/Tools/Server/": [
                 {
                     title: "Server端相关知识",
@@ -570,6 +578,7 @@ module.exports = {
                     ],
                 },
             ],
+            // Tools/Webpack
             "/Tools/Webpack/": [
                 {
                     title: "Webpack相关知识",
@@ -587,7 +596,7 @@ module.exports = {
                 },
             ],
 
-            // others
+            // Others/Question
             "/Others/Question/": [
                 {
                     title: "Question",
@@ -604,6 +613,7 @@ module.exports = {
                     ],
                 },
             ],
+            // Others/BlockChain
             "/Others/BlockChain/": [
                 {
                     title: "区块链",
@@ -616,6 +626,7 @@ module.exports = {
                     ],
                 },
             ],
+            // Others/StudySource
             "/Others/StudySource/": [
                 {
                     title: "🔯学习资源汇总",
@@ -641,7 +652,7 @@ module.exports = {
                 },
             ],
 
-            // Tricks
+            // Tricks/JsTricks
             "/Tricks/JsTricks/": [
                 {
                     title: "Js Tricks",
@@ -654,6 +665,7 @@ module.exports = {
                     ],
                 },
             ],
+            // Tricks/CssTricks
             "/Tricks/CssTricks/": [
                 {
                     title: "Css Tricks",
