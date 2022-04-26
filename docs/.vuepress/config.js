@@ -219,11 +219,7 @@ module.exports = {
                         },
                         {
                             title: "lodash-differenceWith源码研读解析",
-                            path: "/SourceCode/Lodash/differenceWith",
-                        },
-                        {
-                            title: "lodash-differenceWith源码研读解析",
-                            path: "/SourceCode/Lodash/differenceWith",
+                            path: "/SourceCode/Lodash/DifferenceWith",
                         },
                         {
                             title: "lodash-drop源码研读解析",
