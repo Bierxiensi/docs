@@ -455,9 +455,37 @@ module.exports = {
                             path: "/Web/TypeScript/",
                         },
                         {
-                            title: "TypeScript学习记录[1]",
+                            title: "TypeScript学习记录-[数据类型]",
                             path: "/Web/TypeScript/typescript1",
                         },
+                        {
+                            title: "TypeScript学习记录-[类和接口]",
+                            path: "/Web/TypeScript/typescript2",
+                        },
+                        {
+                            title: "TypeScript学习记录-[枚举和泛型]",
+                            path: "/Web/TypeScript/typescript3",
+                        },
+                        {
+                            title: "TypeScript学习记录-[类型别名]",
+                            path: "/Web/TypeScript/typescript4",
+                        },
+                        {
+                            title: "TypeScript学习记录-[ts-challenge-Hello World]",
+                            path: "/Web/TypeScript/tsChallenge_HelloWorld",
+                        },
+                        {
+                            title: "TypeScript学习记录-[ts-challenge-实现Pick]",
+                            path: "/Web/TypeScript/tsChallenge_Pick",
+                        },
+                        {
+                            title: "TypeScript学习记录-[ts-challenge-Readonly|omit]",
+                            path: "/Web/TypeScript/tsChallenge_Readonly|omit",
+                        },
+                        {
+                            title: "TypeScript学习记录-[ts-challenge-returnType]",
+                            path: "/Web/TypeScript/tsChallenge_returnType",
+                        }
                     ],
                 },
             ],
