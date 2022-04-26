@@ -179,11 +179,11 @@ module.exports = {
             // SourceCode/Lodash
             "/SourceCode/Lodash/": [
                 {
-                    title: "Axios", // 必要的
+                    title: "Lodash", // 必要的
                     collapsable: true, // 可选的, 默认值是 true,
                     children: [
                         {
-                            title: "Axios",
+                            title: "Lodash",
                             path: "/SourceCode/Lodash/",
                         },
                         {
