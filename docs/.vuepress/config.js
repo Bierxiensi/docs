@@ -486,7 +486,11 @@ module.exports = {
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-Readonly|omit]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_Readonly|omit",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_Readonly_Omit",
+                        },
+                        {
+                            title: "TypeScript学习记录-[ts-challenge-Readonly|omit]",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_ReadOnly2",
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-returnType]",

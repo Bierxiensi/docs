@@ -1,3 +1,11 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: zhangxiangyu
+ * @Date: 2022-04-26 16:38:33
+ * @LastEditors: zhangxiangyu
+ * @LastEditTime: 2022-04-27 18:23:09
+-->
 ---
 title: TypeScript学习记录-[ts-challenge-getReadOnlyKeys]
 search: true
@@ -48,5 +56,19 @@ interface Todo2 {
 ```
 
 - 首先可以确定的是返回类型是 `object`（索引类型index Type）
+
+```js
+/**
+ * @description 获取只读`key`
+ * @tips 1.利用联合类型分发`key`
+ *       2.通过`Pick`提取当前`key`的类型
+ *       3.通过`Equal`判断,只读与不只读是否一致
+ */
+type GetReadonlyKeys<T, K = keyof T> = K extends keyof T
+  ? Equal<Pick<T, K>, Readonly<Pick<T, K>>> extends true
+    ? K
+    : never
+  : never
+```
 
 
