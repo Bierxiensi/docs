@@ -58,7 +58,7 @@ interface Expected {
 - 值得注意的是 `<T, Keys extends keyof T> = {  [key in keyof T as key extends Keys ? never : key]: T[key] }` 是 `Omit<T, K>` 泛型的实现，前述内容可以简化为 `type MyReadonly2<T, keys extends keyof T> =  { readonly [key in keys]: T[key] } & Omit<T, K>`
   
 [](./../image/tsChallenge_ReadOnly2.1.png)
-
+ 
 - 为了实现 `如果未提供K，则应使所有属性都变为只读，就像普通的Readonly<T>一样` 这个条件，在 `keys extends keyof T` 中，需要对泛型 `keys` 设定原始类型，即 `keys = keyof T`，加上类型约束就得到了 `keys extends keyof T = keyof T`，从而得到了最终的结果 `type MyReadonly2<T, keys extends keyof T = keyof T> =  { readonly [key in keys]: T[key] } & { [key in keyof T as key extends keys ? never : key]: T[key] }`
 
 [](./../image/tsChallenge_ReadOnly2.2.png)
