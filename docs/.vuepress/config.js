@@ -489,7 +489,7 @@ module.exports = {
                             path: "/Web/TypeScript/tsChallenges/tsChallenge_Readonly_Omit",
                         },
                         {
-                            title: "TypeScript学习记录-[ts-challenge-Readonly|omit]",
+                            title: "TypeScript学习记录-[ts-challenge-Readonly2]",
                             path: "/Web/TypeScript/tsChallenges/tsChallenge_ReadOnly2",
                         },
                         {
