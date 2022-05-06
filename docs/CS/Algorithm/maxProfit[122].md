@@ -1,36 +1,39 @@
 ---
-title: 删除有序数组中的重复项
+title: 买卖股票的最佳时机 II
 search: true
 
-date: 2022-05-05 20:45:23
-tags: [algorithm, leetcode, removeDuplicates]
+date: 2022-05-06 20:45:23
+tags: [algorithm, leetcode, maxProfit]
 description:
 comments:
 ---
 
-## 1️⃣ 26. 删除有序数组中的重复项
+## 1️⃣ 122. 删除有序数组中的重复项
 
-> 给你一个 `升序排列` 的数组 nums ，请你 `原地` 删除重复出现的元素，使每个元素 `只出现一次` ，返回删除后数组的新长度。元素的 `相对顺序` 应该保持一致。由于在某些语言中不能改变数组的长度，所以必须将结果放在数组nums的第一部分。更规范地说，如果在删除重复项之后有 k 个元素，那么 nums 的前 k 个元素应该保存最终结果。将最终结果插入 nums 的前 k 个位置后返回 k 。不要使用额外的空间，你必须在 `原地` 修改输入数组 `并在使用 O(1)` 额外空间的条件下完成。
+> 给你一个整数数组 `prices` ，其中 `prices[i]` 表示某支股票第 `i` 天的价格。在每一天，你可以决定是否购买和/或出售股票。你在任何时候 `最多` 只能持有 `一股` 股票。你也可以先购买，然后在 `同一天` 出售。返回你能获得的 `最大` 利润。
 
 
-**javascript 双指针**
+
+**javascript 贪心算法**
 
 ```javascript
 /**
- * @param {number[]} nums
+ * @param {number[]} prices
  * @return {number}
  */
-var removeDuplicates = function(nums) {
+var maxProfit = function(prices) {
     let pc = 0;
-    for(let i = 0; i < nums.length; i++){
-        if(nums[pc] === nums[i + 1]){
-            nums[pc] = nums[i + 1]
-        } else {
-            pc++;
-            nums[pc] = nums[i + 1]
+    let ret = 0;
+    for (let index = 1; index < prices.length; index++) {
+        const curElement = prices[index];
+        const preElement = prices[pc];
+        if(preElement < curElement){
+            ret = ret + curElement - preElement;
         }
-    } 
-    return pc;
+        pc++;
+        
+    }
+    return ret;
 };
 ```
 
@@ -64,4 +67,4 @@ int removeDuplicates(BTree BST, int x){
 
 ```
 
-[](https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2gy9m/)
+[](https://leetcode-cn.com/leetbook/read/top-interview-questions-easy/x2zsx1/)
