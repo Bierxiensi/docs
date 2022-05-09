@@ -38,32 +38,18 @@ var maxProfit = function(prices) {
 ```
 
 **解题分析**
-折半查找，见名思义，每次寻找中间点遇目标值比较，但是如何划分搜索区间会产生不同的写法，上述是一种两端闭区间的写法
+
 
 -   时间复杂度：O(n)，其中 n 是数组的长度。
 -   空间复杂度：O(1)。
 
 **Tips**
 
--   💯 分析二分查找的一个技巧是：不要出现 else，而是把所有情况用 else if 写清楚，这样可以清楚地展现所有细节。[labuladong](https://leetcode-cn.com/problems/binary-search/solution/er-fen-cha-zhao-xiang-jie-by-labuladong/)
+-  
 
--   💯 计算 mid 时需要防止溢出，代码中 left + (right - left) / 2 就和 (left + right) / 2 的结果相同，但是有效防止了 left 和 right 太大直接相加导致溢出
-
-**扩展-C 语言伪代码二叉树递归/非递归**
+**扩展-C**
 
 ```C
-int removeDuplicates(BTree BST, int x){
-    if(!BST){
-        return null;
-    }
-    if(x > BST->lChild){
-        return binarySearch(BST->rChild, x)
-    } else if(x < BST->lChild){
-        return binarySearch(BST->lChild, x)
-    } else {
-        return BST
-    }
-}
 
 ```
 
