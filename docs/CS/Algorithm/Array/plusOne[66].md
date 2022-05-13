@@ -3,7 +3,7 @@ title: 加一
 search: true
 
 date: 2022-05-12 20:45:23
-tags: [algorithm, leetcode, singleNumber]
+tags: [algorithm, leetcode, plusOne]
 description:
 comments:
 ---
@@ -28,7 +28,7 @@ var plusOne = function(digits) {
 ```
 
 **结果**
-
+JS最大安全整数 `2^53 - 1` , 因此`Number`在转换超过最大安全蒸整数时会造成数据丢失
 
 **解题分析**
 -   时间复杂度：O(n)，其中 n 是nums1 和 nums2 最大数组的长度。
@@ -44,7 +44,7 @@ var plusOne = function(digits) {
 
 ```
 
-### javascript Bit manipulation
+### javascript 转换成字符串
 
 ```javascript
 var plusOne = function(digits) {
