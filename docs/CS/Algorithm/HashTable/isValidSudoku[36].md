@@ -22,16 +22,55 @@ comments:
  * @return {boolean}
  */
 var isValidSudoku = function(board) {
-
+    let length = board.length;
+    let boardarr = new Array(length);
+    let column = new Array(length); 
+    let row = new Array(length); 
+    for (let i = 0; i < length; i++) {
+        row[i] = [];
+        column[i] = [];
+        for (let j = 0; j < length; j++) {
+            row[i][j] = 0;
+            column[i][j] = 0;
+        }
+    }
+    for (let i = 0; i < 3; i++) {
+        boardarr[i] = []; 
+        for (let j = 0; j < 3; j++) {
+            boardarr[i][j] = []; 
+            for (let k = 0; k < 9; k++) {
+                boardarr[i][j][k] = 0; 
+            }
+        }
+    }
+    for (let h = 0; h < length; h++) {
+        for (let w = 0; w < length; w++) {
+            let element = board[h][w];
+            let bHeight = Math.floor(h / 3);
+            let bWidth = Math.floor(w / 3);
+            if(element !== '.'){
+                let index = element - 1;
+                row[h][index]++;
+                column[w][index]++;
+                boardarr[bHeight][bWidth][index]++;
+                if(row[h][index] > 1 || column[w][index] > 1 || boardarr[bHeight][bWidth][index] > 1){
+                    return false;
+                }
+            }
+        }        
+    }
+    return true;
 };
 ```
 
 **结果**
-
+执行用时： 72 ms , 在所有 JavaScript 提交中击败了 85.67% 的用户
+内存消耗： 45 MB , 在所有 JavaScript 提交中击败了 61.01% 的用户
 
 **解题分析**
--   时间复杂度：O(n)，其中 n 是数组的长度。
--   空间复杂度：O(n)。
+- 时间复杂度：O(1)。数独共有 81 个单元格，只需要对每个单元格遍历一次即可。
+
+- 空间复杂度：O(1)。由于数独的大小固定，因此哈希表的空间也是固定的。
 
 **Tips**
 
