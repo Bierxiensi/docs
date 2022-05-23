@@ -112,6 +112,16 @@ module.exports = {
                     path: "/CS/Algorithm/",
                 },
                 {
+                    title: "初级算法", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "Array-移动零",
+                            path: "/CS/Algorithm/Array/moveZeroes[283]",
+                        },
+                    ],
+                },
+                {
                     title: "20天算法刷题记录", // 必要的
                     collapsable: true, // 可选的, 默认值是 true,
                     children: [
