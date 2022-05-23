@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>【axios 源码】- node适配器 http 研读解析【上】 | 大前端工程师成长路线</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="博客 分享 笔记 规划 ">
+    
+    <link rel="preload" href="/docs/assets/css/0.styles.ab7a6878.css" as="style"><link rel="preload" href="/docs/assets/js/app.4c52c3c5.js" as="script"><link rel="preload" href="/docs/assets/js/2.6b49b1f6.js" as="script"><link rel="preload" href="/docs/assets/js/90.4682a6b2.js" as="script"><link rel="prefetch" href="/docs/assets/js/10.1909485c.js"><link rel="prefetch" href="/docs/assets/js/100.02f5e8d2.js"><link rel="prefetch" href="/docs/assets/js/101.fe2043eb.js"><link rel="prefetch" href="/docs/assets/js/102.c9801806.js"><link rel="prefetch" href="/docs/assets/js/103.4bd5339b.js"><link rel="prefetch" href="/docs/assets/js/104.3974293c.js"><link rel="prefetch" href="/docs/assets/js/105.35e78192.js"><link rel="prefetch" href="/docs/assets/js/106.b39acd08.js"><link rel="prefetch" href="/docs/assets/js/107.f972e71f.js"><link rel="prefetch" href="/docs/assets/js/108.0756647c.js"><link rel="prefetch" href="/docs/assets/js/109.a9486169.js"><link rel="prefetch" href="/docs/assets/js/11.80d9ae96.js"><link rel="prefetch" href="/docs/assets/js/110.1f44054a.js"><link rel="prefetch" href="/docs/assets/js/111.d811c4fe.js"><link rel="prefetch" href="/docs/assets/js/112.7ca19fc9.js"><link rel="prefetch" href="/docs/assets/js/113.0149e25d.js"><link rel="prefetch" href="/docs/assets/js/114.7d0a5c98.js"><link rel="prefetch" href="/docs/assets/js/115.480047ab.js"><link rel="prefetch" href="/docs/assets/js/116.5ea09672.js"><link rel="prefetch" href="/docs/assets/js/117.21895054.js"><link rel="prefetch" href="/docs/assets/js/118.561b23a9.js"><link rel="prefetch" href="/docs/assets/js/119.8138bf1e.js"><link rel="prefetch" href="/docs/assets/js/12.b40d1122.js"><link rel="prefetch" href="/docs/assets/js/120.e9a7cf26.js"><link rel="prefetch" href="/docs/assets/js/121.4cf4cdfd.js"><link rel="prefetch" href="/docs/assets/js/122.89dc0ba1.js"><link rel="prefetch" href="/docs/assets/js/123.144db0f4.js"><link rel="prefetch" href="/docs/assets/js/124.53cdb872.js"><link rel="prefetch" href="/docs/assets/js/125.f992a7e7.js"><link rel="prefetch" href="/docs/assets/js/126.fa6fbd08.js"><link rel="prefetch" href="/docs/assets/js/127.333d2a95.js"><link rel="prefetch" href="/docs/assets/js/128.53c03c8c.js"><link rel="prefetch" href="/docs/assets/js/129.10f25e3c.js"><link rel="prefetch" href="/docs/assets/js/13.d7d47ba4.js"><link rel="prefetch" href="/docs/assets/js/130.dbde8ee2.js"><link rel="prefetch" href="/docs/assets/js/131.6050adb1.js"><link rel="prefetch" href="/docs/assets/js/132.fa82b6a4.js"><link rel="prefetch" href="/docs/assets/js/133.8c67dc1a.js"><link rel="prefetch" href="/docs/assets/js/134.346607d5.js"><link rel="prefetch" href="/docs/assets/js/135.7ef5876f.js"><link rel="prefetch" href="/docs/assets/js/136.205ba4f1.js"><link rel="prefetch" href="/docs/assets/js/137.14d1c8fe.js"><link rel="prefetch" href="/docs/assets/js/138.0956badc.js"><link rel="prefetch" href="/docs/assets/js/139.cb534781.js"><link rel="prefetch" href="/docs/assets/js/14.e908ef4f.js"><link rel="prefetch" href="/docs/assets/js/140.050849aa.js"><link rel="prefetch" href="/docs/assets/js/141.c4f70cd6.js"><link rel="prefetch" href="/docs/assets/js/142.d251e997.js"><link rel="prefetch" href="/docs/assets/js/143.dd05699a.js"><link rel="prefetch" href="/docs/assets/js/144.2a64749d.js"><link rel="prefetch" href="/docs/assets/js/145.d6fc77e1.js"><link rel="prefetch" href="/docs/assets/js/146.ac083a39.js"><link rel="prefetch" href="/docs/assets/js/147.120e90c4.js"><link rel="prefetch" href="/docs/assets/js/148.a42bcb03.js"><link rel="prefetch" href="/docs/assets/js/149.dff9a28d.js"><link rel="prefetch" href="/docs/assets/js/15.2e4231fe.js"><link rel="prefetch" href="/docs/assets/js/150.fe1a3495.js"><link rel="prefetch" href="/docs/assets/js/151.22c1074e.js"><link rel="prefetch" href="/docs/assets/js/16.7a6263e9.js"><link rel="prefetch" href="/docs/assets/js/17.198a110e.js"><link rel="prefetch" href="/docs/assets/js/18.e487a976.js"><link rel="prefetch" href="/docs/assets/js/19.44950776.js"><link rel="prefetch" href="/docs/assets/js/20.e394b480.js"><link rel="prefetch" href="/docs/assets/js/21.5e3becc8.js"><link rel="prefetch" href="/docs/assets/js/22.7afcd91b.js"><link rel="prefetch" href="/docs/assets/js/23.de12073d.js"><link rel="prefetch" href="/docs/assets/js/24.4bb420de.js"><link rel="prefetch" href="/docs/assets/js/25.dced528c.js"><link rel="prefetch" href="/docs/assets/js/26.faa6e247.js"><link rel="prefetch" href="/docs/assets/js/27.b56a5ccb.js"><link rel="prefetch" href="/docs/assets/js/28.d3296263.js"><link rel="prefetch" href="/docs/assets/js/29.9ed65a31.js"><link rel="prefetch" href="/docs/assets/js/3.b2fbae14.js"><link rel="prefetch" href="/docs/assets/js/30.e2a85588.js"><link rel="prefetch" href="/docs/assets/js/31.7ca912a4.js"><link rel="prefetch" href="/docs/assets/js/32.ce6cfbc7.js"><link rel="prefetch" href="/docs/assets/js/33.443526d4.js"><link rel="prefetch" href="/docs/assets/js/34.a5a54875.js"><link rel="prefetch" href="/docs/assets/js/35.d9c738b3.js"><link rel="prefetch" href="/docs/assets/js/36.6750d8b9.js"><link rel="prefetch" href="/docs/assets/js/37.7a9091be.js"><link rel="prefetch" href="/docs/assets/js/38.4c08ac41.js"><link rel="prefetch" href="/docs/assets/js/39.793b148e.js"><link rel="prefetch" href="/docs/assets/js/4.00c0a8b6.js"><link rel="prefetch" href="/docs/assets/js/40.bfbaec97.js"><link rel="prefetch" href="/docs/assets/js/41.bd20f0dd.js"><link rel="prefetch" href="/docs/assets/js/42.db0286e9.js"><link rel="prefetch" href="/docs/assets/js/43.20dfc67f.js"><link rel="prefetch" href="/docs/assets/js/44.12e7a72d.js"><link rel="prefetch" href="/docs/assets/js/45.74ffb05f.js"><link rel="prefetch" href="/docs/assets/js/46.551b9504.js"><link rel="prefetch" href="/docs/assets/js/47.c60243ee.js"><link rel="prefetch" href="/docs/assets/js/48.77f5ac2f.js"><link rel="prefetch" href="/docs/assets/js/49.5c0973bb.js"><link rel="prefetch" href="/docs/assets/js/5.ec57268f.js"><link rel="prefetch" href="/docs/assets/js/50.9602ad98.js"><link rel="prefetch" href="/docs/assets/js/51.1cf480c3.js"><link rel="prefetch" href="/docs/assets/js/52.9c42a113.js"><link rel="prefetch" href="/docs/assets/js/53.97094e24.js"><link rel="prefetch" href="/docs/assets/js/54.908caa28.js"><link rel="prefetch" href="/docs/assets/js/55.047ed0b7.js"><link rel="prefetch" href="/docs/assets/js/56.6ff1ce88.js"><link rel="prefetch" href="/docs/assets/js/57.c4854696.js"><link rel="prefetch" href="/docs/assets/js/58.87a8a122.js"><link rel="prefetch" href="/docs/assets/js/59.8aaa0b20.js"><link rel="prefetch" href="/docs/assets/js/6.653864d3.js"><link rel="prefetch" href="/docs/assets/js/60.7e248e37.js"><link rel="prefetch" href="/docs/assets/js/61.25d8fca2.js"><link rel="prefetch" href="/docs/assets/js/62.d73ee866.js"><link rel="prefetch" href="/docs/assets/js/63.96e730e5.js"><link rel="prefetch" href="/docs/assets/js/64.fce15cff.js"><link rel="prefetch" href="/docs/assets/js/65.1f898ac5.js"><link rel="prefetch" href="/docs/assets/js/66.0e1225b4.js"><link rel="prefetch" href="/docs/assets/js/67.dad1cdd4.js"><link rel="prefetch" href="/docs/assets/js/68.0b3d3c52.js"><link rel="prefetch" href="/docs/assets/js/69.220ec1ca.js"><link rel="prefetch" href="/docs/assets/js/7.963ea493.js"><link rel="prefetch" href="/docs/assets/js/70.740e440c.js"><link rel="prefetch" href="/docs/assets/js/71.14e0dbca.js"><link rel="prefetch" href="/docs/assets/js/72.7cb1a6ab.js"><link rel="prefetch" href="/docs/assets/js/73.a3993dc1.js"><link rel="prefetch" href="/docs/assets/js/74.60799389.js"><link rel="prefetch" href="/docs/assets/js/75.9f1481ba.js"><link rel="prefetch" href="/docs/assets/js/76.26565696.js"><link rel="prefetch" href="/docs/assets/js/77.135788e4.js"><link rel="prefetch" href="/docs/assets/js/78.7538f61b.js"><link rel="prefetch" href="/docs/assets/js/79.9d27030e.js"><link rel="prefetch" href="/docs/assets/js/8.56a66824.js"><link rel="prefetch" href="/docs/assets/js/80.7f8607cb.js"><link rel="prefetch" href="/docs/assets/js/81.9237ba41.js"><link rel="prefetch" href="/docs/assets/js/82.1d402a08.js"><link rel="prefetch" href="/docs/assets/js/83.009367e8.js"><link rel="prefetch" href="/docs/assets/js/84.06c625c6.js"><link rel="prefetch" href="/docs/assets/js/85.7bd68151.js"><link rel="prefetch" href="/docs/assets/js/86.c684f277.js"><link rel="prefetch" href="/docs/assets/js/87.49187153.js"><link rel="prefetch" href="/docs/assets/js/88.7ece892c.js"><link rel="prefetch" href="/docs/assets/js/89.e7fbf1ca.js"><link rel="prefetch" href="/docs/assets/js/9.10ed9cb0.js"><link rel="prefetch" href="/docs/assets/js/91.72f9366c.js"><link rel="prefetch" href="/docs/assets/js/92.ed718191.js"><link rel="prefetch" href="/docs/assets/js/93.25671cc4.js"><link rel="prefetch" href="/docs/assets/js/94.143828b8.js"><link rel="prefetch" href="/docs/assets/js/95.c4a2f997.js"><link rel="prefetch" href="/docs/assets/js/96.dbe4875d.js"><link rel="prefetch" href="/docs/assets/js/97.880385e1.js"><link rel="prefetch" href="/docs/assets/js/98.1b9f6ab8.js"><link rel="prefetch" href="/docs/assets/js/99.7638eba0.js">
+    <link rel="stylesheet" href="/docs/assets/css/0.styles.ab7a6878.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/docs/" class="home-link router-link-active"><img src="/docs/images/home/balu.jpg" alt="大前端工程师成长路线" class="logo"> <span class="site-name can-hide">大前端工程师成长路线</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="计算机基础" class="dropdown-title"><span class="title">计算机基础</span> <span class="arrow down"></span></button> <button type="button" aria-label="计算机基础" class="mobile-dropdown-title"><span class="title">计算机基础</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/CS/Algorithm/" class="nav-link">
+  算法
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读源码" class="dropdown-title"><span class="title">读源码</span> <span class="arrow down"></span></button> <button type="button" aria-label="读源码" class="mobile-dropdown-title"><span class="title">读源码</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Axios/" class="nav-link router-link-active">
+  Axios
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Lodash/" class="nav-link">
+  Lodash
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Web端/移动端" class="dropdown-title"><span class="title">Web端/移动端</span> <span class="arrow down"></span></button> <button type="button" aria-label="Web端/移动端" class="mobile-dropdown-title"><span class="title">Web端/移动端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Web/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTML/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/CSS/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTTP/" class="nav-link">
+  HTTP
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/TypeScript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/App/App/" class="nav-link">
+  App
+</a></li><li class="dropdown-item"><!----> <a href="/docs/App/Desktop/" class="nav-link">
+  桌面应用
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="React系列" class="dropdown-title"><span class="title">React系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="React系列" class="mobile-dropdown-title"><span class="title">React系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/React/AntDesign/" class="nav-link">
+  AntDesign
+</a></li><li class="dropdown-item"><!----> <a href="/docs/React/ReactPrimer/" class="nav-link">
+  React入门
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Vue系列" class="dropdown-title"><span class="title">Vue系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="Vue系列" class="mobile-dropdown-title"><span class="title">Vue系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Vue/VueAdvance/" class="nav-link">
+  vue进阶
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Node" class="dropdown-title"><span class="title">Node</span> <span class="arrow down"></span></button> <button type="button" aria-label="Node" class="mobile-dropdown-title"><span class="title">Node</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Node/" class="nav-link">
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Node/Nest/" class="nav-link">
+  Nest框架
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="打包与工具链" class="dropdown-title"><span class="title">打包与工具链</span> <span class="arrow down"></span></button> <button type="button" aria-label="打包与工具链" class="mobile-dropdown-title"><span class="title">打包与工具链</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Tools/Server/" class="nav-link">
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Tools/Webpack/" class="nav-link">
+  Webpack
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow down"></span></button> <button type="button" aria-label="其他" class="mobile-dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Others/Question/" class="nav-link">
+  面试题
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/BlockChain/" class="nav-link">
+  区块链
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/StudySource/" class="nav-link">
+  学习资源
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Tricks" class="dropdown-title"><span class="title">Tricks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Tricks" class="mobile-dropdown-title"><span class="title">Tricks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Tricks/JsTricks/" class="nav-link">
+  js tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Tricks/CssTricks/" class="nav-link">
+  css tricks
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/bierxiensi" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="计算机基础" class="dropdown-title"><span class="title">计算机基础</span> <span class="arrow down"></span></button> <button type="button" aria-label="计算机基础" class="mobile-dropdown-title"><span class="title">计算机基础</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/CS/Algorithm/" class="nav-link">
+  算法
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读源码" class="dropdown-title"><span class="title">读源码</span> <span class="arrow down"></span></button> <button type="button" aria-label="读源码" class="mobile-dropdown-title"><span class="title">读源码</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Axios/" class="nav-link router-link-active">
+  Axios
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Lodash/" class="nav-link">
+  Lodash
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Web端/移动端" class="dropdown-title"><span class="title">Web端/移动端</span> <span class="arrow down"></span></button> <button type="button" aria-label="Web端/移动端" class="mobile-dropdown-title"><span class="title">Web端/移动端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Web/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTML/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/CSS/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTTP/" class="nav-link">
+  HTTP
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/TypeScript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/App/App/" class="nav-link">
+  App
+</a></li><li class="dropdown-item"><!----> <a href="/docs/App/Desktop/" class="nav-link">
+  桌面应用
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="React系列" class="dropdown-title"><span class="title">React系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="React系列" class="mobile-dropdown-title"><span class="title">React系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/React/AntDesign/" class="nav-link">
+  AntDesign
+</a></li><li class="dropdown-item"><!----> <a href="/docs/React/ReactPrimer/" class="nav-link">
+  React入门
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Vue系列" class="dropdown-title"><span class="title">Vue系列</span> <span class="arrow down"></span></button> <button type="button" aria-label="Vue系列" class="mobile-dropdown-title"><span class="title">Vue系列</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Vue/VueAdvance/" class="nav-link">
+  vue进阶
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Node" class="dropdown-title"><span class="title">Node</span> <span class="arrow down"></span></button> <button type="button" aria-label="Node" class="mobile-dropdown-title"><span class="title">Node</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Node/" class="nav-link">
+  Node
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Node/Nest/" class="nav-link">
+  Nest框架
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="打包与工具链" class="dropdown-title"><span class="title">打包与工具链</span> <span class="arrow down"></span></button> <button type="button" aria-label="打包与工具链" class="mobile-dropdown-title"><span class="title">打包与工具链</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Tools/Server/" class="nav-link">
+  Server
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Tools/Webpack/" class="nav-link">
+  Webpack
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow down"></span></button> <button type="button" aria-label="其他" class="mobile-dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Others/Question/" class="nav-link">
+  面试题
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/BlockChain/" class="nav-link">
+  区块链
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/StudySource/" class="nav-link">
+  学习资源
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Tricks" class="dropdown-title"><span class="title">Tricks</span> <span class="arrow down"></span></button> <button type="button" aria-label="Tricks" class="mobile-dropdown-title"><span class="title">Tricks</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Tricks/JsTricks/" class="nav-link">
+  js tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Tricks/CssTricks/" class="nav-link">
+  css tricks
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/bierxiensi" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Axios</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/SourceCode/Axios/" aria-current="page" class="sidebar-link">Axios</a></li><li><a href="/docs/SourceCode/Axios/Utils.html" class="sidebar-link">Axios工具函数</a></li><li><a href="/docs/SourceCode/Axios/Default.html" class="sidebar-link">Axios实例化配置函数</a></li><li><a href="/docs/SourceCode/Axios/Default.html" class="sidebar-link">过度选项校验函数Validator研读解析</a></li><li><a href="/docs/SourceCode/Axios/Cancel.html" class="sidebar-link">取消请求cancel模块研读解析</a></li><li><a href="/docs/SourceCode/Axios/DispatchRequest.html" class="sidebar-link">请求分发函数DispatchRequest研读解析</a></li><li><a href="/docs/SourceCode/Axios/Helper.html" class="sidebar-link">适配器中的辅助函数helper研读解析</a></li><li><a href="/docs/SourceCode/Axios/Core.html" class="sidebar-link">适配器中的核心函数core研读解析</a></li><li><a href="/docs/SourceCode/Axios/Xhr.html" class="sidebar-link">浏览器端适配器xhr研读解析</a></li><li><a href="/docs/SourceCode/Axios/Http1.html" aria-current="page" class="active sidebar-link">【axios 源码】- node适配器 http 研读解析【上】</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Http1.html#_1-辅助函数总览" class="sidebar-link">1. 辅助函数总览</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Http1.html#_2-正文分析" class="sidebar-link">2. 正文分析</a></li></ul></li><li><a href="/docs/SourceCode/Axios/Http2.html" class="sidebar-link">【axios 源码】- node适配器 http 研读解析【下】</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="一、环境准备"><a href="#一、环境准备" class="header-anchor">#</a> 一、环境准备</h1> <ul><li><code>axios</code> 版本 <code>v0.24.0</code></li> <li>通过 <code>github1s</code> 网页可以 <a href="https://github1s.com/axios/axios/blob/HEAD/lib/adapter/http.js" target="_blank" rel="noopener noreferrer">查看<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> axios 源码</li> <li>调试需要 <code>clone</code> 到本地</li></ul> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">git</span> clone https://github.com/axios/axios.git
+
+<span class="token builtin class-name">cd</span> axios
+
+<span class="token function">npm</span> start
+
+http://localhost:3000/
+</code></pre></div><h1 id="二、函数研读"><a href="#二、函数研读" class="header-anchor">#</a> 二、函数研读</h1> <h2 id="_1-辅助函数总览"><a href="#_1-辅助函数总览" class="header-anchor">#</a> 1. 辅助函数总览</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token string">&quot;use strict&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> utils <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;./../utils&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> settle <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;./../core/settle&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> buildFullPath <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;../core/buildFullPath&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> buildURL <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;./../helpers/buildURL&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> http <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;http&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> https <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;https&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> httpFollow <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;follow-redirects&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>http<span class="token punctuation">;</span>
+<span class="token keyword">var</span> httpsFollow <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;follow-redirects&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>https<span class="token punctuation">;</span>
+<span class="token keyword">var</span> url <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;url&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> zlib <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;zlib&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> <span class="token constant">VERSION</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;./../env/data&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version<span class="token punctuation">;</span>
+<span class="token keyword">var</span> createError <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;../core/createError&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> enhanceError <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;../core/enhanceError&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> defaults <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;../defaults&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> Cancel <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;../cancel/Cancel&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li><p>包含前文中的工具函数 <a href="/docs/SourceCode/Axios/Utils.html"><code>utils</code></a>、实例化配置函数 <a href="/docs/SourceCode/Axios/Default.html"><code>defaults</code></a> 、取消请求模块 <a href="/docs/SourceCode/Axios/Cancel.html"><code>Cancel</code></a> 以及部分核心函数<a href="/docs/SourceCode/Axios/Core.html">core</a>和<a href="/docs/SourceCode/Axios/Helper.html">helper</a>函数，另外还引入了一些三方包如 <code>http</code>、<code>https</code>、<code>url</code>、<code>zlib</code></p></li> <li><p>包含 两个 <code>function</code> - <code>setProxy</code> 和 <code>httpAdapter</code> 共388行代码，其中 <code>httpAdapter</code> 是被导出的函数实例，由于篇幅过长，文章将分成上下两个部分，该文是上半篇，主要讲述http/https请求被创建前的准备工作</p></li></ul> <h2 id="_2-正文分析"><a href="#_2-正文分析" class="header-anchor">#</a> 2. 正文分析</h2> <p>在 node 环境中，Axios 封装的是 http 库，<code>httpAdapter</code> 的工作流程大致如下所示：</p> <p>1. 配置请求头信息
+2. 请求参数信息格式化处理
+3. 解析 URL 并选择与之对应的请求协议
+4. 创建请求
+5. 添加 <code>error</code> 、<code>timeout</code> 以及针对 <code>stream</code> 流的 <code>data</code>、<code>end</code>、<code>aborted</code> 等响应事件
+6. 发送请求</p> <p>接下来我们按照上述流程分步骤研读前三个部分</p> <h3 id="【2-1】setproxy-函数"><a href="#【2-1】setproxy-函数" class="header-anchor">#</a> 【2.1】<code>setProxy</code> 函数</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @param {http.ClientRequestArgs} options
+ * @param {AxiosProxyConfig} proxy
+ * @param {string} location
+ */</span>
+<span class="token keyword">function</span> <span class="token function">setProxy</span><span class="token punctuation">(</span><span class="token parameter">options<span class="token punctuation">,</span> proxy<span class="token punctuation">,</span> location</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  options<span class="token punctuation">.</span>hostname <span class="token operator">=</span> proxy<span class="token punctuation">.</span>host<span class="token punctuation">;</span>
+  options<span class="token punctuation">.</span>host <span class="token operator">=</span> proxy<span class="token punctuation">.</span>host<span class="token punctuation">;</span>
+  options<span class="token punctuation">.</span>port <span class="token operator">=</span> proxy<span class="token punctuation">.</span>port<span class="token punctuation">;</span>
+  options<span class="token punctuation">.</span>path <span class="token operator">=</span> location<span class="token punctuation">;</span>
+
+  <span class="token comment">// Basic 格式的 proxy 身份凭证</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>proxy<span class="token punctuation">.</span>auth<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> base64 <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>proxy<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>username <span class="token operator">+</span> <span class="token string">':'</span> <span class="token operator">+</span> proxy<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>password<span class="token punctuation">,</span> <span class="token string">'utf8'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token string">'base64'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    options<span class="token punctuation">.</span>headers<span class="token punctuation">[</span><span class="token string">'Proxy-Authorization'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">'Basic '</span> <span class="token operator">+</span> base64<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// 如果使用了代理，那么任何重定向都必须要经过这个代理</span>
+  options<span class="token punctuation">.</span><span class="token function-variable function">beforeRedirect</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">beforeRedirect</span><span class="token punctuation">(</span><span class="token parameter">redirection</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    redirection<span class="token punctuation">.</span>headers<span class="token punctuation">.</span>host <span class="token operator">=</span> redirection<span class="token punctuation">.</span>host<span class="token punctuation">;</span>
+    <span class="token function">setProxy</span><span class="token punctuation">(</span>redirection<span class="token punctuation">,</span> proxy<span class="token punctuation">,</span> redirection<span class="token punctuation">.</span>href<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>见名知意，<code>axios</code> 内部定义的 <code>proxy</code> 设定函数，将根据用户的<code>proxy</code>配置设定请求头中的<code>host</code>信息并根据用户名和密码生成 <code>proxy</code> 身份凭证</li> <li><code>Proxy-Authorization</code> 是一个请求首部，其中包含了用户代理提供给代理服务器的用于身份验证的凭证</li></ul> <p>Tips:  <code>Basic Authorization</code> 认证的核心是每次请求是都必须使用该用户的 <code>username</code> 和 <code>password</code>，优点和缺点都很明显，很方便调试和控制但不安全，那么问题来了，<code>axios</code> 为啥使用 <code>Basic Authorization</code>而不选择 <code>OAuth</code>、<code>Token</code> 或者 <code>JWT</code> 认证方式呢？</p> <h3 id="【2-2】判断请求是否被取消从而移除-cancel-模块的订阅者信息"><a href="#【2-2】判断请求是否被取消从而移除-cancel-模块的订阅者信息" class="header-anchor">#</a> 【2.2】判断请求是否被取消从而移除 <code>Cancel</code> 模块的订阅者信息</h3> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">xhrAdapter</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">dispatchXhrRequest</span><span class="token punctuation">(</span><span class="token parameter">resolvePromise<span class="token punctuation">,</span> rejectPromise</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+
+    <span class="token keyword">var</span> onCanceled<span class="token punctuation">;</span>
+    <span class="token keyword">function</span> <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>cancelToken<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            config<span class="token punctuation">.</span>cancelToken<span class="token punctuation">.</span><span class="token function">unsubscribe</span><span class="token punctuation">(</span>onCanceled<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>signal<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            config<span class="token punctuation">.</span>signal<span class="token punctuation">.</span><span class="token function">removeEventListener</span><span class="token punctuation">(</span><span class="token string">&quot;abort&quot;</span><span class="token punctuation">,</span> onCanceled<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">var</span> <span class="token function-variable function">resolve</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">resolvePromise</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> rejected <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> <span class="token function-variable function">reject</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">reject</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">done</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        rejected <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token function">rejectPromise</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token operator">...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>在适当的时机调用 <code>done</code> 函数，若 <code>cancelToken</code> 已被实例化，则调用原型方法 <code>unsubscribe</code> 通知订阅者表示请求已被取消</li> <li><code>Axios</code> 也支持通过实例化 <code>AbortController</code> 方式去取消一个 <code>fetch API</code> 请求，在这里 <code>config.signal</code> 应为 <code>new AbortController().signal</code>，可以参见<a href="https://github1s.com/axios/axios/blob/HEAD/README.md" target="_blank" rel="noopener noreferrer">Axios-README<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <p>Tips：<code>...</code>是对上下文代码段的省略，两段<code>...</code>之间为待分析代码段，后文不再赘述</p> <h3 id="【2-3】请求头信息配置"><a href="#【2-3】请求头信息配置" class="header-anchor">#</a> 【2.3】请求头信息配置</h3> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">httpAdapter</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">dispatchHttpRequest</span><span class="token punctuation">(</span>
+        <span class="token parameter">resolvePromise<span class="token punctuation">,</span>
+        rejectPromise</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>
+       
+        <span class="token keyword">var</span> headers <span class="token operator">=</span> config<span class="token punctuation">.</span>headers<span class="token punctuation">;</span>
+        <span class="token keyword">var</span> headerNames <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>headers<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">storeLowerName</span><span class="token punctuation">(</span><span class="token parameter">name</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            headerNames<span class="token punctuation">[</span>name<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> name<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">// Set User-Agent (required by some servers)</span>
+        <span class="token comment">// See https://github.com/axios/axios/issues/69</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">&quot;user-agent&quot;</span> <span class="token keyword">in</span> headerNames<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// User-Agent is specified; handle case where no UA header is desired</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>headers<span class="token punctuation">[</span>headerNames<span class="token punctuation">[</span><span class="token string">&quot;user-agent&quot;</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">delete</span> headers<span class="token punctuation">[</span>headerNames<span class="token punctuation">[</span><span class="token string">&quot;user-agent&quot;</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token comment">// Otherwise, use specified value</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment">// Only set header if it hasn't been set in config</span>
+            headers<span class="token punctuation">[</span><span class="token string">&quot;User-Agent&quot;</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">&quot;axios/&quot;</span> <span class="token operator">+</span> <span class="token constant">VERSION</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token operator">...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>主要是将<code>headerNames</code>做小写处理，并且针对<code>user-agent</code>做一下配置，若用户开启了<code>user-agent</code>，则使用用户的<code>user-agent</code>，否则使用<code>axios</code>默认的配置<code>axios/${version}</code></li></ul> <p>Tips：<code>User-Agent</code> 会告诉网站服务器，访问者是通过什么工具来请求的，为了防止网络攻击或者维护商业信息，很多网站会设定一些比如反爬虫措施拒绝非浏览器请求，因此一般只有用户在使用非标准浏览器环境发请求，比如爬虫，才会自定义配置 ``User-Agent<code>Tips：一个chrome浏览器请求头的</code>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36<code>与一个使用</code>request<code>库的爬虫请求头</code>User-Agent: python-request/2.11.1`</p> <h3 id="【2-4】请求参数信息格式化处理"><a href="#【2-4】请求参数信息格式化处理" class="header-anchor">#</a> 【2.4】请求参数信息格式化处理</h3> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">httpAdapter</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">dispatchHttpRequest</span><span class="token punctuation">(</span>
+        <span class="token parameter">resolvePromise<span class="token punctuation">,</span>
+        rejectPromise</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>
+       
+        <span class="token keyword">var</span> data <span class="token operator">=</span> config<span class="token punctuation">.</span>data<span class="token punctuation">;</span>
+      
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>data <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>utils<span class="token punctuation">.</span><span class="token function">isStream</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Buffer<span class="token punctuation">.</span><span class="token function">isBuffer</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token comment">// Nothing to do...</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>utils<span class="token punctuation">.</span><span class="token function">isArrayBuffer</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                data <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>utils<span class="token punctuation">.</span><span class="token function">isString</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                data <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>data<span class="token punctuation">,</span> <span class="token string">&quot;utf-8&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token function">reject</span><span class="token punctuation">(</span>
+                    <span class="token function">createError</span><span class="token punctuation">(</span>
+                        <span class="token string">&quot;Data after transformation must be a string, an ArrayBuffer, a Buffer, or a Stream&quot;</span><span class="token punctuation">,</span>
+                        config
+                    <span class="token punctuation">)</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment">// Add Content-Length header if data exists</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>headerNames<span class="token punctuation">[</span><span class="token string">&quot;content-length&quot;</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                headers<span class="token punctuation">[</span><span class="token string">&quot;Content-Length&quot;</span><span class="token punctuation">]</span> <span class="token operator">=</span> data<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token operator">...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>Tips：JavaScript 语言自身只有字符串数据类型，没有二进制数据类型。但在处理像TCP流或文件流时，必须使用到二进制数据。因此在 Node.js中，定义了一个 Buffer 类，该类用来创建一个专门存放二进制数据的缓存区。
+Tips：在v6.0之前创建Buffer对象直接使用new Buffer()构造函数来创建对象实例，但是Buffer对内存的权限操作相比很大，可以直接捕获一些敏感信息，所以在v6.0以后，官方文档里面建议使用 Buffer.from() 接口去创建Buffer对象。</p> <h3 id="【2-5】auth、url-信息处理"><a href="#【2-5】auth、url-信息处理" class="header-anchor">#</a> 【2.5】<code>auth、url</code> 信息处理</h3> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">httpAdapter</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">dispatchHttpRequest</span><span class="token punctuation">(</span>
+        <span class="token parameter">resolvePromise<span class="token punctuation">,</span>
+        rejectPromise</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>
+       
+
+        <span class="token comment">// HTTP basic authentication</span>
+        <span class="token keyword">var</span> auth <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>auth<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> username <span class="token operator">=</span> config<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>username <span class="token operator">||</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">;</span>
+            <span class="token keyword">var</span> password <span class="token operator">=</span> config<span class="token punctuation">.</span>auth<span class="token punctuation">.</span>password <span class="token operator">||</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">;</span>
+            auth <span class="token operator">=</span> username <span class="token operator">+</span> <span class="token string">&quot;:&quot;</span> <span class="token operator">+</span> password<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token comment">// Parse url</span>
+        <span class="token keyword">var</span> fullPath <span class="token operator">=</span> <span class="token function">buildFullPath</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>baseURL<span class="token punctuation">,</span> config<span class="token punctuation">.</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> parsed <span class="token operator">=</span> url<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>fullPath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> protocol <span class="token operator">=</span> parsed<span class="token punctuation">.</span>protocol <span class="token operator">||</span> <span class="token string">&quot;http:&quot;</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>auth <span class="token operator">&amp;&amp;</span> parsed<span class="token punctuation">.</span>auth<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> urlAuth <span class="token operator">=</span> parsed<span class="token punctuation">.</span>auth<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&quot;:&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">var</span> urlUsername <span class="token operator">=</span> urlAuth<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">;</span>
+            <span class="token keyword">var</span> urlPassword <span class="token operator">=</span> urlAuth<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">;</span>
+            auth <span class="token operator">=</span> urlUsername <span class="token operator">+</span> <span class="token string">&quot;:&quot;</span> <span class="token operator">+</span> urlPassword<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>auth <span class="token operator">&amp;&amp;</span> headerNames<span class="token punctuation">.</span>authorization<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">delete</span> headers<span class="token punctuation">[</span>headerNames<span class="token punctuation">.</span>authorization<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token operator">...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>如果配置了 <code>username</code> 和 <code>password</code> 直接拼接生成 <code>auth</code> 否则从 <code>url</code> 获取 <code>urlUsername</code> 和 <code>urlPassword</code> 生成 <code>auth</code></li></ul> <h3 id="【2-6】请求-options-信息配置"><a href="#【2-6】请求-options-信息配置" class="header-anchor">#</a> 【2.6】请求 <code>options</code> 信息配置</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">var</span> isHttps <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">https:?</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">httpAdapter</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">dispatchHttpRequest</span><span class="token punctuation">(</span>
+        <span class="token parameter">resolvePromise<span class="token punctuation">,</span>
+        rejectPromise</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>
+       
+
+        <span class="token keyword">var</span> isHttpsRequest <span class="token operator">=</span> isHttps<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>protocol<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> agent <span class="token operator">=</span> isHttpsRequest <span class="token operator">?</span> config<span class="token punctuation">.</span>httpsAgent <span class="token operator">:</span> config<span class="token punctuation">.</span>httpAgent<span class="token punctuation">;</span>
+
+        <span class="token keyword">var</span> options <span class="token operator">=</span> <span class="token punctuation">{</span>
+            path<span class="token operator">:</span> <span class="token function">buildURL</span><span class="token punctuation">(</span>
+                parsed<span class="token punctuation">.</span>path<span class="token punctuation">,</span>
+                config<span class="token punctuation">.</span>params<span class="token punctuation">,</span>
+                config<span class="token punctuation">.</span>paramsSerializer
+            <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\?</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            method<span class="token operator">:</span> config<span class="token punctuation">.</span>method<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            headers<span class="token operator">:</span> headers<span class="token punctuation">,</span>
+            agent<span class="token operator">:</span> agent<span class="token punctuation">,</span>
+            agents<span class="token operator">:</span> <span class="token punctuation">{</span> http<span class="token operator">:</span> config<span class="token punctuation">.</span>httpAgent<span class="token punctuation">,</span> https<span class="token operator">:</span> config<span class="token punctuation">.</span>httpsAgent <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            auth<span class="token operator">:</span> auth<span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>socketPath<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            options<span class="token punctuation">.</span>socketPath <span class="token operator">=</span> config<span class="token punctuation">.</span>socketPath<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            options<span class="token punctuation">.</span>hostname <span class="token operator">=</span> parsed<span class="token punctuation">.</span>hostname<span class="token punctuation">;</span>
+            options<span class="token punctuation">.</span>port <span class="token operator">=</span> parsed<span class="token punctuation">.</span>port<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token operator">...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>使用用户定义的 <code>config</code> 配置请求 <code>options</code>，使用正则表达式 <code>isHttps</code> 判断当前 <code>URL</code> 使用 <code>http</code> 还是 <code>https</code>协议</li></ul> <h3 id="【2-7】proxy-信息配置"><a href="#【2-7】proxy-信息配置" class="header-anchor">#</a> 【2.7】<code>proxy</code> 信息配置</h3> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">httpAdapter</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">dispatchHttpRequest</span><span class="token punctuation">(</span>
+        <span class="token parameter">resolvePromise<span class="token punctuation">,</span>
+        rejectPromise</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>     
+
+        <span class="token keyword">var</span> proxy <span class="token operator">=</span> config<span class="token punctuation">.</span>proxy<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>proxy <span class="token operator">&amp;&amp;</span> proxy <span class="token operator">!==</span> <span class="token boolean">false</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> proxyEnv <span class="token operator">=</span> protocol<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot;_proxy&quot;</span><span class="token punctuation">;</span>
+            <span class="token keyword">var</span> proxyUrl <span class="token operator">=</span>
+                process<span class="token punctuation">.</span>env<span class="token punctuation">[</span>proxyEnv<span class="token punctuation">]</span> <span class="token operator">||</span> process<span class="token punctuation">.</span>env<span class="token punctuation">[</span>proxyEnv<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>proxyUrl<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">var</span> parsedProxyUrl <span class="token operator">=</span> url<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>proxyUrl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">var</span> noProxyEnv <span class="token operator">=</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>no_proxy <span class="token operator">||</span> process<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token constant">NO_PROXY</span><span class="token punctuation">;</span>
+                <span class="token keyword">var</span> shouldProxy <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>noProxyEnv<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">var</span> noProxy <span class="token operator">=</span> noProxyEnv<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&quot;,&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">trim</span><span class="token punctuation">(</span><span class="token parameter">s</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> s<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    shouldProxy <span class="token operator">=</span> <span class="token operator">!</span>noProxy<span class="token punctuation">.</span><span class="token function">some</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">proxyMatch</span><span class="token punctuation">(</span>
+                        <span class="token parameter">proxyElement</span>
+                    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>proxyElement<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>proxyElement <span class="token operator">===</span> <span class="token string">&quot;*&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>
+                            proxyElement<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">&quot;.&quot;</span> <span class="token operator">&amp;&amp;</span>
+                            parsed<span class="token punctuation">.</span>hostname<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span>
+                                parsed<span class="token punctuation">.</span>hostname<span class="token punctuation">.</span>length <span class="token operator">-</span> proxyElement<span class="token punctuation">.</span>length
+                            <span class="token punctuation">)</span> <span class="token operator">===</span> proxyElement
+                        <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+
+                        <span class="token keyword">return</span> parsed<span class="token punctuation">.</span>hostname <span class="token operator">===</span> proxyElement<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>shouldProxy<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    proxy <span class="token operator">=</span> <span class="token punctuation">{</span>
+                        host<span class="token operator">:</span> parsedProxyUrl<span class="token punctuation">.</span>hostname<span class="token punctuation">,</span>
+                        port<span class="token operator">:</span> parsedProxyUrl<span class="token punctuation">.</span>port<span class="token punctuation">,</span>
+                        protocol<span class="token operator">:</span> parsedProxyUrl<span class="token punctuation">.</span>protocol<span class="token punctuation">,</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>parsedProxyUrl<span class="token punctuation">.</span>auth<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">var</span> proxyUrlAuth <span class="token operator">=</span> parsedProxyUrl<span class="token punctuation">.</span>auth<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">&quot;:&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        proxy<span class="token punctuation">.</span>auth <span class="token operator">=</span> <span class="token punctuation">{</span>
+                            username<span class="token operator">:</span> proxyUrlAuth<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                            password<span class="token operator">:</span> proxyUrlAuth<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>proxy<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            options<span class="token punctuation">.</span>headers<span class="token punctuation">.</span>host <span class="token operator">=</span>
+                parsed<span class="token punctuation">.</span>hostname <span class="token operator">+</span> <span class="token punctuation">(</span>parsed<span class="token punctuation">.</span>port <span class="token operator">?</span> <span class="token string">&quot;:&quot;</span> <span class="token operator">+</span> parsed<span class="token punctuation">.</span>port <span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">setProxy</span><span class="token punctuation">(</span>
+                options<span class="token punctuation">,</span>
+                proxy<span class="token punctuation">,</span>
+                protocol <span class="token operator">+</span>
+                    <span class="token string">&quot;//&quot;</span> <span class="token operator">+</span>
+                    parsed<span class="token punctuation">.</span>hostname <span class="token operator">+</span>
+                    <span class="token punctuation">(</span>parsed<span class="token punctuation">.</span>port <span class="token operator">?</span> <span class="token string">&quot;:&quot;</span> <span class="token operator">+</span> parsed<span class="token punctuation">.</span>port <span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+                    options<span class="token punctuation">.</span>path
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li></li></ul> <h3 id="【2-8】设置传输协议"><a href="#【2-8】设置传输协议" class="header-anchor">#</a> 【2.8】设置传输协议</h3> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">httpAdapter</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">dispatchHttpRequest</span><span class="token punctuation">(</span>
+        <span class="token parameter">resolvePromise<span class="token punctuation">,</span>
+        rejectPromise</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>     
+
+        <span class="token keyword">var</span> transport<span class="token punctuation">;</span>
+        <span class="token keyword">var</span> isHttpsProxy <span class="token operator">=</span>
+            isHttpsRequest <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>proxy <span class="token operator">?</span> isHttps<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>proxy<span class="token punctuation">.</span>protocol<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>transport<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            transport <span class="token operator">=</span> config<span class="token punctuation">.</span>transport<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>maxRedirects <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            transport <span class="token operator">=</span> isHttpsProxy <span class="token operator">?</span> https <span class="token operator">:</span> http<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>maxRedirects<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                options<span class="token punctuation">.</span>maxRedirects <span class="token operator">=</span> config<span class="token punctuation">.</span>maxRedirects<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            transport <span class="token operator">=</span> isHttpsProxy <span class="token operator">?</span> httpsFollow <span class="token operator">:</span> httpFollow<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>设定传输协议 <code>transport</code>，使用正则表达式 <code>isHttps</code> 判断当前 <code>URL</code> 使用 <code>http</code> 还是 <code>https</code>协议</li></ul> <h3 id="【2-9】设置-body-最大传输长度"><a href="#【2-9】设置-body-最大传输长度" class="header-anchor">#</a> 【2.9】设置 <code>Body</code> 最大传输长度</h3> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">httpAdapter</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">dispatchHttpRequest</span><span class="token punctuation">(</span>
+        <span class="token parameter">resolvePromise<span class="token punctuation">,</span>
+        rejectPromise</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>     
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>maxBodyLength <span class="token operator">&gt;</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            options<span class="token punctuation">.</span>maxBodyLength <span class="token operator">=</span> config<span class="token punctuation">.</span>maxBodyLength<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="【2-10】设置-insecurehttpparser"><a href="#【2-10】设置-insecurehttpparser" class="header-anchor">#</a> 【2.10】设置 <code>insecureHTTPParser</code></h3> <div class="language-js extra-class"><pre class="language-js"><code>module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">httpAdapter</span><span class="token punctuation">(</span><span class="token parameter">config</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">dispatchHttpRequest</span><span class="token punctuation">(</span>
+        <span class="token parameter">resolvePromise<span class="token punctuation">,</span>
+        rejectPromise</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token operator">...</span>     
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>config<span class="token punctuation">.</span>insecureHTTPParser<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            options<span class="token punctuation">.</span>insecureHTTPParser <span class="token operator">=</span> config<span class="token punctuation">.</span>insecureHTTPParser<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></div><p>Tips：使用接受无效 HTTP 标头的不安全 HTTP 解析器。 这可能允许与不一致的 HTTP 实现的互操作性。 它还可能允许请求走私和其他依赖于接受无效标头的 HTTP 攻击。 避免使用此选项。</p> <h1 id="三、参考"><a href="#三、参考" class="header-anchor">#</a> 三、参考</h1> <p>1. <code>林景宜</code>的文章<a href="https://linjingyi.cn/posts/dcd029a9.html" target="_blank" rel="noopener noreferrer">林景宜的记事本 - Axios 源码解析（三）：适配器<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docs/SourceCode/Axios/Xhr.html" class="prev">
+        浏览器端适配器xhr研读解析
+      </a></span> <span class="next"><a href="/docs/SourceCode/Axios/Http2.html">
+        【axios 源码】- node适配器 http 研读解析【下】
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/docs/assets/js/app.4c52c3c5.js" defer></script><script src="/docs/assets/js/2.6b49b1f6.js" defer></script><script src="/docs/assets/js/90.4682a6b2.js" defer></script>
+  </body>
+</html>
