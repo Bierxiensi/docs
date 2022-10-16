@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.0/echarts.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/echarts-gl/2.0.8/echarts-gl.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body{
+            height: 100%;
+        }
+        body{
+            padding: 0;
+            margin: 0;
+            perspective: 1000px;
+            background: #7298a5;
+            overflow: hidden;
+        }
+
+
+        .wrap{
+            width: 900px;
+            height: 660px;
+            /* border: 1px solid red; */
+            /*overflow: hidden;*/
+            transform-style: preserve-3d;
+            position: absolute;
+            /*background: #000;*/
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            transition: 2s;
+            /*transform:translateZ(-200px) rotateX(0deg);*/
+        }
+
+        .list{
+            padding: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            list-style: none;
+            transform-style: preserve-3d;
+            transition: 0.5s;
+        }
+
+        .item{
+            height: 660px;
+            width: 900px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            line-height: 240px;
+            text-align: center;
+            font-size: 50px;
+            color: #fff;
+            backface-visibility: hidden;
+        }
+
+        .item img{
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .btn{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            color: #fff;
+            font-size: xx-large;
+            transform: translateZ(20px);
+        }
+
+        .prev{
+            left: -300px;
+            z-index: 2;
+            height: 660px;
+            width: calc((100vw - 960px) / 2);
+            /* border: 1px solid purple; */
+        }
+
+        .next{
+            right: -300px;
+            height: 660px;
+            width: calc((100vw - 960px) / 2);
+            /* border: 1px solid purple; */
+        }
+    </style>
+</head>
+<body>
+    
+<div class="wrap">
+    <div class="btn prev">
+        <!-- &lt; -->
+    </div>  
+    <ul class="list">
+        <li class="item"><div id="hello" style="height: 660px; width: 900px; background-color: white;" /></li>
+        <li class="item"><div id="projectChart" style="height: 660px; width: 900px; background-color: white;" /></li>
+        <li class="item"><div id="prChart" style="height: 660px; width: 900px; background-color: white;" /></li>
+
+        
+        <li class="item"><img src="img/img03.png"></li>
+        <li class="item"><img src="img/img04.png"></li>
+        <li class="item"><img src="img/img05.png"></li>
+        <li class="item"><img src="img/img01.png"></li>
+        <li class="item"><img src="img/img02.png"></li>
+        <li class="item"><img src="img/img03.png"></li>
+        <li class="item"><img src="img/img04.png"></li>
+        <li class="item"><img src="img/img05.png"></li>
+        <!-- 工作内容：参与项目、版本数量（代码行、pr数量）; 成果：工单数量、分享数量/字数、困难优化版本/问题; 能力提升情况&未来期望 -->
+    </ul>
+    <div class="btn next">
+        <!-- &gt; -->
+    </div>
+</div>
+
+<script src="./hello.js" type="text/javascript"></script>
+<script src="./projectChart.js" type="text/javascript"></script>
+<script src="./pr.js" type="text/javascript"></script>
+<script>
+    let wrap = document.querySelector('.wrap');
+    let list = document.querySelector('.list');
+    let items = list.querySelectorAll('.item');
+    let itemWidth = items[0].offsetWidth;//单个图片的宽度
+    let perimeter = items.length * itemWidth;//算出所有图片的宽度（周长）
+    let radius = perimeter/(2*Math.PI);//算出半径
+    let angle = 360/items.length;//计算每张图片旋转的角度
+    let prevBtn = document.querySelector('.prev');
+    let nextBtn = document.querySelector('.next');
+    let now = 0;
+    let listPosition = {
+        z:-radius,
+        x:0
+    }
+
+    Array.from(items).forEach((item,index)=>{//把图片通过位移和旋转拼成圆环
+        item.style.transform = `rotateY(${angle*index}deg) translateZ(${radius}px)`;
+    });
+
+    move(now);//由于图片在Z轴上位移了半径的距离，所以父级需要重置一下
+
+    prevBtn.onclick = function(){
+        now--;
+        move(now);
+    }
+    nextBtn.onclick = function(){
+        now++;
+        move(now);
+    }
+
+    function move(now){
+        listPosition = {
+            z:-radius,
+            y:-angle * now,
+        }
+        list.style.transition = '0.5s';
+        list.style.transform = `translateZ(${listPosition.z}px) rotateY(${listPosition.y}deg)`;
+    }
+
+
+    let startpoint = {};//鼠标按下的起始点
+    let distaince = {};//距离
+    let proportion = 0.3;
+    let startOffset = 0;
+    list.addEventListener('mousedown',function(ev){
+        startpoint = {
+            x:ev.clientX,
+            y:ev.clientY
+        }
+
+        startOffset = listPosition.y;
+
+        list.onmousemove = (ev)=>{
+            distaince = {
+                x:ev.clientX - startpoint.x,
+                y:ev.clientY - startpoint.y
+            }
+            if(Math.abs(distaince.x) > 5){
+                listPosition.y = startOffset + (distaince.x/items.length);
+
+                list.style.transition = 'none';
+                list.style.transform = `translateZ(${listPosition.z}px) rotateY(${listPosition.y}deg)`;
+            }
+            ev.preventDefault();
+        }
+
+        list.onmouseup = list.onmouseout = ()=>{
+            if(Math.abs(distaince.x) > itemWidth * proportion){
+                now -= distaince.x/Math.abs(distaince.x);
+            }
+            move(now);
+            distaince = {};
+            startpoint = {};
+            list.onmousemove = list.onmouseup = list.onmouseout = null;
+        }
+    });
+</script>
+
+
+
+</body>
+</html>
