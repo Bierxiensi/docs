@@ -112,6 +112,44 @@ module.exports = {
                     path: "/CS/Algorithm/",
                 },
                 {
+                    title: "初级算法", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "Array-移动零",
+                            path: "/CS/Algorithm/Array/moveZeroes[283]",
+                        },
+                        {
+                            title: "Array-加一",
+                            path: "/CS/Algorithm/Array/plusOne[66]",
+                        },
+                        {
+                            title: "Array-旋转图像",
+                            path: "/CS/Algorithm/Array/rotate[48]",
+                        },
+                        {
+                            title: "BinarySearch-两个数组的交集 II",
+                            path: "/CS/Algorithm/BinarySearch/intersect[350]",
+                        },
+                        {
+                            title: "BitManipulation-只出现一次的数字",
+                            path: "/CS/Algorithm/BitManipulation/singleNumber[136]",
+                        },
+                        {
+                            title: "HashTable-存在重复元素",
+                            path: "/CS/Algorithm/HashTable/containsDuplicate[217]",
+                        },
+                        {
+                            title: "HashTable-只出现一次的数字",
+                            path: "/CS/Algorithm/HashTable/isValidSudoku[36]",
+                        },
+                        {
+                            title: "TwoPoints-反转字符串",
+                            path: "/CS/Algorithm/TwoPoints/reverseString[344]",
+                        },
+                    ],
+                },
+                {
                     title: "20天算法刷题记录", // 必要的
                     collapsable: true, // 可选的, 默认值是 true,
                     children: [
@@ -665,6 +703,18 @@ module.exports = {
                         {
                             title: "JsTricks",
                             path: "/Tricks/JsTricks/",
+                        },
+                        {
+                            title: "百度地图代码段",
+                            path: "/Others/StudySource/Bmap",
+                        },
+                        {
+                            title: "天、小时、分钟、秒添加中文时间单位",
+                            path: "/Others/StudySource/appendTimeUnit",
+                        },
+                        {
+                            title: "时间戳转换至天、时、分、秒",
+                            path: "/Others/StudySource/formatTimeWithSeconds",
                         },
                     ],
                 },

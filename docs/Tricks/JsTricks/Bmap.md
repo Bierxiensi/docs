@@ -45,3 +45,32 @@ const trafficControl = new BMapLib.TrafficControl({
 });
 map.addControl(trafficControl);
 ```
+
+## 设置标签
+```js
+const labelContent = (mapIcon, machine) => {
+    return `<div class="${styles.container}">
+       <div>
+       <image src="${mapIcon}"/>
+       ${machine.name}
+       </div>
+       <div class="${styles.arrow}"></div>
+    </div>`;
+}  
+
+let label = new BMap.Label('', {
+    offset: new BMap.Size(-85, -35)
+});
+label.setContent(labelContent(mapIcon, machine?.name));
+label.setStyle({ border : 0, padding: 0, backgroundColor: 'inherit', boxShadow: '0 4px 14px 0 #6F7988', borderRadius: '6px' });
+label.addEventListener('mouseover', (e) => {
+    let machine = e.target;
+    machine.setZIndex(900);	
+});
+label.addEventListener('mouseout', (e) => {
+    let machine = e.target;
+    machine.setZIndex(600);	
+}); // 无法动态设置label在视图内的高度
+marker.setLabel(label);
+markers.push(marker);
+```
