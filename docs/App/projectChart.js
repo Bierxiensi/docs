@@ -1,4 +1,4 @@
-!function (){
+(function (){
     let option = null;
     let myChart = null;
     option = {
@@ -50,4 +50,4 @@
 
     myChart && myChart.setOption(option);
 
-}()
+}());

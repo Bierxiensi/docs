@@ -1,6 +1,7 @@
 (function(){
-    // prettier-ignore
-    const hours = [
+    let option = null;
+
+    let hours = [
         '10b', '10c', '10d', 
         '11a', '11b', '11c', '11d',
         '12a', '12b', '12c', '12d', 
@@ -15,14 +16,11 @@
         '9a', '9b', '9c', '9d', 
         '10a'
     ];
-    // prettier-ignore
-    const days = [
-        'Saturday', 'Friday', 'Thursday',
-        'Wednesday', 'Tuesday', 'Monday', 'Sunday'
-    ];
-    // prettier-ignore
-    const data = [
-          [0, 0, 0], [0, 1, 0], [0, 2, 0], [0, 3, 0], [0, 4, 0], 
+
+    var days = ['Saturday', 'Friday', 'Thursday', 'Wednesday', 'Tuesday', 'Monday', 'Sunday'];
+        // prettier-ignore
+    var data = [
+        [0, 0, 0], [0, 1, 0], [0, 2, 0], [0, 3, 0], [0, 4, 0], 
         [0, 5, 0], [0, 6, 0], [0, 7, 0], [0, 8, 4], [0, 9, 0], 
         [0, 10, 0], [0, 11, 23], [0, 12, 5], [0, 13, 11], [0, 14, 0], 
         [0, 15, 0], [0, 16, 0], [0, 17, 0], [0, 18, 0], [0, 19, 0], 
@@ -105,59 +103,87 @@
         [6, 40, 0], [6, 41, 0], [6, 42, 0], [6, 43, 0], [6, 44, 0], 
         [6, 45, 0], [6, 46, 0], [6, 47, 0], [6, 48, 0],[6, 49, 0],
         [6, 50, 0], [6, 51, 1], [5, 41, 0]
-    ].map(function (item) {
-        return [item[1], item[0], item[2] || '-'];
-    });
-    let option = {
-        tooltip: {
-            position: 'top'
-        },
-        grid: {
-            height: '50%',
-            top: '10%'
-        },
-        xAxis: {
-            type: 'category',
-            data: hours,
-            splitArea: {
-            show: true
-            }
-        },
-        yAxis: {
-            type: 'category',
-            data: days,
-            splitArea: {
-            show: true
-            }
-        },
+    ];
+    
+    option = {
+        tooltip: {},
         visualMap: {
-            min: 0,
-            max: 50,
-            calculable: true,
-            orient: 'horizontal',
-            left: 'center',
-            bottom: '15%'
+            max: 100,
+            inRange: {
+                color: [
+                    '#313695',
+                    '#4575b4',
+                    '#74add1',
+                    '#abd9e9',
+                    '#e0f3f8',
+                    '#ffffbf',
+                    '#fee090',
+                    '#fdae61',
+                    '#f46d43',
+                    '#d73027',
+                    '#a50026'
+                ]
+            }
         },
-        series: [
-            {
-            name: 'Punch Card',
-            type: 'heatmap',
-            data: data,
-            label: {
-                show: true
+        xAxis3D: {
+            type: 'category',
+            data: hours
+        },
+        yAxis3D: {
+            type: 'category',
+            data: days
+        },
+        zAxis3D: {
+            type: 'value'
+        },
+        grid3D: {
+            boxWidth: 180,
+            boxDepth: 80,
+            viewControl: {
+                // projection: 'orthographic'
             },
-            emphasis: {
-                itemStyle: {
-                shadowBlur: 10,
-                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            light: {
+                main: {
+                    intensity: 1.2,
+                    shadow: true
+                },
+                ambient: {
+                    intensity: 0.3
                 }
             }
+        },
+
+        series: [
+            {
+                type: 'bar3D',
+                data: data.map(function (item) {
+                    return {
+                    value: [item[1], item[0], item[2]]
+                    };
+                }),
+                shading: 'lambert',
+                label: {
+                    fontSize: 16,
+                    borderWidth: 1
+                },
+                itemStyle: {
+                    opacity: 0.8
+                },
+                emphasis: {
+                    label: {
+                        fontSize: 20,
+                        color: '#900'
+                    },
+                    itemStyle: {
+                        color: '#900'
+                    }
+                }
             }
         ]
     };
 
     // 基于准备好的dom，初始化echarts实例
-    let myChart = echarts.init(document.getElementById('prChart'));
+    let myChart = echarts.init(document.getElementById('pr3dChart'));
 
     myChart && myChart.setOption(option);
 }());
