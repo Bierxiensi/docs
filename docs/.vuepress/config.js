@@ -706,15 +706,15 @@ module.exports = {
                         },
                         {
                             title: "百度地图代码段",
-                            path: "/Others/StudySource/Bmap",
+                            path: "/Tricks/JsTricks/Bmap",
                         },
                         {
                             title: "天、小时、分钟、秒添加中文时间单位",
-                            path: "/Others/StudySource/appendTimeUnit",
+                            path: "/Tricks/JsTricks/appendTimeUnit",
                         },
                         {
                             title: "时间戳转换至天、时、分、秒",
-                            path: "/Others/StudySource/formatTimeWithSeconds",
+                            path: "/Tricks/JsTricks/formatTimeWithSeconds",
                         },
                     ],
                 },
