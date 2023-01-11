@@ -82,6 +82,8 @@ export const MemoComponent = 14;          // 对应 React.memo 返回的组件
 
 #### fiber 对应关系
 
+![](./images/fiber.jpg)
+
 - child： 一个由父级 fiber 指向子级 fiber 的指针
 - return：一个子级 fiber 指向父级 fiber 的指针
 - sibling: 一个 fiber 指向下一个兄弟 fiber 的指针
@@ -90,11 +92,37 @@ export const MemoComponent = 14;          // 对应 React.memo 返回的组件
 
 
 ### 面试题
-1\. 问：老版本的 React 中，为什么写 jsx 的文件要默认引入 React? 如下
+1\. 问: 老版本的 React 中，为什么写 jsx 的文件要默认引入 React? 如下
 ```js
 import React from 'react'
 function Index(){
     return <div>hello,world</div>
 }
 ```
-答：因为 jsx 在被 babel 编译后，写的 jsx 会变成上述 React.createElement 形式，所以需要引入 React，防止找不到 React 引起报错。
+答: 因为 jsx 在被 babel 编译后，写的 jsx 会变成上述 React.createElement 形式，所以需要引入 React，防止找不到 React 引起报错。
+
+2\. react17 jsx 为什么不需要引入React
+答: [介绍全新的 JSX 转换](https://react.docschina.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)、[介绍全新的 JSX 转换](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
+
+3\. 问: React.createElement 和 React.cloneElement 到底有什么区别呢?
+答: 可以完全理解为，一个是用来创建 element 。另一个是用来修改 element，并返回一个新的 React.element 对象。
+
+4\. 问: 为什么需要cloneElement，不能在原来的element上修改更新
+答: 原来的 element 的属性是notextensible 不可拓展的， React 不能轻易让开发者修改 Element
+
+5\. 问: jsx更新流程
+答: [1] babel 编译成 React Element 形式，jsx 内容被 react.createElement 转换成 react element 对象 
+    [2] 调和处理，上述 React element 对象的每一个子节点都会形成一个与之对应的 fiber 对象，然后通过 sibling、return、child 将每一个 fiber 对象联系起来
+    [3]
+
+    [总结] JSX --- babel编译 ---> ReactElement --- reconciler ---> fiber
+
+6\. 问: 如何手动控制jsx来生成React.element来实现render的一个可控性
+答: [1] 将children扁平化处理，将数组类型的子节点打开 ；
+    [2] 去除children中文本类型节点；
+    [3] 向children最后插入say goodbye元素；
+    [4] 克隆新的元素节点并渲染。
+
+7\. 问: jsx通过Babel来转化成js识别的对象的流程
+答: [1] createElement方式（需要因引入React） 
+    [2] runtime方式(需要 .babelrc 设置 runtime: automatic), @babel/plugin-syntax-jsx ,在编译的过程中注入 _jsxRuntime api ，使得新版本 React 已经不需要引入 createElement
