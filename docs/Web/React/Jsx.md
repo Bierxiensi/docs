@@ -82,7 +82,7 @@ export const MemoComponent = 14;          // 对应 React.memo 返回的组件
 
 #### fiber 对应关系
 
-![](./images/fiber.jpg)
+![](./images/fiber1.jpg)
 
 - child： 一个由父级 fiber 指向子级 fiber 的指针
 - return：一个子级 fiber 指向父级 fiber 的指针

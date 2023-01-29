@@ -88,8 +88,8 @@ module.exports = {
                     { text: "面试题", link: "/Others/Question/" },
                     { text: "区块链", link: "/Others/BlockChain/" },
                     { text: "学习资源", link: "/Others/StudySource/" },
-                    { text: "Js tricks", link: "/Others/JsTricks/" },
-                    { text: "Css tricks", link: "/Others/CssTricks/" },
+                    { text: "Js Tricks", link: "/Others/JsTricks/" },
+                    { text: "Css Tricks", link: "/Others/CssTricks/" },
                     { text: "开发技巧", link: "/Others/DevelopSkills/" },
                     { text: "备忘录", link: "/Others/Note/" },
                 ],
@@ -505,7 +505,7 @@ module.exports = {
                     children: [
                         {
                             title: "Webpack",
-                            path: "/FrontEndEngineering/Build/Webpack",
+                            path: "/FrontEndEngineering/Build/Webpack/",
                         },
                         {
                             title: "Dll",
