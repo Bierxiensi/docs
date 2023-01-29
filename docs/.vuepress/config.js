@@ -34,50 +34,52 @@ module.exports = {
             { text: "Home", link: "/" },
             {
                 text: "计算机基础",
-                items: [{ text: "算法", link: "/CS/Algorithm/" }],
+                items: [
+                    { text: "数据结构与算法", link: "/CS/Algorithm/" },
+                    { text: "计算机组成原理", link: "/CS/ComputerComposition/" },
+                    { text: "计算机网络", link: "/CS/ComputerNetworks/" },
+                    { text: "操作系统", link: "/CS/OperatingSystem/" }
+                ],
+            },
+            {
+                text: "前端基础",
+                items: [
+                    { text: "JavaScript", link: "/Web/JavaScript/" },
+                    { text: "HTML", link: "/Web/HTML/" },
+                    { text: "CSS", link: "/Web/CSS/" },
+                    { text: "React", link: "/Web/React/" },
+                    { text: "Vue", link: "/Web/Vue/" },
+                    { text: "TypeScript", link: "/Web/TypeScript/" },
+                    { text: "Gis", link: "/Web/Gis/" },
+                    { text: "App", link: "/Web/App/" },
+                    { text: "桌面应用", link: "/Web/Desktop/" },
+                    { text: "小程序", link: "/Web/WxApp/" },
+                ],
+            },
+            {
+                text: "前端工程化",
+                items: [
+                    { text: "软件工程", link: "/FrontEndEngineering/SoftwareEnginner/" },
+                    { text: "开发", link: "/FrontEndEngineering/Develop/" },
+                    { text: "构建", link: "/FrontEndEngineering/Build/" },
+                    { text: "部署", link: "/FrontEndEngineering/Deploy/" },
+                    { text: "性能", link: "/FrontEndEngineering/Performance/" },
+                    { text: "规范", link: "/FrontEndEngineering/Norm/" },
+                ],
+            },
+            {
+                text: "后端基础",
+                items: [
+                    { text: "Node", link: "/BackEnd/Node/" },
+                    { text: "Nest框架", link: "/BackEnd/Nest/" },
+                ],
             },
             {
                 text: "读源码",
                 items: [
                     { text: "Axios", link: "/SourceCode/Axios/" },
                     { text: "Lodash", link: "/SourceCode/Lodash/" },
-                ],
-            },
-            {
-                text: "Web端/移动端",
-                items: [
-                    { text: "JavaScript", link: "/Web/JavaScript/" },
-                    { text: "HTML", link: "/Web/HTML/" },
-                    { text: "CSS", link: "/Web/CSS/" },
-                    { text: "HTTP", link: "/Web/HTTP/" },
-                    { text: "TypeScript", link: "/Web/TypeScript/" },
-                    { text: "App", link: "/App/App/" },
-                    { text: "桌面应用", link: "/App/Desktop/" },
-                ],
-            },
-            {
-                text: "React系列",
-                items: [
-                    { text: "AntDesign", link: "/React/AntDesign/" },
-                    { text: "React入门", link: "/React/ReactPrimer/" },
-                ],
-            },
-            {
-                text: "Vue系列",
-                items: [{ text: "vue进阶", link: "/Vue/VueAdvance/" }],
-            },
-            {
-                text: "Node",
-                items: [
-                    { text: "Node", link: "/Node/" },
-                    { text: "Nest框架", link: "/Node/Nest/" },
-                ],
-            },
-            {
-                text: "打包与工具链",
-                items: [
-                    { text: "Server", link: "/Tools/Server/" },
-                    { text: "Webpack", link: "/Tools/Webpack/" },
+                    { text: "React", link: "/SourceCode/React/" },
                 ],
             },
             {
@@ -86,13 +88,10 @@ module.exports = {
                     { text: "面试题", link: "/Others/Question/" },
                     { text: "区块链", link: "/Others/BlockChain/" },
                     { text: "学习资源", link: "/Others/StudySource/" },
-                ],
-            },
-            {
-                text: "Tricks",
-                items: [
-                    { text: "js tricks", link: "/Tricks/JsTricks/" },
-                    { text: "css tricks", link: "/Tricks/CssTricks/" },
+                    { text: "Js tricks", link: "/Others/JsTricks/" },
+                    { text: "Css tricks", link: "/Others/CssTricks/" },
+                    { text: "开发技巧", link: "/Others/DevelopSkills/" },
+                    { text: "备忘录", link: "/Others/Note/" },
                 ],
             },
             { text: "GitHub", link: "https://github.com/bierxiensi" },
@@ -105,11 +104,24 @@ module.exports = {
                     collapsable: true, // 可选的, 默认值是 true,
                 },
             ],
-            // CS/Algorithm
+            /*
+            * 计算机基础
+            */ 
+            // 数据结构与算法
             "/CS/Algorithm/": [
                 {
                     title: "算法的计划与flag", // 必要的
                     path: "/CS/Algorithm/",
+                },
+                {
+                    title: "20天算法刷题记录", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "二分查找",
+                            path: "/CS/Algorithm/binarySearch",
+                        },
+                    ],
                 },
                 {
                     title: "初级算法", // 必要的
@@ -149,19 +161,461 @@ module.exports = {
                         },
                     ],
                 },
+            ],
+            // 计算机网络
+            "/CS/ComputerNetworks/": [
                 {
-                    title: "20天算法刷题记录", // 必要的
+                    title: "计算机网络", // 必要的
+                    path: "/CS/ComputerNetworks/",
+                },
+                {
+                    title: "HTTP", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        { 
+                            title: "版本比较", 
+                            path: "/CS/ComputerNetworks/HTTP/compare" 
+                        },
+                    ],
+                },
+            ],
+            // 计算机组成原理
+            "/CS/ComputerComposition/": [
+                {
+                    title: "计算机组成原理",
+                    path: "/CS/ComputerComposition/",
+                }
+            ],
+            // 操作系统
+            "/CS/OperatingSystem/": [
+                {
+                    title: "操作系统",
+                    path: "/CS/OperatingSystem/",
+                }
+            ],
+
+            /*
+             * 前端基础
+            */
+            // JavaScript
+            "/Web/JavaScript/": [
+                {
+                    title: "ES6 到 ES12 特性总结", // 必要的
+                    path: "/Web/JavaScript/",
+                },
+                {
+                    title: "JavaScript初级", // 必要的
                     collapsable: true, // 可选的, 默认值是 true,
                     children: [
                         {
-                            title: "二分查找",
-                            path: "/CS/Algorithm/binarySearch",
+                            title: "文本对象模型DOM",
+                            path: "/Web/JavaScript/DOM",
+                        },
+                        {
+                            title: "浏览器对象模型BOM",
+                            path: "/Web/JavaScript/BOM",
+                        },
+                        {
+                            title: "JavaScript中的this",
+                            path: "/Web/JavaScript/this",
+                        },
+                        {
+                            title: "promiseA+规范与promise",
+                            path: "/Web/JavaScript/promise",
+                        },
+                    ],
+                },
+                {
+                    title: "JavaScript进阶", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "symbol",
+                            path: "/Web/JavaScript/Advance/symbol",
+                        },
+                        {
+                            title: "instanceOf",
+                            path: "/Web/JavaScript/Advance/instanceOf",
+                        },
+                        {
+                            title: "内存泄漏与垃圾回收",
+                            path: "/Web/JavaScript/Advance/advance3",
+                        },
+                        {
+                            title: "闭包",
+                            path: "/Web/JavaScript/Advance/advance4",
+                        },
+                        {
+                            title: "截流与防抖",
+                            path: "/Web/JavaScript/Advance/advance5",
+                        },
+                        {
+                            title: "javascript安全",
+                            path: "/Web/JavaScript/Advance/advance6",
+                        },
+                        {
+                            title: "eventloop",
+                            path: "/Web/JavaScript/Advance/eventloop",
+                        },
+                        {
+                            title: "Buffer",
+                            path: "/Web/JavaScript/Advance/Buffer",
+                        },
+                        {
+                            title: "ArrayBuffer",
+                            path: "/Web/JavaScript/Advance/ArrayBuffer",
+                        },
+                        {
+                            title: "FormData",
+                            path: "/Web/JavaScript/Advance/FormData",
+                        },
+                        {
+                            title: "URLSearchParams",
+                            path: "/Web/JavaScript/Advance/URLSearchParams",
+                        },
+                        {
+                            title: "function",
+                            path: "/Web/JavaScript/Advance/function",
+                        },
+                    ],
+                },
+            ],
+            // HTML
+            "/Web/HTML/": [
+                {
+                    title: "HTML", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "HTML5",
+                            path: "/Web/HTML/html",
+                        },
+                    ],
+                },
+            ],
+            // CSS
+            "/Web/CSS/": [
+                {
+                    title: "CSS", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "CSS目录",
+                            path: "/Web/CSS/",
+                        },
+                    ],
+                },
+            ],
+            // React
+            "/Web/React/": [
+                {
+                    title: "🔯React与Vue比较研究",
+                    path: "/Web/React/ReactPrimer/",
+                },
+                {
+                    title: "React入门",
+                    collapsable: true,
+                    children: [
+                        {
+                            title: "React入门（JSX）",
+                            path: "/Web/React/ReactPrimer/JSX",
+                        },
+                        {
+                            title: "React入门（一、React基础）",
+                            path: "/Web/React/ReactPrimer/React_1",
+                        },
+                    ],
+                },
+            ],
+            // Vue
+            "/Web/Vue/": [
+                {
+                    title: "目录",
+                    path: "/Web/Vue/",
+                },
+                {
+                    title: "设计思想",
+                    path: "/Web/Vue/designIdea",
+                },
+                {
+                    title: "手写响应式",
+                    path: "/Web/Vue/advance1",
+                },
+                {
+                    title: "手写虚拟dom",
+                    path: "/Web/Vue/advance2",
+                },
+            ],
+            // TypeScript
+            "/Web/TypeScript/": [
+                {
+                    title: "TypeScript", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "TypeScript目录",
+                            path: "/Web/TypeScript/",
+                        },
+                        {
+                            title: "TypeScript学习记录-[数据类型]",
+                            path: "/Web/TypeScript/typescript1",
+                        },
+                        {
+                            title: "TypeScript学习记录-[类和接口]",
+                            path: "/Web/TypeScript/typescript2",
+                        },
+                        {
+                            title: "TypeScript学习记录-[枚举和泛型]",
+                            path: "/Web/TypeScript/typescript3",
+                        },
+                        {
+                            title: "TypeScript学习记录-[类型别名]",
+                            path: "/Web/TypeScript/typescript4",
+                        },
+                        {
+                            title: "TypeScript学习记录-[ts-challenge-Hello World]",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_HelloWorld",
+                        },
+                        {
+                            title: "TypeScript学习记录-[ts-challenge-实现Pick]",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_Pick",
+                        },
+                        {
+                            title: "TypeScript学习记录-[ts-challenge-Readonly|omit]",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_Readonly_Omit",
+                        },
+                        {
+                            title: "TypeScript学习记录-[ts-challenge-Readonly2]",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_ReadOnly2",
+                        },
+                        {
+                            title: "TypeScript学习记录-[ts-challenge-returnType]",
+                            path: "/Web/TypeScript/tsChallenges/tsChallenge_returnType",
+                        }
+                    ],
+                },
+            ],
+            // Gis
+            "/Web/Gis/": [
+                {
+                    title: "Gis", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "Gaode",
+                            path: "/Web/Gis/Gaode",
+                        },
+                        {
+                            title: "Baidu_api",
+                            path: "/Web/Gis/Baidu_api",
+                        },
+                    ],
+                },
+            ],
+            // App
+            "/Web/App/": [
+                {
+                    title: "app", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "app",
+                            path: "/Web/App/",
+                        },
+                        {
+                            title: "cordova入门",
+                            path: "/Web/App/Cordova",
+                        },
+                    ],
+                },
+            ],
+            // Desktop
+            "/Web/Desktop/": [
+                {
+                    title: "桌面应用", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "桌面应用",
+                            path: "/Web/Desktop/",
+                        },
+                    ],
+                },
+            ],
+            // WxApp
+            "/Web/WxApp/": [
+                {
+                    title: "小程序", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "桌面应用",
+                            path: "/Web/WxApp/",
                         },
                     ],
                 },
             ],
 
-            // SourceCode/Axios
+            /*
+             * 前端工程化
+            */
+            // 软件工程
+            "/FrontEndEngineering/SoftwareEnginner/": [
+                {
+                    title: "目录", // 必要的
+                    path: "/FrontEndEngineering/SoftwareEnginner/",
+                },
+                {
+                    title: "Foundation", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "软件工程基础",
+                            path: "/FrontEndEngineering/SoftwareEnginner/Foundation",
+                        },
+                    ],
+                },
+            ],
+            // 开发
+            "/FrontEndEngineering/Develop/": [
+                {
+                    title: "目录", // 必要的
+                    path: "/FrontEndEngineering/Develop/",
+                },
+                {
+                    title: "Foundation", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "基础",
+                            path: "/FrontEndEngineering/Develop/Foundation",
+                        },
+                    ],
+                },
+            ],
+            // 构建
+            "/FrontEndEngineering/Build/": [
+                {
+                    title: "目录", // 必要的
+                    path: "/FrontEndEngineering/Build/",
+                },
+                {
+                    title: "Webpack", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "Webpack",
+                            path: "/FrontEndEngineering/Build/Webpack",
+                        },
+                        {
+                            title: "Dll",
+                            path: "/FrontEndEngineering/Build/Webpack/Dll",
+                        },
+                        {
+                            title: "【手写loader】- 在webpack打包阶段检测失效图片资源并替换",
+                            path: "/FrontEndEngineering/Build/Webpack/ReplaceLegalImg",
+                        },
+                    ],
+                },
+            ],
+            // 部署
+            "/FrontEndEngineering/Deploy/": [
+                {
+                    title: "目录", // 必要的
+                    path: "/FrontEndEngineering/Deploy/",
+                },
+                {
+                    title: "Server", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "防火墙linux",
+                            path: "/FrontEndEngineering/Deploy/Server/linux",
+                        },
+                        {
+                            title: "nginx项目部署",
+                            path: "/FrontEndEngineering/Deploy/Server/nginx",
+                        },
+                    ],
+                },
+                {
+                    title: "Config", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "git_ssh",
+                            path: "/FrontEndEngineering/Deploy/Config/git_ssh",
+                        },
+                        {
+                            title: "file_permission",
+                            path: "/FrontEndEngineering/Deploy/Config/file_permission",
+                        },
+                    ],
+                },
+            ],
+            // 性能
+            "/FrontEndEngineering/Performance/": [
+                {
+                    title: "目录", // 必要的
+                    path: "/FrontEndEngineering/Performance/",
+                },
+                {
+                    title: "Foundation", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "基础",
+                            path: "/FrontEndEngineering/Performance/Foundation",
+                        },
+                    ],
+                },
+            ],
+            // 规范
+            "/FrontEndEngineering/Norm/": [
+                {
+                    title: "目录", // 必要的
+                    path: "/FrontEndEngineering/Norm/",
+                },
+                {
+                    title: "Foundation", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "基础",
+                            path: "/FrontEndEngineering/Norm/Foundation",
+                        },
+                    ],
+                },
+            ],
+
+            /*
+             * 后端基础
+            */
+            // Node
+            "/BackEnd/Node/": [
+                {
+                    title: "Node",
+                    collapsable: true,
+                    children: [
+                        { title: "Node", path: "/BackEnd/Node/" }
+                    ],
+                },
+            ],
+            // Nest
+            "/BackEnd/Nest/": [
+                {
+                    title: "Nest",
+                    collapsable: true,
+                    children: [
+                        { title: "Nest框架", path: "/BackEnd/Nest/" }
+                    ],
+                },
+            ],
+
+            /*
+             * 读源码
+            */
+            // Axios
             "/SourceCode/Axios/": [
                 {
                     title: "Axios", // 必要的
@@ -214,7 +668,7 @@ module.exports = {
                     ],
                 },
             ],
-            // SourceCode/Lodash
+            // Lodash
             "/SourceCode/Lodash/": [
                 {
                     title: "Lodash", // 必要的
@@ -328,317 +782,29 @@ module.exports = {
                 },
                
             ],
-
-            
-
-            // App/App
-            "/App/App/": [
+            // React
+            "/SourceCode/React/": [
                 {
-                    title: "app", // 必要的
+                    title: "React", // 必要的
                     collapsable: true, // 可选的, 默认值是 true,
                     children: [
                         {
-                            title: "app",
-                            path: "/App/App/",
+                            title: "Lodash",
+                            path: "/SourceCode/React/",
                         },
                         {
-                            title: "cordova入门",
-                            path: "/App/App/Cordova",
+                            title: "生命周期",
+                            path: "/SourceCode/React/LifeCycles",
                         },
-                    ],
-                },
-            ],
-            // App/Desktop
-            "/App/Desktop/": [
-                {
-                    title: "桌面应用", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "桌面应用",
-                            path: "/App/Desktop/",
-                        },
+
                     ],
                 },
             ],
 
-            // web/JavaScript
-            "/Web/JavaScript/": [
-                {
-                    title: "ES6 到 ES12 特性总结", // 必要的
-                    path: "/Web/JavaScript/",
-                },
-                {
-                    title: "JavaScript初级", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "文本对象模型DOM",
-                            path: "/Web/JavaScript/DOM",
-                        },
-                        {
-                            title: "浏览器对象模型BOM",
-                            path: "/Web/JavaScript/BOM",
-                        },
-                        {
-                            title: "JavaScript中的this",
-                            path: "/Web/JavaScript/this",
-                        },
-                        {
-                            title: "promiseA+规范与promise",
-                            path: "/Web/JavaScript/promise",
-                        },
-                    ],
-                },
-                {
-                    title: "JavaScript进阶", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "symbol",
-                            path: "/Web/JavaScript/Advance/symbol",
-                        },
-                        {
-                            title: "instanceOf",
-                            path: "/Web/JavaScript/Advance/instanceOf",
-                        },
-                        {
-                            title: "内存泄漏与垃圾回收",
-                            path: "/Web/JavaScript/Advance/advance3",
-                        },
-                        {
-                            title: "闭包",
-                            path: "/Web/JavaScript/Advance/advance4",
-                        },
-                        {
-                            title: "截流与防抖",
-                            path: "/Web/JavaScript/Advance/advance5",
-                        },
-                        {
-                            title: "javascript安全",
-                            path: "/Web/JavaScript/Advance/advance6",
-                        },
-                        {
-                            title: "eventloop",
-                            path: "/Web/JavaScript/Advance/eventloop",
-                        },
-                        {
-                            title: "Buffer",
-                            path: "/Web/JavaScript/Advance/Buffer",
-                        },
-                        {
-                            title: "ArrayBuffer",
-                            path: "/Web/JavaScript/Advance/ArrayBuffer",
-                        },
-                        {
-                            title: "FormData",
-                            path: "/Web/JavaScript/Advance/FormData",
-                        },
-                        {
-                            title: "URLSearchParams",
-                            path: "/Web/JavaScript/Advance/URLSearchParams",
-                        },
-                        {
-                            title: "function",
-                            path: "/Web/JavaScript/Advance/function",
-                        },
-                    ],
-                },
-            ],
-            // Web/HTML
-            "/Web/HTML/": [
-                {
-                    title: "HTML", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "HTML5",
-                            path: "/Web/HTML/html",
-                        },
-                    ],
-                },
-            ],
-            // Web/CSS
-            "/Web/CSS/": [
-                {
-                    title: "CSS", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "CSS目录",
-                            path: "/Web/CSS/",
-                        },
-                    ],
-                },
-            ],
-            // Web/HTTP
-            "/Web/HTTP/": [
-                {
-                    title: "HTTP", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "HTTP目录",
-                            path: "/Web/HTTP/",
-                        },
-                        {
-                            title: "网络和并发",
-                            path: "/Web/HTTP/advance1",
-                        },
-                    ],
-                },
-            ],
-            // web/TypeScript
-            "/Web/TypeScript/": [
-                {
-                    title: "TypeScript", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "TypeScript目录",
-                            path: "/Web/TypeScript/",
-                        },
-                        {
-                            title: "TypeScript学习记录-[数据类型]",
-                            path: "/Web/TypeScript/typescript1",
-                        },
-                        {
-                            title: "TypeScript学习记录-[类和接口]",
-                            path: "/Web/TypeScript/typescript2",
-                        },
-                        {
-                            title: "TypeScript学习记录-[枚举和泛型]",
-                            path: "/Web/TypeScript/typescript3",
-                        },
-                        {
-                            title: "TypeScript学习记录-[类型别名]",
-                            path: "/Web/TypeScript/typescript4",
-                        },
-                        {
-                            title: "TypeScript学习记录-[ts-challenge-Hello World]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_HelloWorld",
-                        },
-                        {
-                            title: "TypeScript学习记录-[ts-challenge-实现Pick]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_Pick",
-                        },
-                        {
-                            title: "TypeScript学习记录-[ts-challenge-Readonly|omit]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_Readonly_Omit",
-                        },
-                        {
-                            title: "TypeScript学习记录-[ts-challenge-Readonly2]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_ReadOnly2",
-                        },
-                        {
-                            title: "TypeScript学习记录-[ts-challenge-returnType]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_returnType",
-                        }
-                    ],
-                },
-            ],
-
-            // React/AntDesign
-            "/React/AntDesign/": [
-                { title: "AntDesign", path: "/React/AntDesign/" },
-            ],
-            // React/ReactPrimer
-            "/React/ReactPrimer/": [
-                {
-                    title: "🔯React与Vue比较研究",
-                    path: "/React/ReactPrimer/",
-                },
-                {
-                    title: "React入门",
-                    collapsable: true,
-                    children: [
-                        {
-                            title: "React入门（JSX）",
-                            path: "/React/ReactPrimer/JSX",
-                        },
-                        {
-                            title: "React入门（一、React基础）",
-                            path: "/React/ReactPrimer/React_1",
-                        },
-                    ],
-                },
-            ],
-
-            // Vue/VueAdvance
-            "/Vue/VueAdvance/": [
-                {
-                    title: "🔯Vue原理剖析",
-                    path: "/Vue/VueAdvance/",
-                },
-                {
-                    title: "Vue进阶",
-                    collapsable: true,
-                    children: [
-                        {
-                            title: "手写响应式",
-                            path: "/Vue/VueAdvance/advance1",
-                        },
-                        {
-                            title: "手写虚拟dom",
-                            path: "/Vue/VueAdvance/advance2",
-                        },
-                    ],
-                },
-            ],
-
-            // Node
-            "/Node/": [
-                {
-                    title: "Node",
-                    collapsable: true,
-                    children: [{ title: "Node", path: "/Node/" }],
-                },
-            ],
-            // Node/Nest
-            "/Node/Nest/": [
-                {
-                    title: "Node",
-                    collapsable: true,
-                    children: [{ title: "Nest框架", path: "/Node/Nest" }],
-                },
-            ],
-
-            // Tools/Server
-            "/Tools/Server/": [
-                {
-                    title: "Server端相关知识",
-                    collapsable: true,
-                    children: [
-                        {
-                            title: "防火墙linux",
-                            path: "/Tools/Server/linux",
-                        },
-                        {
-                            title: "nginx项目部署",
-                            path: "/Tools/Server/nginx",
-                        },
-                    ],
-                },
-            ],
-            // Tools/Webpack
-            "/Tools/Webpack/": [
-                {
-                    title: "Webpack相关知识",
-                    collapsable: true,
-                    children: [
-                        {
-                            title: "Webpack",
-                            path: "/Tools/Webpack/",
-                        },
-                        {
-                            title: "【手写loader】- 在webpack打包阶段检测失效图片资源并替换",
-                            path: "/Tools/Webpack/ReplaceLegalImg",
-                        },
-                    ],
-                },
-            ],
-
-            // Others/Question
+            /*
+            * 其他
+            */ 
+            // Question
             "/Others/Question/": [
                 {
                     title: "Question",
@@ -655,7 +821,7 @@ module.exports = {
                     ],
                 },
             ],
-            // Others/BlockChain
+            // BlockChain
             "/Others/BlockChain/": [
                 {
                     title: "区块链",
@@ -668,7 +834,7 @@ module.exports = {
                     ],
                 },
             ],
-            // Others/StudySource
+            // StudySource
             "/Others/StudySource/": [
                 {
                     title: "🔯学习资源汇总",
@@ -693,45 +859,87 @@ module.exports = {
                     ],
                 },
             ],
-
-            // Tricks/JsTricks
-            "/Tricks/JsTricks/": [
+            // JsTricks
+            "/Others/JsTricks/": [
                 {
                     title: "Js Tricks",
                     collapsable: true,
                     children: [
                         {
                             title: "JsTricks",
-                            path: "/Tricks/JsTricks/",
+                            path: "/Others/JsTricks/",
                         },
                         {
                             title: "百度地图代码段",
-                            path: "/Tricks/JsTricks/Bmap",
+                            path: "/Others/JsTricks/Bmap",
                         },
                         {
                             title: "天、小时、分钟、秒添加中文时间单位",
-                            path: "/Tricks/JsTricks/appendTimeUnit",
+                            path: "/Others/JsTricks/appendTimeUnit",
                         },
                         {
                             title: "时间戳转换至天、时、分、秒",
-                            path: "/Tricks/JsTricks/formatTimeWithSeconds",
+                            path: "/Others/JsTricks/formatTimeWithSeconds",
                         },
                     ],
                 },
             ],
-            // Tricks/CssTricks
-            "/Tricks/CssTricks/": [
+            // CssTricks
+            "/Others/CssTricks/": [
                 {
                     title: "Css Tricks",
                     collapsable: true,
                     children: [
                         {
                             title: "CssTricks",
-                            path: "/Tricks/CssTricks/",
+                            path: "/Others/CssTricks/",
                         },
                         {
                             title: "换行",
-                            path: "/Tricks/CssTricks/wx_text_overflow",
+                            path: "/Others/CssTricks/wx_text_overflow",
+                        },
+                    ],
+                },
+            ],
+            // Note
+            "/Others/Note/": [
+                {
+                    title: "Css Tricks",
+                    collapsable: true,
+                    children: [
+                        {
+                            title: "Note",
+                            path: "/Others/Note/",
+                        },
+                    ],
+                },
+            ],
+            // DevelopSkills
+            "/Others/DevelopSkills/": [
+                {
+                    title: "Css Tricks",
+                    collapsable: true,
+                    children: [
+                        {
+                            title: "CssTricks",
+                            path: "/Others/DevelopSkills/",
+                        },
+                        {
+                            title: "换行",
+                            path: "/Others/DevelopSkills//devTool使用-chrome",
+                        },
+                    ],
+                },
+            ],
+            // English
+            "/Others/English/": [
+                {
+                    title: "English",
+                    collapsable: true,
+                    children: [
+                        {
+                            title: "English",
+                            path: "/Others/English/",
                         },
                     ],
                 },

@@ -11,3 +11,6 @@ comments:
 [2021在鹅厂干了一年，我的一些感悟](https://mdnice.com/writing/ea7204892e734d948a451d76f61f7183)
 - 低承诺，超预期。
 - 多想事、干好事、会呈现
+
+- 白屏监控方案
+- [stroke-dashoffset](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute/stroke-dashoffset)

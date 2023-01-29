@@ -1,5 +1,5 @@
 ---
-title: 网络和并发
+title: compare
 search: true
 
 date: 2021-12-12 19:05:23
