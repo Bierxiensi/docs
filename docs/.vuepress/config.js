@@ -471,7 +471,7 @@ module.exports = {
                     children: [
                         {
                             title: "软件工程基础",
-                            path: "/FrontEndEngineering/SoftwareEnginner/Foundation",
+                            path: "/FrontEndEngineering/SoftwareEnginner/Foundation/",
                         },
                     ],
                 },
@@ -488,7 +488,7 @@ module.exports = {
                     children: [
                         {
                             title: "基础",
-                            path: "/FrontEndEngineering/Develop/Foundation",
+                            path: "/FrontEndEngineering/Develop/Foundation/",
                         },
                     ],
                 },
@@ -565,7 +565,7 @@ module.exports = {
                     children: [
                         {
                             title: "基础",
-                            path: "/FrontEndEngineering/Performance/Foundation",
+                            path: "/FrontEndEngineering/Performance/Foundation/",
                         },
                     ],
                 },
@@ -581,8 +581,8 @@ module.exports = {
                     collapsable: true, // 可选的, 默认值是 true,
                     children: [
                         {
-                            title: "基础",
-                            path: "/FrontEndEngineering/Norm/Foundation",
+                            title: "git",
+                            path: "/FrontEndEngineering/Norm/Git/",
                         },
                     ],
                 },
@@ -925,8 +925,8 @@ module.exports = {
                             path: "/Others/DevelopSkills/",
                         },
                         {
-                            title: "换行",
-                            path: "/Others/DevelopSkills//devTool使用-chrome",
+                            title: "devTool使用-chrome",
+                            path: "/Others/DevelopSkills/devTool",
                         },
                     ],
                 },
