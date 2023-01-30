@@ -87,6 +87,7 @@ module.exports = {
                 items: [
                     { text: "面试题", link: "/Others/Question/" },
                     { text: "区块链", link: "/Others/BlockChain/" },
+                    { text: "英语", link: "/Others/English/" },
                     { text: "学习资源", link: "/Others/StudySource/" },
                     { text: "Js Tricks", link: "/Others/JsTricks/" },
                     { text: "Css Tricks", link: "/Others/CssTricks/" },
@@ -161,6 +162,21 @@ module.exports = {
                         },
                     ],
                 },
+                {
+                    title: "C语言", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "求和溢出",
+                            path: "/CS/Algorithm/C/sum",
+                        },
+                        {
+                            title: "四则运算",
+                            path: "/CS/Algorithm/C/arithmetic",
+                        },
+                        
+                    ],
+                },
             ],
             // 计算机网络
             "/CS/ComputerNetworks/": [
@@ -175,6 +191,16 @@ module.exports = {
                         { 
                             title: "版本比较", 
                             path: "/CS/ComputerNetworks/HTTP/compare" 
+                        },
+                    ],
+                },
+                {
+                    title: "OSI", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        { 
+                            title: "版本比较", 
+                            path: "/CS/ComputerNetworks/OSI/" 
                         },
                     ],
                 },
@@ -303,6 +329,14 @@ module.exports = {
                             title: "CSS目录",
                             path: "/Web/CSS/",
                         },
+                        {
+                            title: "CSS名词概念",
+                            path: "/Web/CSS/Words",
+                        },
+                        {
+                            title: "CSS面试题",
+                            path: "/Web/CSS/Question",
+                        },
                     ],
                 },
             ],
@@ -323,6 +357,20 @@ module.exports = {
                         {
                             title: "React入门（一、React基础）",
                             path: "/Web/React/ReactPrimer/React_1",
+                        },
+                    ],
+                },
+                {
+                    title: "React进阶",
+                    collapsable: true,
+                    children: [
+                        {
+                            title: "JSX",
+                            path: "/Web/React/Advance/JSX",
+                        },
+                        {
+                            title: "React性能优化",
+                            path: "/Web/React/Advance/Performance",
                         },
                     ],
                 },

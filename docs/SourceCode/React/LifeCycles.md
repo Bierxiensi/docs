@@ -1,15 +1,16 @@
 ---
-title: 小程序中文本显示
+title: 生命周期
 search: true
 
-date: 2022-01-04 20:05:23
-tags: [CSS, Tricks, text-overflow]
+date: 2023-01-04 20:05:23
+tags: [React、LifeCycles]
 description:
 comments:
 ---
 
-[react-reconciler/src/ReactFiberCommitWork.js
-]
+## 生命周期
+
+[react-reconciler/src/ReactFiberCommitWork.js]
 ```js
 function** commitLifeCycles(finishedRoot,current,finishedWork){
      switch (finishedWork.tag){                             /* fiber tag 在第一节讲了不同fiber类型 */
