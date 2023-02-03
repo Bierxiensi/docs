@@ -45,10 +45,54 @@ comments:
 ### 6. 比较 HTTP 1.0 与 HTTP 1.1
 
 - 响应状态码
-  - HTTP/1.0仅定义了16种状态码
-  - HTTP/1.1中新加入了大量的状态码，光是错误响应状态码就新增了24种，如，100 (Continue)——在请求大资源前的预热请求，206 (Partial Content)——范围请求的标识码，409 (Conflict)——请求与当前资源的规定冲突，410 (Gone)——资源已被永久转移，而且没有任何已知的转发地址
+  - HTTP/1.0 仅定义了16种状态码
+  - HTTP/1.1 中新加入了大量的状态码，光是错误响应状态码就新增了24种，如，100 (Continue)——在请求大资源前的预热请求，206 (Partial Content)——范围请求的标识码，409 (Conflict)——请求与当前资源的规定冲突，410 (Gone)——资源已被永久转移，而且没有任何已知的转发地址
 - 缓存处理
+  - HTTP/1.0
+    - 服务器端使用Expires标签来标志（时间）一个响应体，在Expires标志时间内的请求，都会获得该响应体缓存
+    - 服务器端在初次返回给客户端的响应体中，有一个Last-Modified标签，该标签标记了被请求资源在服务器端的最后一次修改
+    - 在请求头中，使用If-Modified-Since标签，该标签标志一个时间，意为客户端向服务器进行问询：“该时间之后，我要请求的资源是否有被修改过？如果服务器接收到了请求头，并判断If-Modified-Since时间后，资源确实没有修改过，则返回给客户端一个304 not modified响应头，表示”缓冲可用，你从浏览器里拿吧！”
+  - HTTP/1.1
+     -  基本工作原理和HTTP/1.0保持不变，而是增加了更多细致的特性。其中，请求头中最常见的特性就是Cache-Control
 
+### 7. Cache-Control 是什么？
+- Cache-Control 通用消息头字段，被用于在 http 请求和响应中，`通过指定指令来实现缓存机制`
+- `缓存指令是单向的`，这意味着在请求中设置的指令，不一定被包含在响应中
+
+### 8. Cache-Control 可以设置哪些指令？
+- 缓存请求指令
+```js
+    Cache-Control: max-age=<seconds>
+    Cache-Control: max-stale[=<seconds>]
+    Cache-Control: min-fresh=<seconds>
+    Cache-control: no-cache
+    Cache-control: no-store
+    Cache-control: no-transform
+    Cache-control: only-if-cached
+```
+- 缓存响应指令
+```js
+    Cache-control: must-revalidate
+    Cache-control: no-cache
+    Cache-control: no-store
+    Cache-control: no-transform
+    Cache-control: public
+    Cache-control: private
+    Cache-control: proxy-revalidate
+    Cache-Control: max-age=<seconds>
+    Cache-control: s-maxage=<seconds>
+```
+
+### 9. Cache-Control 可以设置的指令分别有什么作用？
+- 可缓存性
+  - public：表明响应可以被任何对象（包括：发送请求的客户端，代理服务器，等等）缓存，即使是通常不可缓存的内容
+  - private：表明响应只能被单个用户缓存，不能作为共享缓存（即代理服务器不能缓存它）
+  - no-cache：在发布缓存副本之前，强制要求缓存把请求提交给原始服务器进行验证 (协商缓存验证)
+  - no-store：缓存不应存储有关客户端请求或服务器响应的任何内容，即不使用任何缓存
+
+- 到期
+  - max-age=<seconds>：设置缓存存储的最大周期，超过这个时间缓存被认为过期 (单位秒)
+  - 
 
 ### 6.HTTP 1.0/1.1/2.0在并发请求上的区别是什么
 #### HTTP1.0
