@@ -19,14 +19,25 @@ comments:
 
 > I majored in Computer Science and Technology at Zhengzhou University of Aeronautics three years ago. After graduation, i was working as a front-end software engineer in nanjing for three and a half years.
 
-> I'm a self-motivated person who complately believe that where there is a will there is a way. Therefore, during my past years study and working, I successfully passed the CET-4 and CET-6, Won the title of excellent employee several times in the work.
+> I'm a self-motivated person who complately believe that where there is a will there is a way. Therefore, during my past years study and working, I successfully passed the CET-4 and CET-6, Won the title of excellent employee several times in the work. 
 
->  When I’m free , I like reading and walking which can give me a break from the intense learning atmosphere for a short moment . Recently I started to learn to play guitar , which will make my life wonderful indeed.
+> In the process of preparing for postgraduate examination，I frequently worked on several tasks at a time，so i always had multiple items on my to-do list. I consider myself pretty good at multitasking and i enjoy staying busy.
 
-Being a hard-working student , if I believe something is worth doing , I will try my best to make it perfect .I am optimistic and persistent . I am rigorous about learning and have strong self-learning ability .Through undergraduate study, I realized that I’m extremely interested in computer , and the undergraduate computer study is the most basic. I want to make some achievement in this field , so I hope I could get the opportunity to finish my postgraduate courses in Hohai University which I had desired for a long time .
+> Through undergraduate study, I realized that I’m extremely interested in computer , and the undergraduate computer study is the most basic. I want to make some achievement in this field , so I hope I could get the opportunity to finish my postgraduate courses in Hohai University which I had desired for a long time .
 
 Thanks for your listening , professors .
+ 
 
+
+
+
+
+
+
+
+
+
+Being a hard-working student , if I believe something is worth doing , I will try my best to make it perfect .I am optimistic and persistent . I am rigorous about learning and have strong self-learning ability. 
 
 
 
@@ -39,3 +50,4 @@ Dear professors , It is my pleasure to have the opportunity to be interviewed by
 > I worked in XXX (as an intern) in 2018 summer vacation. The skills I`ve gained and knowledge i was taking away were immeasurable. As an intern, i frequently worked on several tasks at a time，so i always had multiple items on my to-do list. I consider myself pretty good at multitasking and i enjoy staying busy.
 
 
+> When I’m free , I like reading and walking which can give me a break from the intense learning atmosphere for a short moment. Recently I started to learn to play guitar , which will make my life wonderful indeed.
