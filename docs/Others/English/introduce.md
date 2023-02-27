@@ -17,7 +17,21 @@ comments:
 答：
 > Good morning, professors, thank you for giving me this valuable opportunity to be interviewed here today. I'm a 26-year-old youth whose name is zhangxiangyu. I was born in Shandong Province and raised in Jiangsu Province.
 
-> I majored in Computer Science and Technology at Zhengzhou University of Aeronautics three years ago. After graduation, i was working as a front-end software engineer in nanjing for three and a half years.
+> I majored in Computer Science and Technology at Zhengzhou University of Aeronautics three years ago. During my college years，i took study seriously and grasped the essential knowledge of my major. Also, I successfully passed the CET-4 and CET-6. 
+
+> After graduation, i worked as a web developer in nanjing city for three and a half years. During this period, i also working hard, Won the title of excellent employee several times. I'm satisfyed that I can take good care of myself and relieve my parents' living burden.
+
+> However, i realized that there is a lot of room for improvement in my professional knowledge and skills.
+
+> Through undergraduate study, I realized that I’m extremely interested in computer , and the undergraduate computer study is the most basic. I want to make some achievement in this field , so I hope I could get the opportunity to finish my postgraduate courses in Hohai University which I had desired for a long time .
+
+Thanks for your listening , professors .
+
+
+
+
+
+
 
 > I'm a self-motivated person who complately believe that where there is a will there is a way. Therefore, during my past years study and working, I successfully passed the CET-4 and CET-6, Won the title of excellent employee several times in the work. 
 
