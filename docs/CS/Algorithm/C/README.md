@@ -23,17 +23,22 @@
 
 - putc: 比putchar更强大一点，putc的第一个参数是数字，第二个参数是文件指针，可以将字符打印到对应的文件中，而不是像putchar一样只能打印到屏幕上；因此putchar的第二个参数是stdout时和putchar函数是等效的
 
+- puts: 
+
 eg:
-putchar('a') ;//结果是在屏幕上打印出字符 a 
+putchar('a') //结果是在屏幕上打印出字符 a 
 
-putchar(97);//结果是在屏幕上打印出字符 a 
-
-
-putc('a',stdout);//结果是在屏幕上打印出字符 a 
-
-putc(97,stdout);//结果是在屏幕上打印出字符 a 
+putchar(97) //结果是在屏幕上打印出字符 a 
 
 
-FILE * FP = fopen("C:\\test.txt","w");
+putc('a',stdout)  //结果是在屏幕上打印出字符 a 
 
-putc('a',fp); //结果是在C盘的test.txt文件中打印出字符 a 
+putc(97,stdout)  //结果是在屏幕上打印出字符 a 
+
+
+FILE * FP = fopen("C:\\test.txt","w")
+
+putc('a',fp)  //结果是在C盘的test.txt文件中打印出字符 a 
+
+
+puts(str)  // str是字符指针变量名、字符数组名/字符串常量
