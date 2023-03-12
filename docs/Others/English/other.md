@@ -97,3 +97,46 @@ when i read <One Hundred Years of Solitude>, i am so impressed with the novel th
 
 I have read many kinds of books ,among them I found “ the old man and the sea ” by hemingway the most encouraging . This book tells a story of an old man fighting against a gigantic fish. I was deeply impressed by the old man's persistence on not giving up and his strong will to face against bad luck . From the book, I have learned success only belongs to those who are persistent and patient. Never say no to failure. 
 （The influence has still worked on me although I read the book 10 years ago.）
+
+
+
+
+
+
+
+### 2.0版本
+> Good morning, professors, thank you for giving me this valuable opportunity to be interviewed here today. My name is zhangxiangyu and i'm 26 years old, comming form jiangsu province.
+
+> I majored in Computer Science and Technology at Zhengzhou University of Aeronautics three years ago.During my college years, I'm not only studied the basic courses, passed the CET-4 and CET-6, but also learned The Introduction to computer system teached by professor Yuanchenfeng at the MOOC of China University, gained the examination certification and enhanced my professional ability
+
+> After graduation, i worked as a web developer. During this period, i'm also working hard and had mastered lots of technical frameworks like Node、Vue、React、Javascript and Python. It help me Won the title of excellent employee several times.
+
+> However, i believe Education never ceases. I hope I could get the opportunity to finish my postgraduate courses in Beihang University of which I had desired for a long time.  
+
+Thanks for your listening , professors.
+
+
+### 1.0版本
+
+> Good morning, professors, thank you for giving me this valuable opportunity to be interviewed here today. I'm a 26-year-old youth whose name is zhangxiangyu. I was born in Shandong Province and raised in Jiangsu Province.
+
+> I majored in Computer Science and Technology at Zhengzhou University of Aeronautics three years ago. During my college years，i took study seriously and grasped the essential knowledge of my major. Also, I successfully passed the CET-4 and CET-6. 
+
+> After graduation, i worked as a web developer in nanjing city for three and a half years. During this period, i also working hard, Won the title of excellent employee several times. I'm satisfyed that I can take good care of myself and relieve my parents' living burden.
+
+> However, After several years of work, i found that there is a lot of room for improvement in my professional knowledge and skills. I realized that I’m extremely interested in computer , and the undergraduate computer study is the most basic. I want to make some achievement in this field , so I hope I could get the opportunity to finish my postgraduate courses in Beihang University of which I had desired for a long time.
+
+Thanks for your listening , professors .
+
+
+
+
+*4.How to explain your ability of self-learning?
+Firstly, When I am studying, I will concentrate my attention on it. The sounds around can hardly bother me. Secondly, when I will complete a task, I will plan it first, and then work it according to the plan. thirdly, I pay attention to sum up my learning methods to improve learning efficiency. So I think my learning efficiency is higher than others, and my self-learning ability is strong . 
+   
+*5.How do you demonstrate you are optimistic?
+I believe the world is magic and full of surprises. Life is full of sweets and bitters. Maybe sometimes you are sad because of some difficulties, but most of time you are happy. If you live your life by heart, you will find that life is wonderful. I always cherish this kind of blessing and live every day to its fullest.
+
+*6.How do you demonstrate you are persistent?
+I think One has to work hard and persist to the end. When you look around, you can find competition is everywhere. People are struggling for their life and work. If you are lazy, you will definitely be left behind .
+（ optimism makes me smile. And persistence keeps me work. I am always like this work while smiling ）
