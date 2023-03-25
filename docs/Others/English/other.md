@@ -140,3 +140,17 @@ I believe the world is magic and full of surprises. Life is full of sweets and b
 *6.How do you demonstrate you are persistent?
 I think One has to work hard and persist to the end. When you look around, you can find competition is everywhere. People are struggling for their life and work. If you are lazy, you will definitely be left behind .
 （ optimism makes me smile. And persistence keeps me work. I am always like this work while smiling ）
+
+
+
+
+
+Well, this is a really difficulty problem，so please allow me to think about it.
+
+Maybe 
+
+附加：
+1.What does friendship mean to you and what kind of people do you make friend with?
+
+(遇到困难时，第一时间送上心灵的慰藉的人；我喜欢和性格开朗的人交朋友)
+When you are in trouble, send comfort in the first place; I like to make friends with optimistic people
