@@ -128,6 +128,9 @@ In my spare time, i like reading and cooking in home. I think I'm doing well at 
 3. <math>: aprt()、atan()、atan2()、
 
 
+intensify/aggreviate this tendency
+put some policy 
+
 
 
 由前述复试经历，可总结几点如下：
