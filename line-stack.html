@@ -1,0 +1,216 @@
+<!--
+	此示例下载自 https://echarts.apache.org/examples/zh/editor.html?c=line-stack&code=PYBwLglsB2AEC8sDeBYAULWZjADYCNgAPALmXU0wDMBTAQzAFcAnGs1DSzAZzoDcaAQW4BJALZ0A5m2QBfCpXmdZAGgVFBRCN3YLMdLdwAyEaDI5ceAC2AB3MlTq5uNPbFVuD2gCoQAxgDWupxc3Db2sI7OriHuarFgAJ4gMgDkfgw0ksDMianxXAAmDHRkANoADAB0ACwqsNU1AKz11S0NVU3t1QBsALoKHpyJmtrBXNB0YmkACgBKAKIAwiIAyiIA8gByABQApACU-Z6GJmbjlmF2ZGDMjDQFlrimNKtJuOZuXH54OWSpAGIACIATlBoNSX3cbiGXC8xjo-BouAu31-zH-AIAjAAxABMWLxAGZIbFYZQxKYyHiKo9MJNpt4aEQwG9Eh9UZQfrg_rBAbiCcTjmS6Vhkmk-E57qTMOTJMwIIVOQB6ZWwKw0CCSKxgf5Eip7YVcVWwWyKsBWf49A0yuIKD7SaBK8ixD5UXWwAActLcEDANDEAHVzZbYDTRX6AwAJTXaj1Yn3KR4uBU0HSwMpuCyWBlpWBYvmizDFMClDOevFVLH1EE9KogmsAdirTZbsBBzaxfSLYpS_2eZiNl0SYkIKL5fggzD8HyHoRHY9WEAAXjIWlCB693p9YmieRi-QC_ISaESanPLGbChbqT3MEk-3zimEaIVbVxyVxI2I2RyXZZKEIZhChoZhg2vUM8TvWAgJA5glnRTFjzxU9z2g7leUBZDUPfRQYXqE0sSzKFc3-MNCyhEsyzKGoiSqKCvWqBt2xqNsQSaesaw4kEQW7KEHzSTcLx4Bc8H-Vg_DAYTYG4UTcCXVcyHXXdYE3X8dwAzAMIPQEaB6fBrQqaTMCvG8w2ggT_mfDU3yhT9KG_dTOS4WDQPAsyoKhTBXPgxDDz0gyKiM9C_N0_TDNw2V8NgE08WIlTSL5WAiQolSqPKIlPSqHp6hqJjW3aDtOPbT0-JUyy-SEntZNHMS-RABhLVVABZT0ejompPU9WAakbbjPRBIkhqsABaIksSypoKh6GbGwANSxHoOKaGoZp6Rs6CJbiem6rb6x2hp8waEbG0rCoCSGlKKj4cbGk9JpLtG8asVqNb1s27bds-w6CwqQ7Tqqc6sUe57XrWxsbqxF7VvBj79q--Gfv-s6LqGho-DGqGwdmqxxsm6bZrh2sEeJpG_oqE6UeBobl2kmrFxXGRPR7NTt2crlQoBIKQU9QoQWM00Q1vLzezSazX0iu0VMctn_00nz3Mg6CfIQ_dMW53n-ZCtXDw1vnJaUD8CLVIl4oAxLUh61KAPSjMAYYxtmyJepPTonKvWbOp2w4xsyoAirUiqqF6bq1JbggOhoEkWdqrkhS1xZl4nLlgDtMxPF8ArLE32g0ylZFgPxdslT7MwGX2Q0-WcjgxXhZU7zq9A1XMIBDOs5zkW08PNuCWLgDDcUY2erNnMpjzJprcsW2yhBVjne9ti6wY2tstbLsewDoOVJD8dUkKCOxBgDvt7jxmlMTsxk-zVPOaCpp6DoAW87rzTRasugXz7yxS9gcu_2vywCshbmRFirW-FR750EftrFud8H4G2iiaJoI8JhjzIj0SeRQSjlBqC9ZedEKiNhrFlasJVV7tidn7Swm8Xh0zkv8BqN4WpNHWtlbqTQsYgixDDRsuA8QrSqN6B6Q0Rr8NYu1Hhm0QT0WEWjIk0j-GXSuodcmI0uidFnrNZKCjZEpXkTIpRKjjrqKaJomaDQjAcLxD1FhVYQTWP4Z2Cog00Y0hej0KRBjLraK8WjcmxjlpmIwX9fRijvGhN0UY_xJizG8LEYIiB3j4mmLxKIgRQikkCNOp4sJcidGGP8X9PEzZHYYNYYQvEx5qhQ2sUU6oziehjSqI2DsSTmyegmmtEaWNeqNiGjUSxhJYAsObFNFxRI-HpJBATRsYYsmVObAdRZ3UsQlIJutfM0NHZtMEZ08xPTtlnhyZEiJBSjHFN2W1daI1WFQx4bgNJrFPSdUec0vEtNY61XkmfYZF8twV3ZlpTmzymjLDxE_YBnl65vyfB_GyBsex_0rgBIBEEX5V2Ak3YFzQwUCy7oCEFuK7KILVD0FBlALawFmdJaeNRKzu2tIDIhXpKzzy4cVdi9EqFcBoYOT5Y4SAi1SIwpqypWr3XrHS1ZIIeoXJ2o7FhDy8SsJqM0RanpRGVnGViJo3SKisV6hULaRJRGrVqI2fVPQsRGDytIroRJiQTzyqxPqqqahKtYUNGaPMwxasujqsM51BGrS4SsvqzSLXEkaYyxsA0poT2VS9M8TQ8Q1F9dIvqRI-lYm6ZlToPQeJtXTYI0xwNrHA0mgWnm0bqixpWlDURVqqjJtTUYLq3EpUtNlcshVPRlzNQ4axc6M0mjdSWnWPKmUVoPOBtIz0fVTppuebUfhrsCxZsBlOna3TTFVmtOxE1hI6Klvuoe6a9ZXWEPzD0LVqyOHdKHQ9aaab2qdDuTxHd1TFqtNgK-m9zjBr5imlWb9fTr2VjaudCB-ZH36h6DUbpxJOjJs6vmc9HYVpXo3Ua-6B0dXSMWs4h6gyh3KqWmO2xk77o1A-cHU-ilfkbiTrLABe5YEVAmimiFaKQHQsLnCiWdlEX-h_Cx0BjcwKQuVhJ5uOkuYcfuuCmBcmgqcfBcSskCgBhoFkAAbiAA
+	⚠ 请注意，该图表不是 Apache ECharts 官方示例，而是由用户代码生成的。请注意鉴别其内容。
+-->
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 300px; width: 500px;"></div>
+
+  
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>
+  <!-- Uncomment this line if you want to dataTool extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.1/dist/extension/dataTool.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use gl extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-gl@2/dist/echarts-gl.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to echarts-stat extension
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts-stat@latest/dist/ecStat.min.js"></script>
+  -->
+  <!-- Uncomment this line if you want to use map
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/china.js"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@4.9.0/map/js/world.js"></script>
+  -->
+  <!-- Uncomment these two lines if you want to use bmap extension
+  <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=YOUR_API_KEY"></script>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.1/dist/extension/bmap.min.js"></script>
+  -->
+
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'svg',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    option = {
+  toolbox: {
+    feature: {
+      saveAsImage: {}
+    }
+  },
+  xAxis: {
+    axisLine: {
+      show: false
+    },
+    axisTick: {
+      show: false
+    },
+    type: 'category',
+    data: [0.4, 0.45, 0.5, 0.55, 0.6]
+  },
+  yAxis: {
+    name: 'PRECISION(%)',
+    axisLine: {
+      show: true,
+      lineStyle: {
+        color: '#D9D9D9'
+      }
+    },
+    axisLabel: {
+      color: '#1F2123'
+    },
+    min: 20,
+    nameTextStyle: {
+      color: '#1F2123',
+    },
+    type: 'value'
+  },
+  grid: {
+    // height: '30%',
+    // width: '60%'
+  },
+  legend: {
+    left: 80,
+    itemWidth: 20,
+    itemHeight: 10,
+  },
+  series: [
+    {
+      name: ' 1 ',
+      data: [82.1, 96.9, 97.1, 97.1, 97.1],
+      type: 'line',
+      symbol: 'circle',
+      symbolSize: 5,
+      lineStyle: {
+        color: '#c12e34',
+        width: 2,
+        type: 'dashed'
+      },
+      itemStyle: {
+        borderWidth: 2,
+        borderColor: '#c12e34',
+        color: '#c12e34'
+      }
+    }, // 1
+    {
+      name: ' 2 ',
+      data: [43.2, 80.9, 94.1, 95.9, 95.99],
+      type: 'line',
+      symbol: 'rect',
+      symbolSize: 5,
+      lineStyle: {
+        color: '#e6b600',
+        width: 2,
+        type: 'dashed'
+      },
+      itemStyle: {
+        borderWidth: 2,
+        borderColor: '#e6b600',
+        color: '#e6b600'
+      }
+    }, // 2
+    {
+      name: ' 3 ',
+      data: [38.6, 40.9, 97.5, 97.9, 98],
+      type: 'line',
+      symbol: 'path://M863.488 475.989333h-318.506667V165.546667a35.968 35.968 0 1 0-72.021333 0v310.485333h-311.466667a35.968 35.968 0 1 0 0 72.021333h311.466667v311.466667a35.968 35.968 0 1 0 72.021333 0v-311.466667h318.506667a35.968 35.968 0 1 0 0-72.021333z',
+      symbolSize: 8,
+      lineStyle: {
+        color: '#0098d9',
+        width: 2,
+        type: 'dashed'
+      },
+      itemStyle: {
+        borderWidth: 2,
+        borderColor: '#0098d9',
+        color: '#0098d9'
+      }
+    }, // 3
+    {
+      name: ' 4 ',
+      data: [72.2, 77.3, 83.6, 87.4, 95.7],
+      type: 'line',
+      symbol: 'triangle',
+      symbolSize: 5,
+      lineStyle: {
+        color: '#2b821d',
+        width: 2,
+        type: 'dashed'
+      },
+      itemStyle: {
+        borderWidth: 2,
+        borderColor: '#2b821d',
+        color: '#2b821d'
+      }
+    }, // 4
+    {
+      name: ' 5 ',
+      data: [94.3, 95.1, 96.2, 96.6, 97.1],
+      type: 'line',
+      symbol: 'diamond',
+      symbolSize: 5,
+      lineStyle: {
+        color: '#005eaa',
+        width: 2,
+        type: 'dashed'
+      },
+      itemStyle: {
+        borderWidth: 2,
+        borderColor: '#005eaa',
+        color: '#005eaa'
+      }
+    }, // 5
+    {
+      name: ' 6 ',
+      data: [41.2, 93.07, 98.1, 98.6, 97.3],
+      type: 'line',
+      symbol: 'path://M567.68 511.914667l254.805333-254.634667a39.253333 39.253333 0 0 0 0-55.594667 39.253333 39.253333 0 0 0-55.594666 0L512 456.192 257.109333 201.6a39.253333 39.253333 0 0 0-55.594666 0 39.253333 39.253333 0 0 0 0 55.594667l254.805333 254.592-254.805333 254.72a39.253333 39.253333 0 0 0 27.776 67.072c10.112 0 20.096-3.797333 27.818666-11.477334L512 567.509333l254.890667 254.72c7.68 7.68 17.706667 11.477333 27.818666 11.477334a39.253333 39.253333 0 0 0 27.818667-67.114667l-254.848-254.72z',
+      symbolSize: 5,
+      lineStyle: {
+        color: '#845EC2',
+        width: 2,
+        type: 'dashed'
+      },
+      itemStyle: {
+        borderWidth: 2,
+        borderColor: '#845EC2',
+        color: '#845EC2'
+      }
+    }, // 6
+    {
+      name: ' 7 ',
+      data: [42.6, 60.07, 82.3, 91.9, 95.2],
+      type: 'line',
+      symbol:
+        'path://M885.942179 427.687756l-267.445168-22.933315-104.470353-246.470461L409.553235 404.75444l-267.336698 22.933315 202.846918 175.770236-60.789505 261.34524 229.753731-138.569986 229.859132 138.569986-60.785411-261.34524L885.942179 427.687756zM514.026658 656.403854l-139.875724 84.425831 37.038568-159.160953-123.591853-106.975407 162.91751-14.053064 63.511499-150.116973 63.620993 150.116973 162.860205 14.053064-123.534548 106.975407 37.038568 159.160953L514.026658 656.403854z',
+      symbolSize: 5,
+      lineStyle: {
+        color: '#001852',
+        width: 2,
+        type: 'dashed'
+      },
+      itemStyle: {
+        borderWidth: 2,
+        borderColor: '#001852',
+        color: '#001852'
+      }
+    }
+  ]
+};
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>
