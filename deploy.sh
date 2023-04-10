@@ -6,7 +6,7 @@ set -e
 git push -f git@github.com:Bierxiensi/docs.git master:master
  
 # 生成静态文件
-yarn run docs:build
+npm run docs:build
  
 # 进入生成的文件夹
 cd dist
