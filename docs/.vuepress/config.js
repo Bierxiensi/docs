@@ -33,6 +33,12 @@ module.exports = {
         nav: [
             { text: "Home", link: "/" },
             {
+                text: "读研生涯",
+                items: [
+                    { text: "探索与记录", link: "/PostGraduate/Explore/" },
+                ],
+            },
+            {
                 text: "计算机基础",
                 items: [
                     { text: "数据结构与算法", link: "/CS/Algorithm/" },
@@ -42,7 +48,7 @@ module.exports = {
                 ],
             },
             {
-                text: "前端基础",
+                text: "前端",
                 items: [
                     { text: "JavaScript", link: "/Web/JavaScript/" },
                     { text: "HTML", link: "/Web/HTML/" },
@@ -57,7 +63,14 @@ module.exports = {
                 ],
             },
             {
-                text: "前端工程化",
+                text: "后端",
+                items: [
+                    { text: "Node", link: "/BackEnd/Node/" },
+                    { text: "Nest框架", link: "/BackEnd/Nest/" },
+                ],
+            },
+            {
+                text: "工程化",
                 items: [
                     { text: "软件工程", link: "/FrontEndEngineering/SoftwareEnginner/" },
                     { text: "开发", link: "/FrontEndEngineering/Develop/" },
@@ -65,13 +78,6 @@ module.exports = {
                     { text: "部署", link: "/FrontEndEngineering/Deploy/" },
                     { text: "性能", link: "/FrontEndEngineering/Performance/" },
                     { text: "规范", link: "/FrontEndEngineering/Norm/" },
-                ],
-            },
-            {
-                text: "后端基础",
-                items: [
-                    { text: "Node", link: "/BackEnd/Node/" },
-                    { text: "Nest框架", link: "/BackEnd/Nest/" },
                 ],
             },
             {
@@ -105,6 +111,80 @@ module.exports = {
                     collapsable: true, // 可选的, 默认值是 true,
                 },
             ],
+             /*
+            * 读研生涯
+            */ 
+            // 数据结构与算法
+            "/CS/Algorithm/": [
+                {
+                    title: "算法的计划与flag", // 必要的
+                    path: "/CS/Algorithm/",
+                },
+                {
+                    title: "20天算法刷题记录", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "二分查找",
+                            path: "/CS/Algorithm/binarySearch",
+                        },
+                    ],
+                },
+                {
+                    title: "初级算法", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "Array-移动零",
+                            path: "/CS/Algorithm/Array/moveZeroes[283]",
+                        },
+                        {
+                            title: "Array-加一",
+                            path: "/CS/Algorithm/Array/plusOne[66]",
+                        },
+                        {
+                            title: "Array-旋转图像",
+                            path: "/CS/Algorithm/Array/rotate[48]",
+                        },
+                        {
+                            title: "BinarySearch-两个数组的交集 II",
+                            path: "/CS/Algorithm/BinarySearch/intersect[350]",
+                        },
+                        {
+                            title: "BitManipulation-只出现一次的数字",
+                            path: "/CS/Algorithm/BitManipulation/singleNumber[136]",
+                        },
+                        {
+                            title: "HashTable-存在重复元素",
+                            path: "/CS/Algorithm/HashTable/containsDuplicate[217]",
+                        },
+                        {
+                            title: "HashTable-只出现一次的数字",
+                            path: "/CS/Algorithm/HashTable/isValidSudoku[36]",
+                        },
+                        {
+                            title: "TwoPoints-反转字符串",
+                            path: "/CS/Algorithm/TwoPoints/reverseString[344]",
+                        },
+                    ],
+                },
+                {
+                    title: "C语言", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "求和溢出",
+                            path: "/CS/Algorithm/C/sum",
+                        },
+                        {
+                            title: "四则运算",
+                            path: "/CS/Algorithm/C/arithmetic",
+                        },
+                        
+                    ],
+                },
+            ],
+
             /*
             * 计算机基础
             */ 
@@ -221,7 +301,7 @@ module.exports = {
             ],
 
             /*
-             * 前端基础
+             * 前端
             */
             // JavaScript
             "/Web/JavaScript/": [
@@ -505,7 +585,31 @@ module.exports = {
             ],
 
             /*
-             * 前端工程化
+             * 后端
+            */
+            // Node
+            "/BackEnd/Node/": [
+                {
+                    title: "Node",
+                    collapsable: true,
+                    children: [
+                        { title: "Node", path: "/BackEnd/Node/" }
+                    ],
+                },
+            ],
+            // Nest
+            "/BackEnd/Nest/": [
+                {
+                    title: "Nest",
+                    collapsable: true,
+                    children: [
+                        { title: "Nest框架", path: "/BackEnd/Nest/" }
+                    ],
+                },
+            ],
+
+            /*
+             * 工程化
             */
             // 软件工程
             "/FrontEndEngineering/SoftwareEnginner/": [
@@ -632,30 +736,6 @@ module.exports = {
                             title: "git",
                             path: "/FrontEndEngineering/Norm/Git/",
                         },
-                    ],
-                },
-            ],
-
-            /*
-             * 后端基础
-            */
-            // Node
-            "/BackEnd/Node/": [
-                {
-                    title: "Node",
-                    collapsable: true,
-                    children: [
-                        { title: "Node", path: "/BackEnd/Node/" }
-                    ],
-                },
-            ],
-            // Nest
-            "/BackEnd/Nest/": [
-                {
-                    title: "Nest",
-                    collapsable: true,
-                    children: [
-                        { title: "Nest框架", path: "/BackEnd/Nest/" }
                     ],
                 },
             ],
