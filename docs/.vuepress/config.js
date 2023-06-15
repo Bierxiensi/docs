@@ -591,6 +591,16 @@ module.exports = {
                         },
                     ],
                 },
+                {
+                    title: "Cli", 
+                    collapsable: true, 
+                    children: [
+                        {
+                            title: "脚手架",
+                            path: "/FrontEndEngineering/Develop/Cli/",
+                        },
+                    ],
+                },
             ],
             // 构建
             "/FrontEndEngineering/Build/": [
