@@ -899,8 +899,8 @@ module.exports = {
                             path: "/Others/Question/",
                         },
                         {
-                            title: "前端面试题集锦（转自https://github.com/wangjxk）",
-                            path: "/Others/Question/question1",
+                            title: "前端面试题集锦",
+                            path: "/Others/Question/Question1",
                         },
                     ],
                 },
@@ -959,11 +959,11 @@ module.exports = {
                         },
                         {
                             title: "天、小时、分钟、秒添加中文时间单位",
-                            path: "/Others/JsTricks/appendTimeUnit",
+                            path: "/Others/JsTricks/AppendTimeUnit",
                         },
                         {
                             title: "时间戳转换至天、时、分、秒",
-                            path: "/Others/JsTricks/formatTimeWithSeconds",
+                            path: "/Others/JsTricks/FormatTimeWithSeconds",
                         },
                     ],
                 },
@@ -980,7 +980,7 @@ module.exports = {
                         },
                         {
                             title: "换行",
-                            path: "/Others/CssTricks/wx_text_overflow",
+                            path: "/Others/CssTricks/Wx_text_overflow",
                         },
                     ],
                 },
@@ -1010,7 +1010,7 @@ module.exports = {
                         },
                         {
                             title: "devTool使用-chrome",
-                            path: "/Others/DevelopSkills/devTool",
+                            path: "/Others/DevelopSkills/DevTool",
                         },
                     ],
                 },
