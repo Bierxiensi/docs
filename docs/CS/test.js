@@ -20,6 +20,27 @@ let myPromiseAll = (promises) => {
 }
 
 
+var promiseArr = [], i;
+function myPromiseAll(promises) {
+    if(!Array.isArray(promises)){
+        return console.log("请输入promise数组")
+    }
+    return new Promise((resolve, reject) => {
+        for (i = 0; i< promises.length; i++) {
+            if(!promises[i] || typeof promises[i] != 'object' || typeof promises[i] != 'function'){
+                reject('请输入正确的的promise')
+            }
+            promises[i].then(res => {
+                promiseArr.push(res)
+            }).catch(err=> {
+                reject(err)
+            })
+        }
+        resolve(promiseArr)
+    })
+}
+
+
 
 const myFibWithRec = (n) => {
     if(n < 2){
@@ -39,4 +60,24 @@ const myFibNoRec = (n) => {
         n2=temp;
     }
     return n2;
+}
+
+
+var index = 0;
+const promises = [new Promise(), new Promise()];
+const promiseIterator =  {
+    next: function() {
+        if(index < promises.length){
+            return { done: false, value: promises[index++] }
+        } else {
+            return { done: true, value: undefined }
+        }
+    }
+}
+
+
+const myPromiseAllWithiterator = () => {
+    return new Promise((resolve, reject) => {
+
+    })
 }

@@ -326,7 +326,7 @@ module.exports = {
                     children: [
                         {
                             title: "HTML5",
-                            path: "/Web/HTML/html",
+                            path: "/Web/HTML/Html",
                         },
                     ],
                 },
@@ -351,11 +351,11 @@ module.exports = {
                         },
                         {
                             title: "JavaScript中的this",
-                            path: "/Web/JavaScript/this",
+                            path: "/Web/JavaScript/This",
                         },
                         {
                             title: "promiseA+规范与promise",
-                            path: "/Web/JavaScript/promise",
+                            path: "/Web/JavaScript/Promise",
                         },
                     ],
                 },
@@ -365,31 +365,31 @@ module.exports = {
                     children: [
                         {
                             title: "symbol",
-                            path: "/Web/JavaScript/Advance/symbol",
+                            path: "/Web/JavaScript/Advance/Symbol",
                         },
                         {
                             title: "instanceOf",
-                            path: "/Web/JavaScript/Advance/instanceOf",
+                            path: "/Web/JavaScript/Advance/InstanceOf",
                         },
                         {
                             title: "内存泄漏与垃圾回收",
-                            path: "/Web/JavaScript/Advance/advance3",
+                            path: "/Web/JavaScript/Advance/Advance3",
                         },
                         {
                             title: "闭包",
-                            path: "/Web/JavaScript/Advance/advance4",
+                            path: "/Web/JavaScript/Advance/Advance4",
                         },
                         {
                             title: "截流与防抖",
-                            path: "/Web/JavaScript/Advance/advance5",
+                            path: "/Web/JavaScript/Advance/Advance5",
                         },
                         {
                             title: "javascript安全",
-                            path: "/Web/JavaScript/Advance/advance6",
+                            path: "/Web/JavaScript/Advance/Advance6",
                         },
                         {
                             title: "eventloop",
-                            path: "/Web/JavaScript/Advance/eventloop",
+                            path: "/Web/JavaScript/Advance/Eventloop",
                         },
                         {
                             title: "Buffer",
@@ -409,7 +409,7 @@ module.exports = {
                         },
                         {
                             title: "function",
-                            path: "/Web/JavaScript/Advance/function",
+                            path: "/Web/JavaScript/Advance/Function",
                         },
                     ],
                 },
@@ -461,39 +461,39 @@ module.exports = {
                         },
                         {
                             title: "TypeScript学习记录-[数据类型]",
-                            path: "/Web/TypeScript/typescript1",
+                            path: "/Web/TypeScript/Typescript1",
                         },
                         {
                             title: "TypeScript学习记录-[类和接口]",
-                            path: "/Web/TypeScript/typescript2",
+                            path: "/Web/TypeScript/Typescript2",
                         },
                         {
                             title: "TypeScript学习记录-[枚举和泛型]",
-                            path: "/Web/TypeScript/typescript3",
+                            path: "/Web/TypeScript/Typescript3",
                         },
                         {
                             title: "TypeScript学习记录-[类型别名]",
-                            path: "/Web/TypeScript/typescript4",
+                            path: "/Web/TypeScript/Typescript4",
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-Hello World]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_HelloWorld",
+                            path: "/Web/TypeScript/tsChallenges/TsChallenge_HelloWorld",
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-实现Pick]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_Pick",
+                            path: "/Web/TypeScript/tsChallenges/TsChallenge_Pick",
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-Readonly|omit]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_Readonly_Omit",
+                            path: "/Web/TypeScript/tsChallenges/TsChallenge_Readonly_Omit",
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-Readonly2]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_ReadOnly2",
+                            path: "/Web/TypeScript/tsChallenges/TsChallenge_ReadOnly2",
                         },
                         {
                             title: "TypeScript学习记录-[ts-challenge-returnType]",
-                            path: "/Web/TypeScript/tsChallenges/tsChallenge_returnType",
+                            path: "/Web/TypeScript/tsChallenges/TsChallenge_returnType",
                         }
                     ],
                 },
@@ -506,15 +506,15 @@ module.exports = {
                 },
                 {
                     title: "设计思想",
-                    path: "/Web/Vue/designIdea",
+                    path: "/Web/Vue/DesignIdea",
                 },
                 {
                     title: "手写响应式",
-                    path: "/Web/Vue/advance1",
+                    path: "/Web/Vue/Advance1",
                 },
                 {
                     title: "手写虚拟dom",
-                    path: "/Web/Vue/advance2",
+                    path: "/Web/Vue/Advance2",
                 },
             ],
             // WxApp
