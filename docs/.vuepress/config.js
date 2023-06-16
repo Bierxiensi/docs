@@ -250,6 +250,87 @@ module.exports = {
             /*
              * 前端
             */
+           // App
+           "/Web/App/": [
+                {
+                    title: "app", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "app",
+                            path: "/Web/App/",
+                        },
+                        {
+                            title: "cordova入门",
+                            path: "/Web/App/Cordova",
+                        },
+                    ],
+                },
+            ],
+            // CSS
+            "/Web/CSS/": [
+                {
+                    title: "CSS", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "CSS目录",
+                            path: "/Web/CSS/",
+                        },
+                        {
+                            title: "CSS名词概念",
+                            path: "/Web/CSS/Words",
+                        },
+                        {
+                            title: "CSS面试题",
+                            path: "/Web/CSS/Question",
+                        },
+                    ],
+                },
+            ],
+            // Desktop
+            "/Web/Desktop/": [
+                {
+                    title: "桌面应用", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "桌面应用",
+                            path: "/Web/Desktop/",
+                        },
+                    ],
+                },
+            ],
+            // Gis
+            "/Web/Gis/": [
+                {
+                    title: "Gis", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "Gaode",
+                            path: "/Web/Gis/Gaode",
+                        },
+                        {
+                            title: "Baidu_api",
+                            path: "/Web/Gis/Baidu_api",
+                        },
+                    ],
+                },
+            ],
+            // HTML
+            "/Web/HTML/": [
+                {
+                    title: "HTML", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "HTML5",
+                            path: "/Web/HTML/html",
+                        },
+                    ],
+                },
+            ],
             // JavaScript
             "/Web/JavaScript/": [
                 {
@@ -332,41 +413,7 @@ module.exports = {
                         },
                     ],
                 },
-            ],
-            // HTML
-            "/Web/HTML/": [
-                {
-                    title: "HTML", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "HTML5",
-                            path: "/Web/HTML/html",
-                        },
-                    ],
-                },
-            ],
-            // CSS
-            "/Web/CSS/": [
-                {
-                    title: "CSS", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "CSS目录",
-                            path: "/Web/CSS/",
-                        },
-                        {
-                            title: "CSS名词概念",
-                            path: "/Web/CSS/Words",
-                        },
-                        {
-                            title: "CSS面试题",
-                            path: "/Web/CSS/Question",
-                        },
-                    ],
-                },
-            ],
+            ],            
             // React
             "/Web/React/": [
                 {
@@ -400,25 +447,6 @@ module.exports = {
                             path: "/Web/React/Advance/Performance",
                         },
                     ],
-                },
-            ],
-            // Vue
-            "/Web/Vue/": [
-                {
-                    title: "目录",
-                    path: "/Web/Vue/",
-                },
-                {
-                    title: "设计思想",
-                    path: "/Web/Vue/designIdea",
-                },
-                {
-                    title: "手写响应式",
-                    path: "/Web/Vue/advance1",
-                },
-                {
-                    title: "手写虚拟dom",
-                    path: "/Web/Vue/advance2",
                 },
             ],
             // TypeScript
@@ -470,51 +498,23 @@ module.exports = {
                     ],
                 },
             ],
-            // Gis
-            "/Web/Gis/": [
+            // Vue
+            "/Web/Vue/": [
                 {
-                    title: "Gis", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "Gaode",
-                            path: "/Web/Gis/Gaode",
-                        },
-                        {
-                            title: "Baidu_api",
-                            path: "/Web/Gis/Baidu_api",
-                        },
-                    ],
+                    title: "目录",
+                    path: "/Web/Vue/",
                 },
-            ],
-            // App
-            "/Web/App/": [
                 {
-                    title: "app", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "app",
-                            path: "/Web/App/",
-                        },
-                        {
-                            title: "cordova入门",
-                            path: "/Web/App/Cordova",
-                        },
-                    ],
+                    title: "设计思想",
+                    path: "/Web/Vue/designIdea",
                 },
-            ],
-            // Desktop
-            "/Web/Desktop/": [
                 {
-                    title: "桌面应用", // 必要的
-                    collapsable: true, // 可选的, 默认值是 true,
-                    children: [
-                        {
-                            title: "桌面应用",
-                            path: "/Web/Desktop/",
-                        },
-                    ],
+                    title: "手写响应式",
+                    path: "/Web/Vue/advance1",
+                },
+                {
+                    title: "手写虚拟dom",
+                    path: "/Web/Vue/advance2",
                 },
             ],
             // WxApp
@@ -530,7 +530,6 @@ module.exports = {
                     ],
                 },
             ],
-
             /*
              * 后端
             */
