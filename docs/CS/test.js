@@ -20,8 +20,8 @@ let myPromiseAll = (promises) => {
 }
 
 
-var promiseArr = [], i;
 function myPromiseAll(promises) {
+    var promiseArr = [], i;
     if(!Array.isArray(promises)){
         return console.log("请输入promise数组")
     }
@@ -31,7 +31,7 @@ function myPromiseAll(promises) {
                 reject('请输入正确的的promise')
             }
             promises[i].then(res => {
-                promiseArr.push(res)
+                promiseArr.splice(i, 0, res)
             }).catch(err=> {
                 reject(err)
             })
