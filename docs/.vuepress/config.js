@@ -125,7 +125,7 @@ module.exports = {
                     collapsable: true, 
                     children: [
                         {
-                            title: "二分查找",
+                            title: "Transformer",
                             path: "/PostGraduate/Explore/Transformer",
                         },
                     ],
