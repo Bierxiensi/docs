@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>axios-utils源码 | 大前端工程师成长路线</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="博客 分享 笔记 规划 ">
+    
+    <link rel="preload" href="/docs/assets/css/0.styles.8e9f036c.css" as="style"><link rel="preload" href="/docs/assets/js/app.94b39639.js" as="script"><link rel="preload" href="/docs/assets/js/2.76afec17.js" as="script"><link rel="preload" href="/docs/assets/js/127.fe7f2060.js" as="script"><link rel="prefetch" href="/docs/assets/js/10.64049170.js"><link rel="prefetch" href="/docs/assets/js/100.dd1cca3c.js"><link rel="prefetch" href="/docs/assets/js/101.cdd50df5.js"><link rel="prefetch" href="/docs/assets/js/102.5210e26f.js"><link rel="prefetch" href="/docs/assets/js/103.eb756fd5.js"><link rel="prefetch" href="/docs/assets/js/104.1229887c.js"><link rel="prefetch" href="/docs/assets/js/105.f0ff66e7.js"><link rel="prefetch" href="/docs/assets/js/106.48d9f073.js"><link rel="prefetch" href="/docs/assets/js/107.275da6d8.js"><link rel="prefetch" href="/docs/assets/js/108.408ba7cb.js"><link rel="prefetch" href="/docs/assets/js/109.2330bb70.js"><link rel="prefetch" href="/docs/assets/js/11.bd20babd.js"><link rel="prefetch" href="/docs/assets/js/110.d0bb9e94.js"><link rel="prefetch" href="/docs/assets/js/111.02fd143e.js"><link rel="prefetch" href="/docs/assets/js/112.2fcbaf7c.js"><link rel="prefetch" href="/docs/assets/js/113.f7451943.js"><link rel="prefetch" href="/docs/assets/js/114.0aef5d7e.js"><link rel="prefetch" href="/docs/assets/js/115.f716492f.js"><link rel="prefetch" href="/docs/assets/js/116.7761e546.js"><link rel="prefetch" href="/docs/assets/js/117.62104f62.js"><link rel="prefetch" href="/docs/assets/js/118.3537fba6.js"><link rel="prefetch" href="/docs/assets/js/119.a3e1b948.js"><link rel="prefetch" href="/docs/assets/js/12.acef1ad3.js"><link rel="prefetch" href="/docs/assets/js/120.512d3a45.js"><link rel="prefetch" href="/docs/assets/js/121.36dab76a.js"><link rel="prefetch" href="/docs/assets/js/122.5002b723.js"><link rel="prefetch" href="/docs/assets/js/123.9f11a15e.js"><link rel="prefetch" href="/docs/assets/js/124.8314ec7f.js"><link rel="prefetch" href="/docs/assets/js/125.219d7f16.js"><link rel="prefetch" href="/docs/assets/js/126.976f1303.js"><link rel="prefetch" href="/docs/assets/js/128.76cd6359.js"><link rel="prefetch" href="/docs/assets/js/129.baaca83c.js"><link rel="prefetch" href="/docs/assets/js/13.1530fbbe.js"><link rel="prefetch" href="/docs/assets/js/130.99b9937a.js"><link rel="prefetch" href="/docs/assets/js/131.3489f2b6.js"><link rel="prefetch" href="/docs/assets/js/132.7414008f.js"><link rel="prefetch" href="/docs/assets/js/133.6a477779.js"><link rel="prefetch" href="/docs/assets/js/134.6a6ed5f0.js"><link rel="prefetch" href="/docs/assets/js/135.0926b2b5.js"><link rel="prefetch" href="/docs/assets/js/136.940aa1b3.js"><link rel="prefetch" href="/docs/assets/js/137.e251b84c.js"><link rel="prefetch" href="/docs/assets/js/138.5af41670.js"><link rel="prefetch" href="/docs/assets/js/139.84f95936.js"><link rel="prefetch" href="/docs/assets/js/14.b1a2320e.js"><link rel="prefetch" href="/docs/assets/js/140.ecada68e.js"><link rel="prefetch" href="/docs/assets/js/141.5d1c1229.js"><link rel="prefetch" href="/docs/assets/js/142.eee979a4.js"><link rel="prefetch" href="/docs/assets/js/143.01add7b2.js"><link rel="prefetch" href="/docs/assets/js/144.8a9cbb91.js"><link rel="prefetch" href="/docs/assets/js/145.6b459ea9.js"><link rel="prefetch" href="/docs/assets/js/146.1e95cd21.js"><link rel="prefetch" href="/docs/assets/js/147.efb6801c.js"><link rel="prefetch" href="/docs/assets/js/148.c07a025c.js"><link rel="prefetch" href="/docs/assets/js/149.2db1daa2.js"><link rel="prefetch" href="/docs/assets/js/15.d20d3145.js"><link rel="prefetch" href="/docs/assets/js/150.2320c3a6.js"><link rel="prefetch" href="/docs/assets/js/151.bed6ef26.js"><link rel="prefetch" href="/docs/assets/js/152.d834f76e.js"><link rel="prefetch" href="/docs/assets/js/153.8ea5aa64.js"><link rel="prefetch" href="/docs/assets/js/154.b48e69a0.js"><link rel="prefetch" href="/docs/assets/js/155.bce89d8c.js"><link rel="prefetch" href="/docs/assets/js/156.31f98da2.js"><link rel="prefetch" href="/docs/assets/js/157.4e1c5d43.js"><link rel="prefetch" href="/docs/assets/js/158.418b4c1e.js"><link rel="prefetch" href="/docs/assets/js/159.4f420dab.js"><link rel="prefetch" href="/docs/assets/js/16.84ad4cf9.js"><link rel="prefetch" href="/docs/assets/js/160.51b0427d.js"><link rel="prefetch" href="/docs/assets/js/161.34fa2b09.js"><link rel="prefetch" href="/docs/assets/js/162.f26fa746.js"><link rel="prefetch" href="/docs/assets/js/163.a18dd90e.js"><link rel="prefetch" href="/docs/assets/js/164.6fa4a900.js"><link rel="prefetch" href="/docs/assets/js/165.a7c5a3ff.js"><link rel="prefetch" href="/docs/assets/js/166.f0b83042.js"><link rel="prefetch" href="/docs/assets/js/167.292780aa.js"><link rel="prefetch" href="/docs/assets/js/168.4eefd91f.js"><link rel="prefetch" href="/docs/assets/js/169.d96e4ac2.js"><link rel="prefetch" href="/docs/assets/js/17.9b7ff467.js"><link rel="prefetch" href="/docs/assets/js/170.d5646d37.js"><link rel="prefetch" href="/docs/assets/js/171.adb8fc47.js"><link rel="prefetch" href="/docs/assets/js/172.753b2844.js"><link rel="prefetch" href="/docs/assets/js/173.d7a64d92.js"><link rel="prefetch" href="/docs/assets/js/174.a5b3c59b.js"><link rel="prefetch" href="/docs/assets/js/175.0c77f908.js"><link rel="prefetch" href="/docs/assets/js/176.ea206798.js"><link rel="prefetch" href="/docs/assets/js/177.8efed05b.js"><link rel="prefetch" href="/docs/assets/js/178.d4596432.js"><link rel="prefetch" href="/docs/assets/js/179.e6714e90.js"><link rel="prefetch" href="/docs/assets/js/18.9664df50.js"><link rel="prefetch" href="/docs/assets/js/180.b7f539b6.js"><link rel="prefetch" href="/docs/assets/js/181.056fcc7a.js"><link rel="prefetch" href="/docs/assets/js/182.15b285f9.js"><link rel="prefetch" href="/docs/assets/js/183.186493b9.js"><link rel="prefetch" href="/docs/assets/js/184.54de7b4c.js"><link rel="prefetch" href="/docs/assets/js/185.2b2021fd.js"><link rel="prefetch" href="/docs/assets/js/186.4e088784.js"><link rel="prefetch" href="/docs/assets/js/187.6087a4e3.js"><link rel="prefetch" href="/docs/assets/js/188.914af9b3.js"><link rel="prefetch" href="/docs/assets/js/189.195080e9.js"><link rel="prefetch" href="/docs/assets/js/19.e0b7d897.js"><link rel="prefetch" href="/docs/assets/js/190.9afe3a61.js"><link rel="prefetch" href="/docs/assets/js/191.54c05c70.js"><link rel="prefetch" href="/docs/assets/js/192.2da00714.js"><link rel="prefetch" href="/docs/assets/js/193.5742b404.js"><link rel="prefetch" href="/docs/assets/js/194.1676d51a.js"><link rel="prefetch" href="/docs/assets/js/20.2a0397e4.js"><link rel="prefetch" href="/docs/assets/js/21.9bb9c4ab.js"><link rel="prefetch" href="/docs/assets/js/22.46437f0c.js"><link rel="prefetch" href="/docs/assets/js/23.0ce76941.js"><link rel="prefetch" href="/docs/assets/js/24.9b02bb60.js"><link rel="prefetch" href="/docs/assets/js/25.1a0f8c16.js"><link rel="prefetch" href="/docs/assets/js/26.958642ab.js"><link rel="prefetch" href="/docs/assets/js/27.8615210e.js"><link rel="prefetch" href="/docs/assets/js/28.4cf2c45a.js"><link rel="prefetch" href="/docs/assets/js/29.2ac725fc.js"><link rel="prefetch" href="/docs/assets/js/3.d3b6eea9.js"><link rel="prefetch" href="/docs/assets/js/30.9300744f.js"><link rel="prefetch" href="/docs/assets/js/31.9ab467b3.js"><link rel="prefetch" href="/docs/assets/js/32.7397c323.js"><link rel="prefetch" href="/docs/assets/js/33.a0cf2637.js"><link rel="prefetch" href="/docs/assets/js/34.d61e1231.js"><link rel="prefetch" href="/docs/assets/js/35.4cee926c.js"><link rel="prefetch" href="/docs/assets/js/36.8e50ef5f.js"><link rel="prefetch" href="/docs/assets/js/37.9c87dce8.js"><link rel="prefetch" href="/docs/assets/js/38.b730aca9.js"><link rel="prefetch" href="/docs/assets/js/39.f42e7ac1.js"><link rel="prefetch" href="/docs/assets/js/4.d378cb7e.js"><link rel="prefetch" href="/docs/assets/js/40.21bac2d8.js"><link rel="prefetch" href="/docs/assets/js/41.3df23d9f.js"><link rel="prefetch" href="/docs/assets/js/42.b658ecc6.js"><link rel="prefetch" href="/docs/assets/js/43.f46e461e.js"><link rel="prefetch" href="/docs/assets/js/44.ed2a9ef8.js"><link rel="prefetch" href="/docs/assets/js/45.3b8ed15e.js"><link rel="prefetch" href="/docs/assets/js/46.7b5589f3.js"><link rel="prefetch" href="/docs/assets/js/47.d589d707.js"><link rel="prefetch" href="/docs/assets/js/48.1da7df07.js"><link rel="prefetch" href="/docs/assets/js/49.a4005952.js"><link rel="prefetch" href="/docs/assets/js/5.00b262d0.js"><link rel="prefetch" href="/docs/assets/js/50.6f366509.js"><link rel="prefetch" href="/docs/assets/js/51.0b1f7508.js"><link rel="prefetch" href="/docs/assets/js/52.04158d6d.js"><link rel="prefetch" href="/docs/assets/js/53.8ffbb93a.js"><link rel="prefetch" href="/docs/assets/js/54.ec719dcb.js"><link rel="prefetch" href="/docs/assets/js/55.3c3726fe.js"><link rel="prefetch" href="/docs/assets/js/56.b25caaff.js"><link rel="prefetch" href="/docs/assets/js/57.618c18f5.js"><link rel="prefetch" href="/docs/assets/js/58.e00bda15.js"><link rel="prefetch" href="/docs/assets/js/59.1e010f25.js"><link rel="prefetch" href="/docs/assets/js/6.f5f38eea.js"><link rel="prefetch" href="/docs/assets/js/60.b15808f5.js"><link rel="prefetch" href="/docs/assets/js/61.fdc6b78e.js"><link rel="prefetch" href="/docs/assets/js/62.60b704a4.js"><link rel="prefetch" href="/docs/assets/js/63.47e652e9.js"><link rel="prefetch" href="/docs/assets/js/64.f99fe8c5.js"><link rel="prefetch" href="/docs/assets/js/65.4db4e87e.js"><link rel="prefetch" href="/docs/assets/js/66.588a809b.js"><link rel="prefetch" href="/docs/assets/js/67.43cedc92.js"><link rel="prefetch" href="/docs/assets/js/68.0e353abf.js"><link rel="prefetch" href="/docs/assets/js/69.2e7aa4a1.js"><link rel="prefetch" href="/docs/assets/js/7.cd57a54e.js"><link rel="prefetch" href="/docs/assets/js/70.45edc6f2.js"><link rel="prefetch" href="/docs/assets/js/71.8d435855.js"><link rel="prefetch" href="/docs/assets/js/72.2dd55d77.js"><link rel="prefetch" href="/docs/assets/js/73.12d57bc7.js"><link rel="prefetch" href="/docs/assets/js/74.317ea09a.js"><link rel="prefetch" href="/docs/assets/js/75.5633de27.js"><link rel="prefetch" href="/docs/assets/js/76.1f02e44e.js"><link rel="prefetch" href="/docs/assets/js/77.5e88da18.js"><link rel="prefetch" href="/docs/assets/js/78.9cf48658.js"><link rel="prefetch" href="/docs/assets/js/79.cf1334fe.js"><link rel="prefetch" href="/docs/assets/js/8.de8abaeb.js"><link rel="prefetch" href="/docs/assets/js/80.d9f20419.js"><link rel="prefetch" href="/docs/assets/js/81.dfcc1189.js"><link rel="prefetch" href="/docs/assets/js/82.b171602c.js"><link rel="prefetch" href="/docs/assets/js/83.d01eca38.js"><link rel="prefetch" href="/docs/assets/js/84.09f77d84.js"><link rel="prefetch" href="/docs/assets/js/85.ef3698e2.js"><link rel="prefetch" href="/docs/assets/js/86.9c44181e.js"><link rel="prefetch" href="/docs/assets/js/87.f58ed969.js"><link rel="prefetch" href="/docs/assets/js/88.2a96e1fd.js"><link rel="prefetch" href="/docs/assets/js/89.aeb088ab.js"><link rel="prefetch" href="/docs/assets/js/9.8db69a38.js"><link rel="prefetch" href="/docs/assets/js/90.32a883ed.js"><link rel="prefetch" href="/docs/assets/js/91.f2011ce8.js"><link rel="prefetch" href="/docs/assets/js/92.998023e0.js"><link rel="prefetch" href="/docs/assets/js/93.7c498a57.js"><link rel="prefetch" href="/docs/assets/js/94.bc5970b6.js"><link rel="prefetch" href="/docs/assets/js/95.dc60a529.js"><link rel="prefetch" href="/docs/assets/js/96.41b7d263.js"><link rel="prefetch" href="/docs/assets/js/97.81eedf62.js"><link rel="prefetch" href="/docs/assets/js/98.2642cb83.js"><link rel="prefetch" href="/docs/assets/js/99.c63d8a70.js">
+    <link rel="stylesheet" href="/docs/assets/css/0.styles.8e9f036c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/docs/" class="home-link router-link-active"><img src="/docs/images/home/balu.jpg" alt="大前端工程师成长路线" class="logo"> <span class="site-name can-hide">大前端工程师成长路线</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读研生涯" class="dropdown-title"><span class="title">读研生涯</span> <span class="arrow down"></span></button> <button type="button" aria-label="读研生涯" class="mobile-dropdown-title"><span class="title">读研生涯</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/PostGraduate/Explore/" class="nav-link">
+  探索与记录
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="计算机基础" class="dropdown-title"><span class="title">计算机基础</span> <span class="arrow down"></span></button> <button type="button" aria-label="计算机基础" class="mobile-dropdown-title"><span class="title">计算机基础</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/CS/Algorithm/" class="nav-link">
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerComposition/" class="nav-link">
+  计算机组成原理
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerNetworks/" class="nav-link">
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/OperatingSystem/" class="nav-link">
+  操作系统
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Web/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTML/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/CSS/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/TypeScript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Gis/" class="nav-link">
+  Gis
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/App/" class="nav-link">
+  App
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Desktop/" class="nav-link">
+  桌面应用
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/WxApp/" class="nav-link">
+  小程序
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow down"></span></button> <button type="button" aria-label="后端" class="mobile-dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Koa/" class="nav-link">
+  Koa
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Nest/" class="nav-link">
+  Nest
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Node/" class="nav-link">
+  Node
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工程化" class="dropdown-title"><span class="title">工程化</span> <span class="arrow down"></span></button> <button type="button" aria-label="工程化" class="mobile-dropdown-title"><span class="title">工程化</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/SoftwareEnginner/" class="nav-link">
+  软件工程
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Develop/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Build/" class="nav-link">
+  构建
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Deploy/" class="nav-link">
+  部署
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Performance/" class="nav-link">
+  性能
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Norm/" class="nav-link">
+  规范
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读源码" class="dropdown-title"><span class="title">读源码</span> <span class="arrow down"></span></button> <button type="button" aria-label="读源码" class="mobile-dropdown-title"><span class="title">读源码</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Axios/" class="nav-link router-link-active">
+  Axios
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Lodash/" class="nav-link">
+  Lodash
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/React/" class="nav-link">
+  React
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow down"></span></button> <button type="button" aria-label="其他" class="mobile-dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Others/Question/" class="nav-link">
+  面试题
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/BlockChain/" class="nav-link">
+  区块链
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/English/" class="nav-link">
+  英语
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/StudySource/" class="nav-link">
+  学习资源
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/JsTricks/" class="nav-link">
+  Js Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/CssTricks/" class="nav-link">
+  Css Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/DevelopSkills/" class="nav-link">
+  开发技巧
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/Note/" class="nav-link">
+  备忘录
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/bierxiensi" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读研生涯" class="dropdown-title"><span class="title">读研生涯</span> <span class="arrow down"></span></button> <button type="button" aria-label="读研生涯" class="mobile-dropdown-title"><span class="title">读研生涯</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/PostGraduate/Explore/" class="nav-link">
+  探索与记录
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="计算机基础" class="dropdown-title"><span class="title">计算机基础</span> <span class="arrow down"></span></button> <button type="button" aria-label="计算机基础" class="mobile-dropdown-title"><span class="title">计算机基础</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/CS/Algorithm/" class="nav-link">
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerComposition/" class="nav-link">
+  计算机组成原理
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerNetworks/" class="nav-link">
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/OperatingSystem/" class="nav-link">
+  操作系统
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Web/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTML/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/CSS/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/TypeScript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Gis/" class="nav-link">
+  Gis
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/App/" class="nav-link">
+  App
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Desktop/" class="nav-link">
+  桌面应用
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/WxApp/" class="nav-link">
+  小程序
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow down"></span></button> <button type="button" aria-label="后端" class="mobile-dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Koa/" class="nav-link">
+  Koa
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Nest/" class="nav-link">
+  Nest
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Node/" class="nav-link">
+  Node
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工程化" class="dropdown-title"><span class="title">工程化</span> <span class="arrow down"></span></button> <button type="button" aria-label="工程化" class="mobile-dropdown-title"><span class="title">工程化</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/SoftwareEnginner/" class="nav-link">
+  软件工程
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Develop/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Build/" class="nav-link">
+  构建
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Deploy/" class="nav-link">
+  部署
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Performance/" class="nav-link">
+  性能
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Norm/" class="nav-link">
+  规范
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读源码" class="dropdown-title"><span class="title">读源码</span> <span class="arrow down"></span></button> <button type="button" aria-label="读源码" class="mobile-dropdown-title"><span class="title">读源码</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Axios/" class="nav-link router-link-active">
+  Axios
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Lodash/" class="nav-link">
+  Lodash
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/React/" class="nav-link">
+  React
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow down"></span></button> <button type="button" aria-label="其他" class="mobile-dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Others/Question/" class="nav-link">
+  面试题
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/BlockChain/" class="nav-link">
+  区块链
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/English/" class="nav-link">
+  英语
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/StudySource/" class="nav-link">
+  学习资源
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/JsTricks/" class="nav-link">
+  Js Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/CssTricks/" class="nav-link">
+  Css Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/DevelopSkills/" class="nav-link">
+  开发技巧
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/Note/" class="nav-link">
+  备忘录
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/bierxiensi" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Axios</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/SourceCode/Axios/" aria-current="page" class="sidebar-link">Axios</a></li><li><a href="/docs/SourceCode/Axios/Utils.html" aria-current="page" class="active sidebar-link">Axios工具函数</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Utils.html#_1-helper-函数" class="sidebar-link">1. helper 函数</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Utils.html#_2-使用tostring-获取对象类型" class="sidebar-link">2. 使用toString()获取对象类型</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Utils.html#_3-使用-typeof-获取未经计算的操作数" class="sidebar-link">3. 使用 typeof 获取未经计算的操作数</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Utils.html#_4-使用-instanceof-检测当前实例原型链是否包含-prototype-属性" class="sidebar-link">4. 使用 instanceof 检测当前实例原型链是否包含 prototype 属性</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Utils.html#_5-复合类型" class="sidebar-link">5. 复合类型</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Utils.html#_6-正则表达式" class="sidebar-link">6. 正则表达式</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Utils.html#_7-重写" class="sidebar-link">7. 重写</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Utils.html#_8-js-strikes" class="sidebar-link">8. js strikes</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Axios/Utils.html#_9-环境" class="sidebar-link">9 环境</a></li></ul></li><li><a href="/docs/SourceCode/Axios/Default.html" class="sidebar-link">Axios实例化配置函数</a></li><li><a href="/docs/SourceCode/Axios/Default.html" class="sidebar-link">过度选项校验函数Validator研读解析</a></li><li><a href="/docs/SourceCode/Axios/Cancel.html" class="sidebar-link">取消请求cancel模块研读解析</a></li><li><a href="/docs/SourceCode/Axios/DispatchRequest.html" class="sidebar-link">请求分发函数DispatchRequest研读解析</a></li><li><a href="/docs/SourceCode/Axios/Helper.html" class="sidebar-link">适配器中的辅助函数helper研读解析</a></li><li><a href="/docs/SourceCode/Axios/Core.html" class="sidebar-link">适配器中的核心函数core研读解析</a></li><li><a href="/docs/SourceCode/Axios/Xhr.html" class="sidebar-link">浏览器端适配器xhr研读解析</a></li><li><a href="/docs/SourceCode/Axios/Http1.html" class="sidebar-link">【axios 源码】- node适配器 http 研读解析【上】</a></li><li><a href="/docs/SourceCode/Axios/Http2.html" class="sidebar-link">【axios 源码】- node适配器 http 研读解析【下】</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><blockquote><p><code>utils</code> is a library of generic helper functions non-specific to axios</p></blockquote> <blockquote><p><code>utils</code> 是一个非特定于 axios 的通用辅助函数库</p></blockquote> <h1 id="一、环境准备"><a href="#一、环境准备" class="header-anchor">#</a> 一、环境准备</h1> <ul><li><p><code>axios</code> 版本 <code>v0.24.0</code></p></li> <li><p>通过 <code>github1s</code> 网页可以 <a href="https://github1s.com/axios/axios/blob/HEAD/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">查看<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> axios 源码</p></li> <li><p>调试需要 <code>clone</code> 到本地</p></li></ul> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">git</span> clone https://github.com/axios/axios.git
+
+<span class="token builtin class-name">cd</span> axios
+
+<span class="token function">npm</span> start
+
+http://localhost:3000/
+</code></pre></div><h1 id="二、函数研读"><a href="#二、函数研读" class="header-anchor">#</a> 二、函数研读</h1> <h2 id="_1-helper-函数"><a href="#_1-helper-函数" class="header-anchor">#</a> 1. helper 函数</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">var</span> bind <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./helpers/bind'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token operator">===</span><span class="token operator">&gt;</span>
+<span class="token string">'use strict'</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">bind</span><span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> thisArg</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token function">wrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> args <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>arguments<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> args<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      args<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> arguments<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>thisArg<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+</code></pre></div><p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9ac5fbfede7a4a8daa04b9c81bb38d08~tplv-k3u1fbpfcp-watermark.image?" alt="image.png"></p> <p>Tips: 这是一个配合后述<code>extend</code>工具函数使用的方法，作用是当运行时存在明确的<code>this</code>指向即<code>thisArg</code>时将<code>fn</code>扩展（添加）到目标对象中，如图中的 showInfo</p> <h2 id="_2-使用tostring-获取对象类型"><a href="#_2-使用tostring-获取对象类型" class="header-anchor">#</a> 2. 使用<code>toString()</code>获取对象类型</h2> <blockquote><p>可以通过 <code>toString()</code> 来获取每个对象的类型，关于 toString 更多的性质，详情见<a href="/docs/JavaScript/toString.html">toString</a></p></blockquote> <h3 id="【2-1】-isarray"><a href="#【2-1】-isarray" class="header-anchor">#</a> 【2.1】 isArray</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">var</span> toString <span class="token operator">=</span> <span class="token class-name">Object</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">;</span>
+<span class="token comment">/**
+ * Determine if a value is an Array
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Array, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isArray</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&quot;[object Array]&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>isArray 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 val 是否为数组</li> <li>Object 原型链函数 toString()在成功判断数组时固定返回'[object Array]'</li> <li>关于 Array 类型判断详情见<a href="https://262.ecma-international.org/6.0/#sec-object.prototype.tostring" target="_blank" rel="noopener noreferrer">ECMA-262<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> - Let isArray be IsArray(Object).</li></ul> <p>Tips: 从<code>ECMA-262</code>文档可以看出，从 es6 后 toString()在判定 Array 类型时直接使用了 IsArray 方法，所以如果环境允许，直接使用 Array.isArray()也是可行的 🐶，这点在<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray" target="_blank" rel="noopener noreferrer"><code>MDN</code> - Array.isArray<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>的 Polyfill 中也是有体现的。</p> <p>Tips: <code>Array.isArray()</code> 是 es5 特性</p> <h3 id="【2-2】-isarraybuffer"><a href="#【2-2】-isarraybuffer" class="header-anchor">#</a> 【2.2】 isArrayBuffer</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an ArrayBuffer, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isArrayBuffer</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&quot;[object ArrayBuffer]&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>并未在 MDN 上找到示例</li> <li>关于 ArrayBuffer 更多的性质，详情见<a href="/docs/JavaScript/Advance/ArrayBuffer.html">ArrayBuffer</a></li></ul> <h3 id="【2-3】-isdate"><a href="#【2-3】-isdate" class="header-anchor">#</a> 【2.3】 isDate</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a Date
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Date, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isDate</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&quot;[object Date]&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>isArray 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 val 是否为日期类型</li> <li>Object 原型链函数 toString()在成功判断数组时固定返回'[object Date]'</li> <li>关于 Date 类型判断详情见<a href="https://262.ecma-international.org/6.0/#sec-object.prototype.tostring" target="_blank" rel="noopener noreferrer">ECMA-262<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> - if Object has a [[DateValue]] internal slot, let builtinTag be &quot;Date&quot;.</li></ul> <h3 id="【2-4】-isfile"><a href="#【2-4】-isfile" class="header-anchor">#</a> 【2.4】 isFile</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a File
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a File, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isFile</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&quot;[object File]&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>并未在 MDN 上找到示例</li></ul> <h3 id="【2-5】-isblob"><a href="#【2-5】-isblob" class="header-anchor">#</a> 【2.5】 isBlob</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a Blob
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Blob, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isBlob</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&quot;[object Blob]&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>并未在 MDN 上找到示例</li></ul> <h3 id="【2-6】-isfunction"><a href="#【2-6】-isfunction" class="header-anchor">#</a> 【2.6】 isFunction</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a Function
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Function, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isFunction</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">&quot;[object Function]&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>isArray 封装了 Object 原型链函数 toString()，借助 toString()判断属性类型的性质判断 val 是否为 Function 函数类型</li> <li>Object 原型链函数 toString()在成功判断数组时固定返回'[object Array]'</li> <li>关于 Function 类型判断详情见<a href="https://262.ecma-international.org/6.0/#sec-object.prototype.tostring" target="_blank" rel="noopener noreferrer">ECMA-262<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> - if Object has a [[Call]] internal method, let builtinTag be &quot;Function&quot;.</li></ul> <h2 id="_3-使用-typeof-获取未经计算的操作数"><a href="#_3-使用-typeof-获取未经计算的操作数" class="header-anchor">#</a> 3. 使用 <code>typeof</code> 获取未经计算的操作数</h2> <blockquote><p>可以通过 <code>typeof</code> 来获取<code>未经计算的操作数</code>的类型，关于 typeof 更多的性质，详情见<a href="/docs/JavaScript/typeof.html">typeof</a></p></blockquote> <h3 id="【3-1】-isundefined"><a href="#【3-1】-isundefined" class="header-anchor">#</a> 【3.1】 isUndefined</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is undefined
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if the value is undefined, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isUndefined</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">typeof</span> val <span class="token operator">===</span> <span class="token string">&quot;undefined&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="【3-2】-isstring"><a href="#【3-2】-isstring" class="header-anchor">#</a> 【3.2】 isString</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a String
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a String, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isString</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">typeof</span> val <span class="token operator">===</span> <span class="token string">&quot;string&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="【3-3】-isnumber"><a href="#【3-3】-isnumber" class="header-anchor">#</a> 【3.3】 isNumber</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a Number
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Number, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isNumber</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">typeof</span> val <span class="token operator">===</span> <span class="token string">&quot;number&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="【3-4】-isobject"><a href="#【3-4】-isobject" class="header-anchor">#</a> 【3.4】 isObject</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is an Object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an Object, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isObject</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> val <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> val <span class="token operator">===</span> <span class="token string">&quot;object&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+_<span class="token punctuation">.</span><span class="token function">isObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; true</span>
+
+_<span class="token punctuation">.</span><span class="token function">isObject</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; true</span>
+
+_<span class="token punctuation">.</span><span class="token function">isObject</span><span class="token punctuation">(</span>_<span class="token punctuation">.</span>noop<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; true</span>
+
+_<span class="token punctuation">.</span><span class="token function">isObject</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; false</span>
+</code></pre></div><ul><li>检查 value 是否是普通对象，即排除掉 null 类型的所有对象类型，包含 array、date 等对象类型</li></ul> <h2 id="_4-使用-instanceof-检测当前实例原型链是否包含-prototype-属性"><a href="#_4-使用-instanceof-检测当前实例原型链是否包含-prototype-属性" class="header-anchor">#</a> 4. 使用 <code>instanceof</code> 检测当前实例原型链是否包含 prototype 属性</h2> <blockquote><p>可以通过 <code>instanceof</code> 运算符检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上，关于 instanceof 更多的性质，详情见<a href="/docs/JavaScript/Advance/instanceOf.html">instanceof</a></p></blockquote> <h3 id="【4-1】isurlsearchparams"><a href="#【4-1】isurlsearchparams" class="header-anchor">#</a> 【4.1】isURLSearchParams</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a URLSearchParams object
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a URLSearchParams object, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isURLSearchParams</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        <span class="token keyword">typeof</span> URLSearchParams <span class="token operator">!==</span> <span class="token string">&quot;undefined&quot;</span> <span class="token operator">&amp;&amp;</span> val <span class="token keyword">instanceof</span> <span class="token class-name">URLSearchParams</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>关于 isURLSearchParams（ URL 的查询字符串 ） 更多的性质，详情见<a href="/docs/JavaScript/Advance/URLSearchParams.html">URLSearchParams</a></li></ul> <h2 id="_5-复合类型"><a href="#_5-复合类型" class="header-anchor">#</a> 5. 复合类型</h2> <blockquote><p>通过 <code>toString()</code> 、<code>typeof</code>、<code>instanceof</code>等 API 及上述工具函数功能组合</p></blockquote> <h3 id="【5-1】isbuffer"><a href="#【5-1】isbuffer" class="header-anchor">#</a> 【5.1】isBuffer</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a Buffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Buffer, otherwise false
+ */</span>
+
+<span class="token keyword">function</span> <span class="token function">isBuffer</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+        val <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span>
+        <span class="token operator">!</span><span class="token function">isUndefined</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+        val<span class="token punctuation">.</span>constructor <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span>
+        <span class="token operator">!</span><span class="token function">isUndefined</span><span class="token punctuation">(</span>val<span class="token punctuation">.</span>constructor<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+        <span class="token keyword">typeof</span> val<span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>isBuffer <span class="token operator">===</span> <span class="token string">&quot;function&quot;</span> <span class="token operator">&amp;&amp;</span>
+        val<span class="token punctuation">.</span>constructor<span class="token punctuation">.</span><span class="token function">isBuffer</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>先判断不是 undefined 和 null，再判断 <code>val</code>存在<code>构造函数</code>，因为<code>Buffer</code>本身是一个类，最后通过自身的<code>isBuffer</code>方法判断</li> <li>axios 可以运行在浏览器和 node 环境中，所以内部会用到 nodejs 相关的 Buffer 类知识。</li> <li>关于 Buffer 更多的性质，详情见<a href="/docs/JavaScript/Advance/Buffer.html">Buffer</a></li></ul> <h3 id="【5-2】-isarraybufferview"><a href="#【5-2】-isarraybufferview" class="header-anchor">#</a> 【5.2】 isArrayBufferView</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a view on an ArrayBuffer
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isArrayBufferView</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> result<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> ArrayBuffer <span class="token operator">!==</span> <span class="token string">&quot;undefined&quot;</span> <span class="token operator">&amp;&amp;</span> ArrayBuffer<span class="token punctuation">.</span>isView<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        result <span class="token operator">=</span> ArrayBuffer<span class="token punctuation">.</span><span class="token function">isView</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        result <span class="token operator">=</span> val <span class="token operator">&amp;&amp;</span> val<span class="token punctuation">.</span>buffer <span class="token operator">&amp;&amp;</span> <span class="token function">isArrayBuffer</span><span class="token punctuation">(</span>val<span class="token punctuation">.</span>buffer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>先判断不是 undefined 和 再判断 <code>ArrayBuffer</code> 原型链存在<code>isView</code>方法，如果原型链存在 isView 方法，则使用<code>ArrayBuffer.isView()</code>判断，否则调用上述封装的<code>isArrayBuffer()</code>方法</li> <li>关于 ArrayBuffer 更多的性质，详情见<a href="/docs/JavaScript/Advance/ArrayBuffer.html">ArrayBuffer</a></li></ul> <h3 id="【5-3】-isplainobject"><a href="#【5-3】-isplainobject" class="header-anchor">#</a> 【5.3】 isPlainObject</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a plain Object
+ *
+ * @param {Object} val The value to test
+ * @return {boolean} True if value is a plain Object, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isPlainObject</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token string">&quot;[object Object]&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">var</span> prototype <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">getPrototypeOf</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> prototype <span class="token operator">===</span> <span class="token keyword">null</span> <span class="token operator">||</span> prototype <span class="token operator">===</span> <span class="token class-name">Object</span><span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">Foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+_<span class="token punctuation">.</span><span class="token function">isPlainObject</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; false</span>
+
+_<span class="token punctuation">.</span><span class="token function">isPlainObject</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; false</span>
+
+_<span class="token punctuation">.</span><span class="token function">isPlainObject</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token literal-property property">x</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token literal-property property">y</span><span class="token operator">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; true</span>
+
+_<span class="token punctuation">.</span><span class="token function">isPlainObject</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// =&gt; true</span>
+</code></pre></div><ul><li>判断目标对象的原型是不是<code>null</code> 或 <code>Object.prototype</code></li> <li>顾名思义，目标对象在原型链顶端或者其原型为 Object 类型，是纯粹的对象</li></ul> <h3 id="【5-4】-isformdata"><a href="#【5-4】-isformdata" class="header-anchor">#</a> 【5.4】 isFormData</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a FormData
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is an FormData, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isFormData</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">typeof</span> FormData <span class="token operator">!==</span> <span class="token string">&quot;undefined&quot;</span> <span class="token operator">&amp;&amp;</span> val <span class="token keyword">instanceof</span> <span class="token class-name">FormData</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>关于 FormData 更多的性质，详情见<a href="/docs/JavaScript/Advance/FormData.html">FormData</a></li></ul> <h3 id="【5-5】-isstream"><a href="#【5-5】-isstream" class="header-anchor">#</a> 【5.5】 isStream</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if a value is a Stream
+ *
+ * @param {Object} val The value to test
+ * @returns {boolean} True if value is a Stream, otherwise false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isStream</span><span class="token punctuation">(</span><span class="token parameter">val</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">isObject</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isFunction</span><span class="token punctuation">(</span>val<span class="token punctuation">.</span>pipe<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>关于 streams 流更多的概念参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Streams_API" target="_blank" rel="noopener noreferrer"><code>MDN</code> - Streams API<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <h2 id="_6-正则表达式"><a href="#_6-正则表达式" class="header-anchor">#</a> 6. 正则表达式</h2> <h3 id="【6-1】-trim"><a href="#【6-1】-trim" class="header-anchor">#</a> 【6.1】 trim</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Trim excess whitespace off the beginning and end of a string
+ *
+ * @param {String} str The String to trim
+ * @returns {String} The String freed of excess whitespace
+ */</span>
+<span class="token keyword">function</span> <span class="token function">trim</span><span class="token punctuation">(</span><span class="token parameter">str</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> str<span class="token punctuation">.</span>trim <span class="token operator">?</span> str<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> str<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\s+|\s+$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>去除首尾空格，str 原型链不存在<code>trim</code>方法的话就使用正则表达式</li> <li>关于正则表达式更多内容见<a href="https://note.youdao.com/ynoteshare/index.html?id=7e3e1151acc297be673329bcba9c2e5b&amp;type=note&amp;_time=1642406764493" target="_blank" rel="noopener noreferrer">正则表达式思维导图（学习补充 ing）<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <h2 id="_7-重写"><a href="#_7-重写" class="header-anchor">#</a> 7. 重写</h2> <h3 id="【7-1】-foreach"><a href="#【7-1】-foreach" class="header-anchor">#</a> 【7.1】 forEach</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Iterate over an Array or an Object invoking a function for each item.
+ *
+ * If `obj` is an Array callback will be called passing
+ * the value, index, and complete array for each item.
+ *
+ * If 'obj' is an Object callback will be called passing
+ * the value, key, and complete object for each property.
+ *
+ * @param {Object|Array} obj The object to iterate
+ * @param {Function} fn The callback to invoke for each item
+ */</span>
+<span class="token keyword">function</span> <span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">obj<span class="token punctuation">,</span> fn</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Don't bother if no value provided</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>obj <span class="token operator">===</span> <span class="token keyword">null</span> <span class="token operator">||</span> <span class="token keyword">typeof</span> obj <span class="token operator">===</span> <span class="token string">&quot;undefined&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Force an array if not already something iterable</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> obj <span class="token operator">!==</span> <span class="token string">&quot;object&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*eslint no-param-reassign:0*/</span>
+        obj <span class="token operator">=</span> <span class="token punctuation">[</span>obj<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isArray</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Iterate over array values</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">=</span> obj<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> obj<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> i<span class="token punctuation">,</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Iterate over object keys</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> key <span class="token keyword">in</span> obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token class-name">Object</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> key<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">fn</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> obj<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span> key<span class="token punctuation">,</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>如果是 null 或 undefined 直接返回</li> <li>如果不可遍历则转换成 Array</li> <li>如果是 Array 类型直接循环遍历</li> <li>如果是 Object 类型则使用原型链上的<code>hasOwnProperty()</code>方法遍历，值得注意的是不推荐使用对象实例上的<code>hasOwnProperty()</code>，关于这一点参考<a href="https://eslint.org/docs/rules/no-prototype-builtins#disallow-use-of-objectprototypes-builtins-directly-no-prototype-builtins" target="_blank" rel="noopener noreferrer">eslint no-prototype-builtins<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <p>Tips: 这是一个配合后述<code>merge</code>与<code>extend</code>工具函数的方法，因此 <code>call</code> 中必填项<code>thisArg</code>未设置指向</p> <h2 id="_8-js-strikes"><a href="#_8-js-strikes" class="header-anchor">#</a> 8. js strikes</h2> <h3 id="【8-1】merge"><a href="#【8-1】merge" class="header-anchor">#</a> 【8.1】merge</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Accepts varargs expecting each argument to be an object, then
+ * immutably merges the properties of each object and returns result.
+ *
+ * When multiple objects contain the same key the later object in
+ * the arguments list will take precedence.
+ *
+ * Example:
+ *
+ * ```js
+ * var result = merge({foo: 123}, {foo: 456});
+ * console.log(result.foo); // outputs 456
+ * ```
+ *
+ * @param {Object} obj1 Object to merge
+ * @returns {Object} Result of all merge properties
+ */</span>
+<span class="token keyword">function</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token comment">/* obj1, obj2, obj3, ... */</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> result <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">function</span> <span class="token function">assignValue</span><span class="token punctuation">(</span><span class="token parameter">val<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isPlainObject</span><span class="token punctuation">(</span>result<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isPlainObject</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">merge</span><span class="token punctuation">(</span>result<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isPlainObject</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">merge</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isArray</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> val<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> val<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> l <span class="token operator">=</span> arguments<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i <span class="token operator">&lt;</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">forEach</span><span class="token punctuation">(</span>arguments<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> assignValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li><p>作用是合并有相同键的 val 值</p></li> <li><p>配合前述<code>forEach</code>工具函数，根据<code>arguments</code>长度循环遍历其中的每一项，需要注意的是<code>arguments[i]</code>有可能是对象 Object、数组 Array、null 或者未定义 undefined</p></li> <li><p>首先进入 for 循环，其中 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments" target="_blank" rel="noopener noreferrer"><code>arguments</code><span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> 是一个对应于传递给函数的参数的类数组对象</p></li> <li><p>每次遍历时调用<code>assignValue</code>方法，入参为<code>forEach</code>工具函数返回的内容</p></li> <li><p>第一层 if 判断<code>result</code>中是否有键为<code>key</code>的纯对象，并且<code>forEach</code>返回的<code>val</code>即<code>obj[key]</code> 是否是纯对象，满足条件则进入递归，将 <code>val</code> 合并至 <code>result</code> 对应的键<code>key</code>下</p></li> <li><p>第二层 else if <code>result</code>中是不含键为<code>key</code>的纯对象，并且 <code>val</code> 值是纯对象，满足条件则进入递归，在<code>result</code>中新建一个键为<code>key</code>的，值为<code>val</code>的纯对象</p></li> <li><p>第三层 else if <code>val</code> 值是数组，满足条件则进入递归，在<code>result</code>中新建一个键为<code>key</code>的，值为<code>val</code>的对象，其中<code>val.slice()</code>作用是拷贝数据</p></li></ul> <h3 id="【8-2】extend"><a href="#【8-2】extend" class="header-anchor">#</a> 【8.2】extend</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Extends object a by mutably adding to it the properties of object b.
+ *
+ * @param {Object} a The object to be extended
+ * @param {Object} b The object to copy properties from
+ * @param {Object} thisArg The object to bind function to
+ * @return {Object} The resulting value of object a
+ */</span>
+<span class="token keyword">function</span> <span class="token function">extend</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> thisArg</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">forEach</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token function">assignValue</span><span class="token punctuation">(</span><span class="token parameter">val<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>thisArg <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> val <span class="token operator">===</span> <span class="token string">&quot;function&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            a<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">bind</span><span class="token punctuation">(</span>val<span class="token punctuation">,</span> thisArg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            a<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> val<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>作用是将<code>Object b</code>的属性和方法添加到<code>Object a</code>上</li> <li>如果待添加的<code>val</code>是<code>function</code>且运行时存在明确的<code>this</code>指向<code>thisArg</code>，需要通过调用<code>bind</code>绑定至当前对象即<code>a</code></li> <li>如果待添加的<code>val</code>是<code>property</code>，直接在<code>a</code>上添加相应的<code>key-val</code>键值对</li></ul> <h3 id="【8-3】stripbom"><a href="#【8-3】stripbom" class="header-anchor">#</a> 【8.3】stripBOM</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Remove byte order marker. This catches EF BB BF (the UTF-8 BOM)
+ *
+ * @param {string} content with BOM
+ * @return {string} content value without BOM
+ */</span>
+<span class="token keyword">function</span> <span class="token function">stripBOM</span><span class="token punctuation">(</span><span class="token parameter">content</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>content<span class="token punctuation">.</span><span class="token function">charCodeAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token number">0xfeff</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        content <span class="token operator">=</span> content<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> content<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>去掉字节顺序标记 BOM</li> <li>字节顺序标记（英语：byte-order mark，BOM）是位于码点 U+FEFF 的统一码字符的名称。当以 UTF-16 或 UTF-32 来将 UCS/统一码字符所组成的字符串编码时，这个字符被用来标示其字节序，更多内容可以参考<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/TextDecoder" target="_blank" rel="noopener noreferrer"><code>MDN</code> - TextDecoder<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <h2 id="_9-环境"><a href="#_9-环境" class="header-anchor">#</a> 9 环境</h2> <h3 id="【9-1】-isstandardbrowserenv"><a href="#【9-1】-isstandardbrowserenv" class="header-anchor">#</a> 【9.1】 isStandardBrowserEnv</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * Determine if we're running in a standard browser environment
+ *
+ * This allows axios to run in a web worker, and react-native.
+ * Both environments support XMLHttpRequest, but not fully standard globals.
+ *
+ * web workers:
+ *  typeof window -&gt; undefined
+ *  typeof document -&gt; undefined
+ *
+ * react-native:
+ *  navigator.product -&gt; 'ReactNative'
+ * nativescript
+ *  navigator.product -&gt; 'NativeScript' or 'NS'
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isStandardBrowserEnv</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>
+        <span class="token keyword">typeof</span> navigator <span class="token operator">!==</span> <span class="token string">&quot;undefined&quot;</span> <span class="token operator">&amp;&amp;</span>
+        <span class="token punctuation">(</span>navigator<span class="token punctuation">.</span>product <span class="token operator">===</span> <span class="token string">&quot;ReactNative&quot;</span> <span class="token operator">||</span>
+            navigator<span class="token punctuation">.</span>product <span class="token operator">===</span> <span class="token string">&quot;NativeScript&quot;</span> <span class="token operator">||</span>
+            navigator<span class="token punctuation">.</span>product <span class="token operator">===</span> <span class="token string">&quot;NS&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token keyword">typeof</span> window <span class="token operator">!==</span> <span class="token string">&quot;undefined&quot;</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> document <span class="token operator">!==</span> <span class="token string">&quot;undefined&quot;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>判断标准浏览器环境，官方不再推荐<a href="https://developer.mozilla.org/en-US/docs/Web/API/Navigator/product" target="_blank" rel="noopener noreferrer">navigator.product<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></li></ul> <h1 id="三、参考"><a href="#三、参考" class="header-anchor">#</a> 三、参考</h1> <p>1. <code>Ethan01</code>的文章<a href="https://juejin.cn/post/7042610679815241758#heading-19" target="_blank" rel="noopener noreferrer">阅读 axios 源码，发现了这些实用的基础工具函数<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>2. <code>李冰</code>老师的专栏<a href="https://time.geekbang.org/column/article/212123" target="_blank" rel="noopener noreferrer">图解 Google V8 - 一篇文章彻底搞懂 JavaScript 的函数特点<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p>3. <a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="noopener noreferrer">MDN<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docs/SourceCode/Axios/" class="prev router-link-active">
+        Axios
+      </a></span> <span class="next"><a href="/docs/SourceCode/Axios/Default.html">
+        Axios实例化配置函数
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/docs/assets/js/app.94b39639.js" defer></script><script src="/docs/assets/js/2.76afec17.js" defer></script><script src="/docs/assets/js/127.fe7f2060.js" defer></script>
+  </body>
+</html>

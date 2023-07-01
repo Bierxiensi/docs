@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>入门区块链 | 大前端工程师成长路线</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="博客 分享 笔记 规划 ">
+    
+    <link rel="preload" href="/docs/assets/css/0.styles.8e9f036c.css" as="style"><link rel="preload" href="/docs/assets/js/app.94b39639.js" as="script"><link rel="preload" href="/docs/assets/js/2.76afec17.js" as="script"><link rel="preload" href="/docs/assets/js/3.d3b6eea9.js" as="script"><link rel="prefetch" href="/docs/assets/js/10.64049170.js"><link rel="prefetch" href="/docs/assets/js/100.dd1cca3c.js"><link rel="prefetch" href="/docs/assets/js/101.cdd50df5.js"><link rel="prefetch" href="/docs/assets/js/102.5210e26f.js"><link rel="prefetch" href="/docs/assets/js/103.eb756fd5.js"><link rel="prefetch" href="/docs/assets/js/104.1229887c.js"><link rel="prefetch" href="/docs/assets/js/105.f0ff66e7.js"><link rel="prefetch" href="/docs/assets/js/106.48d9f073.js"><link rel="prefetch" href="/docs/assets/js/107.275da6d8.js"><link rel="prefetch" href="/docs/assets/js/108.408ba7cb.js"><link rel="prefetch" href="/docs/assets/js/109.2330bb70.js"><link rel="prefetch" href="/docs/assets/js/11.bd20babd.js"><link rel="prefetch" href="/docs/assets/js/110.d0bb9e94.js"><link rel="prefetch" href="/docs/assets/js/111.02fd143e.js"><link rel="prefetch" href="/docs/assets/js/112.2fcbaf7c.js"><link rel="prefetch" href="/docs/assets/js/113.f7451943.js"><link rel="prefetch" href="/docs/assets/js/114.0aef5d7e.js"><link rel="prefetch" href="/docs/assets/js/115.f716492f.js"><link rel="prefetch" href="/docs/assets/js/116.7761e546.js"><link rel="prefetch" href="/docs/assets/js/117.62104f62.js"><link rel="prefetch" href="/docs/assets/js/118.3537fba6.js"><link rel="prefetch" href="/docs/assets/js/119.a3e1b948.js"><link rel="prefetch" href="/docs/assets/js/12.acef1ad3.js"><link rel="prefetch" href="/docs/assets/js/120.512d3a45.js"><link rel="prefetch" href="/docs/assets/js/121.36dab76a.js"><link rel="prefetch" href="/docs/assets/js/122.5002b723.js"><link rel="prefetch" href="/docs/assets/js/123.9f11a15e.js"><link rel="prefetch" href="/docs/assets/js/124.8314ec7f.js"><link rel="prefetch" href="/docs/assets/js/125.219d7f16.js"><link rel="prefetch" href="/docs/assets/js/126.976f1303.js"><link rel="prefetch" href="/docs/assets/js/127.fe7f2060.js"><link rel="prefetch" href="/docs/assets/js/128.76cd6359.js"><link rel="prefetch" href="/docs/assets/js/129.baaca83c.js"><link rel="prefetch" href="/docs/assets/js/13.1530fbbe.js"><link rel="prefetch" href="/docs/assets/js/130.99b9937a.js"><link rel="prefetch" href="/docs/assets/js/131.3489f2b6.js"><link rel="prefetch" href="/docs/assets/js/132.7414008f.js"><link rel="prefetch" href="/docs/assets/js/133.6a477779.js"><link rel="prefetch" href="/docs/assets/js/134.6a6ed5f0.js"><link rel="prefetch" href="/docs/assets/js/135.0926b2b5.js"><link rel="prefetch" href="/docs/assets/js/136.940aa1b3.js"><link rel="prefetch" href="/docs/assets/js/137.e251b84c.js"><link rel="prefetch" href="/docs/assets/js/138.5af41670.js"><link rel="prefetch" href="/docs/assets/js/139.84f95936.js"><link rel="prefetch" href="/docs/assets/js/14.b1a2320e.js"><link rel="prefetch" href="/docs/assets/js/140.ecada68e.js"><link rel="prefetch" href="/docs/assets/js/141.5d1c1229.js"><link rel="prefetch" href="/docs/assets/js/142.eee979a4.js"><link rel="prefetch" href="/docs/assets/js/143.01add7b2.js"><link rel="prefetch" href="/docs/assets/js/144.8a9cbb91.js"><link rel="prefetch" href="/docs/assets/js/145.6b459ea9.js"><link rel="prefetch" href="/docs/assets/js/146.1e95cd21.js"><link rel="prefetch" href="/docs/assets/js/147.efb6801c.js"><link rel="prefetch" href="/docs/assets/js/148.c07a025c.js"><link rel="prefetch" href="/docs/assets/js/149.2db1daa2.js"><link rel="prefetch" href="/docs/assets/js/15.d20d3145.js"><link rel="prefetch" href="/docs/assets/js/150.2320c3a6.js"><link rel="prefetch" href="/docs/assets/js/151.bed6ef26.js"><link rel="prefetch" href="/docs/assets/js/152.d834f76e.js"><link rel="prefetch" href="/docs/assets/js/153.8ea5aa64.js"><link rel="prefetch" href="/docs/assets/js/154.b48e69a0.js"><link rel="prefetch" href="/docs/assets/js/155.bce89d8c.js"><link rel="prefetch" href="/docs/assets/js/156.31f98da2.js"><link rel="prefetch" href="/docs/assets/js/157.4e1c5d43.js"><link rel="prefetch" href="/docs/assets/js/158.418b4c1e.js"><link rel="prefetch" href="/docs/assets/js/159.4f420dab.js"><link rel="prefetch" href="/docs/assets/js/16.84ad4cf9.js"><link rel="prefetch" href="/docs/assets/js/160.51b0427d.js"><link rel="prefetch" href="/docs/assets/js/161.34fa2b09.js"><link rel="prefetch" href="/docs/assets/js/162.f26fa746.js"><link rel="prefetch" href="/docs/assets/js/163.a18dd90e.js"><link rel="prefetch" href="/docs/assets/js/164.6fa4a900.js"><link rel="prefetch" href="/docs/assets/js/165.a7c5a3ff.js"><link rel="prefetch" href="/docs/assets/js/166.f0b83042.js"><link rel="prefetch" href="/docs/assets/js/167.292780aa.js"><link rel="prefetch" href="/docs/assets/js/168.4eefd91f.js"><link rel="prefetch" href="/docs/assets/js/169.d96e4ac2.js"><link rel="prefetch" href="/docs/assets/js/17.9b7ff467.js"><link rel="prefetch" href="/docs/assets/js/170.d5646d37.js"><link rel="prefetch" href="/docs/assets/js/171.adb8fc47.js"><link rel="prefetch" href="/docs/assets/js/172.753b2844.js"><link rel="prefetch" href="/docs/assets/js/173.d7a64d92.js"><link rel="prefetch" href="/docs/assets/js/174.a5b3c59b.js"><link rel="prefetch" href="/docs/assets/js/175.0c77f908.js"><link rel="prefetch" href="/docs/assets/js/176.ea206798.js"><link rel="prefetch" href="/docs/assets/js/177.8efed05b.js"><link rel="prefetch" href="/docs/assets/js/178.d4596432.js"><link rel="prefetch" href="/docs/assets/js/179.e6714e90.js"><link rel="prefetch" href="/docs/assets/js/18.9664df50.js"><link rel="prefetch" href="/docs/assets/js/180.b7f539b6.js"><link rel="prefetch" href="/docs/assets/js/181.056fcc7a.js"><link rel="prefetch" href="/docs/assets/js/182.15b285f9.js"><link rel="prefetch" href="/docs/assets/js/183.186493b9.js"><link rel="prefetch" href="/docs/assets/js/184.54de7b4c.js"><link rel="prefetch" href="/docs/assets/js/185.2b2021fd.js"><link rel="prefetch" href="/docs/assets/js/186.4e088784.js"><link rel="prefetch" href="/docs/assets/js/187.6087a4e3.js"><link rel="prefetch" href="/docs/assets/js/188.914af9b3.js"><link rel="prefetch" href="/docs/assets/js/189.195080e9.js"><link rel="prefetch" href="/docs/assets/js/19.e0b7d897.js"><link rel="prefetch" href="/docs/assets/js/190.9afe3a61.js"><link rel="prefetch" href="/docs/assets/js/191.54c05c70.js"><link rel="prefetch" href="/docs/assets/js/192.2da00714.js"><link rel="prefetch" href="/docs/assets/js/193.5742b404.js"><link rel="prefetch" href="/docs/assets/js/194.1676d51a.js"><link rel="prefetch" href="/docs/assets/js/20.2a0397e4.js"><link rel="prefetch" href="/docs/assets/js/21.9bb9c4ab.js"><link rel="prefetch" href="/docs/assets/js/22.46437f0c.js"><link rel="prefetch" href="/docs/assets/js/23.0ce76941.js"><link rel="prefetch" href="/docs/assets/js/24.9b02bb60.js"><link rel="prefetch" href="/docs/assets/js/25.1a0f8c16.js"><link rel="prefetch" href="/docs/assets/js/26.958642ab.js"><link rel="prefetch" href="/docs/assets/js/27.8615210e.js"><link rel="prefetch" href="/docs/assets/js/28.4cf2c45a.js"><link rel="prefetch" href="/docs/assets/js/29.2ac725fc.js"><link rel="prefetch" href="/docs/assets/js/30.9300744f.js"><link rel="prefetch" href="/docs/assets/js/31.9ab467b3.js"><link rel="prefetch" href="/docs/assets/js/32.7397c323.js"><link rel="prefetch" href="/docs/assets/js/33.a0cf2637.js"><link rel="prefetch" href="/docs/assets/js/34.d61e1231.js"><link rel="prefetch" href="/docs/assets/js/35.4cee926c.js"><link rel="prefetch" href="/docs/assets/js/36.8e50ef5f.js"><link rel="prefetch" href="/docs/assets/js/37.9c87dce8.js"><link rel="prefetch" href="/docs/assets/js/38.b730aca9.js"><link rel="prefetch" href="/docs/assets/js/39.f42e7ac1.js"><link rel="prefetch" href="/docs/assets/js/4.d378cb7e.js"><link rel="prefetch" href="/docs/assets/js/40.21bac2d8.js"><link rel="prefetch" href="/docs/assets/js/41.3df23d9f.js"><link rel="prefetch" href="/docs/assets/js/42.b658ecc6.js"><link rel="prefetch" href="/docs/assets/js/43.f46e461e.js"><link rel="prefetch" href="/docs/assets/js/44.ed2a9ef8.js"><link rel="prefetch" href="/docs/assets/js/45.3b8ed15e.js"><link rel="prefetch" href="/docs/assets/js/46.7b5589f3.js"><link rel="prefetch" href="/docs/assets/js/47.d589d707.js"><link rel="prefetch" href="/docs/assets/js/48.1da7df07.js"><link rel="prefetch" href="/docs/assets/js/49.a4005952.js"><link rel="prefetch" href="/docs/assets/js/5.00b262d0.js"><link rel="prefetch" href="/docs/assets/js/50.6f366509.js"><link rel="prefetch" href="/docs/assets/js/51.0b1f7508.js"><link rel="prefetch" href="/docs/assets/js/52.04158d6d.js"><link rel="prefetch" href="/docs/assets/js/53.8ffbb93a.js"><link rel="prefetch" href="/docs/assets/js/54.ec719dcb.js"><link rel="prefetch" href="/docs/assets/js/55.3c3726fe.js"><link rel="prefetch" href="/docs/assets/js/56.b25caaff.js"><link rel="prefetch" href="/docs/assets/js/57.618c18f5.js"><link rel="prefetch" href="/docs/assets/js/58.e00bda15.js"><link rel="prefetch" href="/docs/assets/js/59.1e010f25.js"><link rel="prefetch" href="/docs/assets/js/6.f5f38eea.js"><link rel="prefetch" href="/docs/assets/js/60.b15808f5.js"><link rel="prefetch" href="/docs/assets/js/61.fdc6b78e.js"><link rel="prefetch" href="/docs/assets/js/62.60b704a4.js"><link rel="prefetch" href="/docs/assets/js/63.47e652e9.js"><link rel="prefetch" href="/docs/assets/js/64.f99fe8c5.js"><link rel="prefetch" href="/docs/assets/js/65.4db4e87e.js"><link rel="prefetch" href="/docs/assets/js/66.588a809b.js"><link rel="prefetch" href="/docs/assets/js/67.43cedc92.js"><link rel="prefetch" href="/docs/assets/js/68.0e353abf.js"><link rel="prefetch" href="/docs/assets/js/69.2e7aa4a1.js"><link rel="prefetch" href="/docs/assets/js/7.cd57a54e.js"><link rel="prefetch" href="/docs/assets/js/70.45edc6f2.js"><link rel="prefetch" href="/docs/assets/js/71.8d435855.js"><link rel="prefetch" href="/docs/assets/js/72.2dd55d77.js"><link rel="prefetch" href="/docs/assets/js/73.12d57bc7.js"><link rel="prefetch" href="/docs/assets/js/74.317ea09a.js"><link rel="prefetch" href="/docs/assets/js/75.5633de27.js"><link rel="prefetch" href="/docs/assets/js/76.1f02e44e.js"><link rel="prefetch" href="/docs/assets/js/77.5e88da18.js"><link rel="prefetch" href="/docs/assets/js/78.9cf48658.js"><link rel="prefetch" href="/docs/assets/js/79.cf1334fe.js"><link rel="prefetch" href="/docs/assets/js/8.de8abaeb.js"><link rel="prefetch" href="/docs/assets/js/80.d9f20419.js"><link rel="prefetch" href="/docs/assets/js/81.dfcc1189.js"><link rel="prefetch" href="/docs/assets/js/82.b171602c.js"><link rel="prefetch" href="/docs/assets/js/83.d01eca38.js"><link rel="prefetch" href="/docs/assets/js/84.09f77d84.js"><link rel="prefetch" href="/docs/assets/js/85.ef3698e2.js"><link rel="prefetch" href="/docs/assets/js/86.9c44181e.js"><link rel="prefetch" href="/docs/assets/js/87.f58ed969.js"><link rel="prefetch" href="/docs/assets/js/88.2a96e1fd.js"><link rel="prefetch" href="/docs/assets/js/89.aeb088ab.js"><link rel="prefetch" href="/docs/assets/js/9.8db69a38.js"><link rel="prefetch" href="/docs/assets/js/90.32a883ed.js"><link rel="prefetch" href="/docs/assets/js/91.f2011ce8.js"><link rel="prefetch" href="/docs/assets/js/92.998023e0.js"><link rel="prefetch" href="/docs/assets/js/93.7c498a57.js"><link rel="prefetch" href="/docs/assets/js/94.bc5970b6.js"><link rel="prefetch" href="/docs/assets/js/95.dc60a529.js"><link rel="prefetch" href="/docs/assets/js/96.41b7d263.js"><link rel="prefetch" href="/docs/assets/js/97.81eedf62.js"><link rel="prefetch" href="/docs/assets/js/98.2642cb83.js"><link rel="prefetch" href="/docs/assets/js/99.c63d8a70.js">
+    <link rel="stylesheet" href="/docs/assets/css/0.styles.8e9f036c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/docs/" class="home-link router-link-active"><img src="/docs/images/home/balu.jpg" alt="大前端工程师成长路线" class="logo"> <span class="site-name can-hide">大前端工程师成长路线</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读研生涯" class="dropdown-title"><span class="title">读研生涯</span> <span class="arrow down"></span></button> <button type="button" aria-label="读研生涯" class="mobile-dropdown-title"><span class="title">读研生涯</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/PostGraduate/Explore/" class="nav-link">
+  探索与记录
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="计算机基础" class="dropdown-title"><span class="title">计算机基础</span> <span class="arrow down"></span></button> <button type="button" aria-label="计算机基础" class="mobile-dropdown-title"><span class="title">计算机基础</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/CS/Algorithm/" class="nav-link">
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerComposition/" class="nav-link">
+  计算机组成原理
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerNetworks/" class="nav-link">
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/OperatingSystem/" class="nav-link">
+  操作系统
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Web/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTML/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/CSS/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/TypeScript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Gis/" class="nav-link">
+  Gis
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/App/" class="nav-link">
+  App
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Desktop/" class="nav-link">
+  桌面应用
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/WxApp/" class="nav-link">
+  小程序
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow down"></span></button> <button type="button" aria-label="后端" class="mobile-dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Koa/" class="nav-link">
+  Koa
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Nest/" class="nav-link">
+  Nest
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Node/" class="nav-link">
+  Node
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工程化" class="dropdown-title"><span class="title">工程化</span> <span class="arrow down"></span></button> <button type="button" aria-label="工程化" class="mobile-dropdown-title"><span class="title">工程化</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/SoftwareEnginner/" class="nav-link">
+  软件工程
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Develop/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Build/" class="nav-link">
+  构建
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Deploy/" class="nav-link">
+  部署
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Performance/" class="nav-link">
+  性能
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Norm/" class="nav-link">
+  规范
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读源码" class="dropdown-title"><span class="title">读源码</span> <span class="arrow down"></span></button> <button type="button" aria-label="读源码" class="mobile-dropdown-title"><span class="title">读源码</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Axios/" class="nav-link">
+  Axios
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Lodash/" class="nav-link">
+  Lodash
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/React/" class="nav-link">
+  React
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow down"></span></button> <button type="button" aria-label="其他" class="mobile-dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Others/Question/" class="nav-link">
+  面试题
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/BlockChain/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  区块链
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/English/" class="nav-link">
+  英语
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/StudySource/" class="nav-link">
+  学习资源
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/JsTricks/" class="nav-link">
+  Js Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/CssTricks/" class="nav-link">
+  Css Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/DevelopSkills/" class="nav-link">
+  开发技巧
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/Note/" class="nav-link">
+  备忘录
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/bierxiensi" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读研生涯" class="dropdown-title"><span class="title">读研生涯</span> <span class="arrow down"></span></button> <button type="button" aria-label="读研生涯" class="mobile-dropdown-title"><span class="title">读研生涯</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/PostGraduate/Explore/" class="nav-link">
+  探索与记录
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="计算机基础" class="dropdown-title"><span class="title">计算机基础</span> <span class="arrow down"></span></button> <button type="button" aria-label="计算机基础" class="mobile-dropdown-title"><span class="title">计算机基础</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/CS/Algorithm/" class="nav-link">
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerComposition/" class="nav-link">
+  计算机组成原理
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerNetworks/" class="nav-link">
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/OperatingSystem/" class="nav-link">
+  操作系统
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Web/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTML/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/CSS/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/TypeScript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Gis/" class="nav-link">
+  Gis
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/App/" class="nav-link">
+  App
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Desktop/" class="nav-link">
+  桌面应用
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/WxApp/" class="nav-link">
+  小程序
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow down"></span></button> <button type="button" aria-label="后端" class="mobile-dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Koa/" class="nav-link">
+  Koa
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Nest/" class="nav-link">
+  Nest
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Node/" class="nav-link">
+  Node
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工程化" class="dropdown-title"><span class="title">工程化</span> <span class="arrow down"></span></button> <button type="button" aria-label="工程化" class="mobile-dropdown-title"><span class="title">工程化</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/SoftwareEnginner/" class="nav-link">
+  软件工程
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Develop/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Build/" class="nav-link">
+  构建
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Deploy/" class="nav-link">
+  部署
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Performance/" class="nav-link">
+  性能
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Norm/" class="nav-link">
+  规范
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读源码" class="dropdown-title"><span class="title">读源码</span> <span class="arrow down"></span></button> <button type="button" aria-label="读源码" class="mobile-dropdown-title"><span class="title">读源码</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Axios/" class="nav-link">
+  Axios
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Lodash/" class="nav-link">
+  Lodash
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/React/" class="nav-link">
+  React
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow down"></span></button> <button type="button" aria-label="其他" class="mobile-dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Others/Question/" class="nav-link">
+  面试题
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/BlockChain/" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  区块链
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/English/" class="nav-link">
+  英语
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/StudySource/" class="nav-link">
+  学习资源
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/JsTricks/" class="nav-link">
+  Js Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/CssTricks/" class="nav-link">
+  Css Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/DevelopSkills/" class="nav-link">
+  开发技巧
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/Note/" class="nav-link">
+  备忘录
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/bierxiensi" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>区块链</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/Others/BlockChain/" aria-current="page" class="active sidebar-link">区块链基础知识</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/Others/BlockChain/#一、区块" class="sidebar-link">一、区块</a></li><li class="sidebar-sub-header"><a href="/docs/Others/BlockChain/#二、默克尔树-merkle-root" class="sidebar-link">二、默克尔树（Merkle Root）</a></li><li class="sidebar-sub-header"><a href="/docs/Others/BlockChain/#三、产生流程" class="sidebar-link">三、产生流程</a></li><li class="sidebar-sub-header"><a href="/docs/Others/BlockChain/#四、扩容、etc-eth-硬分叉-the-dao-事件、空气币传说由来-扩容之争引起的-ifo" class="sidebar-link">四、扩容、ETC/ETH 硬分叉-The Dao 事件、空气币传说由来-扩容之争引起的 IFO</a></li><li class="sidebar-sub-header"><a href="/docs/Others/BlockChain/#社区治理-女巫攻击、贿选、公地悲剧" class="sidebar-link">社区治理-女巫攻击、贿选、公地悲剧</a></li></ul></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="前置-密码学"><a href="#前置-密码学" class="header-anchor">#</a> 前置-密码学</h1> <blockquote><p>比特币是基于 <code>密码学</code> 构建的 <code>去信任</code> <code>数字货币</code> - 中本聪《比特币白皮书》</p></blockquote> <ul><li>密码学
+<blockquote><p>离开密码学，我们就像是在网络世界中裸奔，毫无隐私可言
+密码学是先于区块链产生的基础学科，有完备的理论及技术体系。如 HTTPS 采用了非对称加密 + 对称加密 + 服务器身份认证来实现可靠的加密传输。</p></blockquote></li></ul> <ul><li><p>哈希算法</p> <ul><li><p>正向快速
+MD5 、 SHA-256 每秒计算可在 500-1000 万次</p></li> <li><p>逆向困难
+一个优秀的哈希算法是不可能通过密文反推明文的</p> <div class="language-js extra-class"><pre class="language-js"><code>    # echo <span class="token string">&quot;一串很长的文本信息&quot;</span> <span class="token operator">|</span> md5sum
+    e0aac893629b048e8797800294f55004
+</code></pre></div></li> <li><p>输入敏感
+原始信息即使发生一丁点的变化，重新计算的哈希值与之前比较都应该有很大的不同</p></li> <li><p>避免碰撞
+避免不同的明文信息产生相同的哈希值</p></li></ul></li></ul> <p>数据存储：哈希算法相当于是对信息提取摘要，是数据的指纹，在区块链数据落盘的时候，可以使用交易哈希、区块哈希分别作为交易及区块的数据主键，只要保持了数据与标识对应索引关系，就可以把交易跟区块存储在任意数据库中。</p> <p>区块成链：区块链中每个区块属性中包含了前一个区块的哈希，从而构建成一条由区块哈希关联的数据链条。</p> <ul><li>非对称加密算法
+<ul><li>对称与非对称体现在对密钥的处理上。对称表示加密和解密都使用同一套密钥，非对称加密却分为公钥跟私钥，如果使用公钥加密，只有用对应的私钥才能解密，<code>私钥只有一把</code>。</li> <li>解决了对称加密算法使用过程中遇到的问题，但其加解密的效率是远不如对称加密算法。</li></ul></li></ul> <p>在使用过程中常采用混用的方式，即明文数据采用对称加密算法进行加密，然后使用非对称加密算法加密对称加密的密钥和明文数据哈希。
+在区块链中对非对称加密算法的使用并不是直接被用作数据加密，而是利用其具备身份确权的能力，也就是数字签名。
+在诸如比特币以太坊等公有链中都有类似于地址、账户的概念，可以认为这就是区块链中的身份证，这个身份证不同于现实中需要政府统一颁发，而是分散的基于非对称加密算法的公钥的一种形变表示，每个人的私钥就相当于所有权证名。</p> <p>==》 密码学是因，区块链是果。</p> <ul><li><p>去信任
+数字签名（非对称加密）有证明所有权的能力，所以基于数字签名去证明数字货币所有权问题。</p></li> <li><p>数字货币
+比特币 BCH、<code>以太坊(经典 ETC、ETH)</code>、狗狗币...</p></li></ul> <h1 id="前置-拜占庭将军问题"><a href="#前置-拜占庭将军问题" class="header-anchor">#</a> 前置-<a href="https://baike.baidu.com/item/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98/265656?fr=aladdin" target="_blank" rel="noopener noreferrer">拜占庭将军问题<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></h1> <ul><li>共识算法可以说是区块链技术的核心思想，是区块链运行的行为准则。</li></ul> <h1 id="简介"><a href="#简介" class="header-anchor">#</a> 简介</h1> <ul><li>本质：特殊的分布式数据库</li> <li>目的：电子化数据储存方法</li> <li>特点：去中心化（低成本的方式来实现可靠的契约关系）</li></ul> <h1 id="详情"><a href="#详情" class="header-anchor">#</a> 详情</h1> <h2 id="一、区块"><a href="#一、区块" class="header-anchor">#</a> 一、区块</h2> <p><img src="/docs/assets/img/clipboard.12327d35.png" alt="avatar"></p> <h3 id="keyword"><a href="#keyword" class="header-anchor">#</a> keyword</h3> <ul><li>区块头（Head）：时间戳、哈希（SHA256 函数生成）、Merkle Root</li> <li>区块体（Body）：实际数据</li> <li>哈希：SHA256 是区块链的哈希算法、哈希由区块头唯一决定。这意味着，如果当前区块体的内容变了，或者上一个区块的哈希变了，一定会引起当前区块的哈希改变。正是通过这种联动机制，区块链保证了自身的可靠性，数据一旦写入，就无法被篡改。
+<pre><code>
+Hash = SHA256( 区块头 )
+</code></pre> <img src="/docs/assets/img/clipboard1.d02bd6e3.png" alt="avatar"> <img src="/docs/assets/img/clipboard2.7cd71076.png" alt="avatar"></li></ul> <h2 id="二、默克尔树-merkle-root"><a href="#二、默克尔树-merkle-root" class="header-anchor">#</a> 二、默克尔树（Merkle Root）</h2> <ul><li>作用：通过节点 hash 计算交易在区块，从而验证交易
+<img src="/docs/assets/img/clipboard3.ce68e198.png" alt="avatar"> <img src="/docs/assets/img/clipboard4.4c9ee70c.png" alt="avatar"></li></ul> <h2 id="三、产生流程"><a href="#三、产生流程" class="header-anchor">#</a> 三、产生流程</h2> <p>1. 数据交易</p> <blockquote><p>比特币区块链是现存历史最悠久的区块链，在比特币区块链上，每个区块的大小在 1 MB 左右。
+发生交易，产生数据</p></blockquote> <p>2.（通过哈希运算）链接区块
+<img src="/docs/assets/img/clipboard5.d7b6a305.png" alt="avatar"></p> <p>有三个独立的交易数据产生的区块，其中区块一根据其内部数据串生成一个特殊的（数字）签名
+<img src="/docs/assets/img/clipboard6.d30df136.png" alt="avatar"></p> <p>将区块一的签名放到区块二中，区块一与区块二产生关联，后续区块逐次添加前一区块产生的签名，关联成链
+<img src="/docs/assets/img/clipboard7.6a71e8c6.png" alt="avatar"></p> <p>若区块一被修改，由于关联存在，后续每一区块需要重新计算其签名，理论上不可行，因而保证了其不可篡改性。
+<img src="/docs/assets/img/clipboard8.0499045a.png" alt="avatar"></p> <p>3. 生成签名（哈希值）
+在区块链上，区块签名是通过密码学哈希函数生成的。密码学哈希函数是一个极其复杂的数学公式：将任意数据串作为输入值代入公式，可以得到一个独一无二的 64 位输出值。
+<img src="/docs/assets/img/clipboard9.211d53d3.png" alt="avatar"></p> <p>哈希函数的种类有很多，对于同一个密码学哈希函数来说，相同的输入必定会得到相同的输出，不同的输入必定会得到不同的输出。</p> <p>4. 合格的签名与区块签署
+并非所有的签名都符合要求。区块链协议会预先确定一些要求，比如，在比特币区块链上，只有以连续的零开头的数字签名相对应的区块才能上链。（因此可以调整零的个数来应对算力增加）
+<img src="/docs/assets/img/clipboard10.f074b98b.png" alt="avatar"></p> <p>由上图知，每个区块里面还另外添加了一段特定长度的、可以改动的数据，这段数据就是区块的 <font color="red">nonce</font> 。由于交易数据和元数据（区块编号、时间戳等等）需要保持原样（否则意义就改变了）。所以需要反复更改 nonce、对区块数据进行哈希运算。
+<font color="red">寻找合格签名的过程就叫做挖矿</font>，也就是矿工所做的事。矿工投入大量电力，转化成算力，不断代入 nonce 进行哈希运算，直到找到合格的签名（输出）为止。矿工手中掌握的算力越多，哈希运算的速度就越快，抢先找到合格签名的可能性就越高。这是一种反复试错的过程。</p> <p>5. 区块链的不可变性
+“最长链规则”，是 Nakamoto Concensus（中本聪共识机制）的一部分。（并不是所有区块链都采用了中本聪共识），攻击者只有制造出一条比当前主链更长的链，才能成功改变大家共同认可的交易记录，这就要求攻击者的算力超过全网其他人的算力总和，叫做 51% 攻击。
+<img src="/docs/assets/img/clipboard11.c371b3d3.png" alt="avatar"></p> <p>6. 区块链的不可变性
+区块链协议自动以最长链上的交易记录为准，将这条链视为代表绝大多数参与者的链。打造最长链需要消耗全网绝大部分算力。被篡改过的区块就与最长链断开了链接，因此会被全网绝大多数节点自动拒绝</p> <p>7. POS VS POW 挖矿机制
+POS（Proof of Stake）最早出现在点点币的创始人 Sunny King 的白皮书中，它的目的就是为了解决使用 PoW 挖矿出现大量资源浪费的问题。</p> <p>区块链共识机制的第一步就是随机筛选一个记账者，PoW 是通过计算能力来获得记账权，计算能力越强，获得记账权的概率越大。PoS 则将此处的计算能力更换为财产证明，就是节点所拥有的币龄（随 POS 版本机制变化，拥有币的数量/数量*拥有时间）越多，获得的记账的概率就越大。</p> <p>优点：PoS 似乎完美地解决了 PoW 挖矿资源浪费的问题，甚至还顺带解决了 51% 攻击的问题</p> <p>缺点：</p> <ul><li>币发行的问题。一开始的时候，只有创始区块上有币，意味着只有这一个节点可以挖矿，所以让币分散出去才能让整个网络壮大，那么如何分散出去又是另外一个难题了。（ERC20 类型的标准合约代币的出现，这个问题被解决）</li> <li>由于币龄是与时间挂钩的，这也意味着用户可以无限囤积一定的币，等过了很久再一次性挖矿发起攻击；所以解决方案是：PoS 机制需要引入一个时间上限来控制时间因素的自然增长。</li> <li>虽然引入了时间上下限，用户还是倾向于囤积代币，这会造成币流通的不充分；基于此，所以瑞迪币引入了币龄按时间衰减，构造了权益速度证明，鼓励用户流动代币，而不是倾向于囤积代币。</li> <li>离线攻击，即使引入了时间上下限，时间仍然是自然流动的，也就是可以不需要求挖矿节点长时间在线。挖矿是可以离线的，严重影响了区块链网络的健壮性。</li> <li>致命问题：无成本利益问题。大体的意思在 PoS 系统中做任何事几乎没有成本，比如在 PoS 系统上挖矿几乎没有成本，这也就意味着分叉非常方便。任何持币较少的用户都可以尝试分叉，并且把分叉链广播出去。任何逐利的矿工并不会使这个系统变得更强壮稳定，而是更加的混乱。</li></ul> <p>8. 以太坊与智能合约</p> <blockquote><p>区块链领域的合约表达的是可以“自治自理”的 计算机协议，这套协议具有自我执行、自我验证的属性。如果完全从技术角度来看，智能合约等价于一段事先就被规定好逻辑和条款的计算机代码被激活运行的状态，同时，智能合约也提供了通用的用户接口，用户可以通过接口与用户交互。</p></blockquote> <ul><li><p>以太坊项目又被称作区块链 2.0 项目，这里 2.0 就是指智能合约</p></li> <li><p>以太坊 Ethereum 项目的目标是打造一个去中心化的新一代互联网应用平台。</p></li> <li><p>推出了 EVM——以太坊智能合约虚拟机，设计了自己的智能合约语言 Solidity（GO &amp;&amp; C++）。</p></li></ul> <p>与 BCH 主要区别</p> <ul><li><p>研究并实现了自己的 PoW 挖矿算法——ETHASH，这是一个内存困难型的挖矿算法。</p></li> <li><p>叔伯块激励机制，降低了挖矿中心化的趋势。取消了 UTXO 模型，采用了账户模型和世界状态，提供了数据结构的可塑性。</p></li> <li><p>设计了 Gas 机制，避免程序死循环消耗全网资源的情况出现。
+Gas 是执行智能合约操作的燃料，智能合约的每一个步骤都会消耗 Gas，Gas 是由以太坊的平台代币以太币转化而来，最小单位是 wei，1ETH 相当于 10 的 18 次方 wei。
+以太币可以通过 PoW 挖矿而产生，目前<code>以太坊主要通过 GPU</code>挖矿。挖出一个块可以换得 5 个以太币，并且还有一定的交易费、以及叔伯块的奖励。</p></li> <li><p>研究并实现了自己的 PoS 共识算法——Casper，可防止 Nothing-at-Stake 攻击。</p></li> <li><p>以太坊提供了在区块链自由编程的能力，智能合约让所有人得以开发属于自己的 Dapp，这是与比特币作为单纯的数字货币所不具有的能力。</p></li></ul> <h2 id="四、扩容、etc-eth-硬分叉-the-dao-事件、空气币传说由来-扩容之争引起的-ifo"><a href="#四、扩容、etc-eth-硬分叉-the-dao-事件、空气币传说由来-扩容之争引起的-ifo" class="header-anchor">#</a> 四、扩容、ETC/ETH 硬分叉-The Dao 事件、空气币传说由来-扩容之争引起的 IFO</h2> <p><a href="https://zhuanlan.zhihu.com/p/30930715" target="_blank" rel="noopener noreferrer">扩容<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>：区块传输部分的代码是中本聪从别处抄的，自带 32M 上限，有人觉得太高了：万一有人故意在区块链上传输很多交易，10 分钟 32M，对我们搞开发挺不方便的，看平时一个块最多就 1~2 kb 的交易，不如设 1M 上限，中本聪接受了。</p> <p><a href="https://www.528btc.com/zhuanti/5344.html" target="_blank" rel="noopener noreferrer">ETC/ETH 硬分叉-The Dao 事件<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>：
+2016 年 4 月 30 日，The DAO 项目开始众筹。项目代币 DAO，众筹时间为期 28 天，代币价格大约是 100 个 DAO 兑换 1 至 1.5 个以太坊。The DAO 项目总共筹到了超过 1200 万个以太坊，几乎占到了当时以太坊数量的 14%，当时价值超过 1.5 亿美金，参与众筹的人数超过 11000 人。之后 The DAO 项目迅速被黑客盯上。</p> <p>2016 年 6 月 17 日，黑客利用 The DAO 代码里的一个递归漏洞，不停地从 The DAO 资金池里分离资产;随后，黑客利用了 The DAO 的第二个漏洞，避免分离后的资产被销毁。如果是正常情况，The DAO 的资产被分离之后，就会被销毁。但是，黑客在调用结束前，把盗来的 The DAO 资产转移到了其他账户，避免了被销毁。如此熟悉 The DAO 代码与机制的人，全世界或许不超过 100 个。黑客利用这两个漏洞，进行了两百多次攻击，总共盗走了 360 万的以太坊，超过了该项目筹集的以太坊总数目的三分之一。</p> <p><a href="https://time.geekbang.org/column/article/7690" target="_blank" rel="noopener noreferrer">空气币传说由来-扩容之争引起的 IFO<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>
+扩容之争基本在 2017 年 11 月结束，比特币硬分叉出比特币现金已经成了定局。比特币现金的出现还带来了一件新事物，就是 IFO——Initial Fork Offering，也就是分叉比特币形成新的数字代币，这其实就是 ICO 的替代品。</p> <p>2017 年 9 月 4 号我国七部委发文明令禁止 <a href="https://baike.baidu.com/item/ICO/21498451?fr=aladdin" target="_blank" rel="noopener noreferrer">ICO<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>，所有和人民币挂钩的交易所都必须限期关闭。“一刀切”政策让 ICO 在国内基本死掉了，于是国内的人坐不住了，就纷纷开始寻觅替代品。比特币的分叉带来了全新的灵感，于是 IFO 应运而生。ICO 的中文名是首次代币发行，又称为区块链众筹，这是一种新型的融资模式，投资者可以用手中的比特币或其他代币投到其他的区块链创始项目。ICO 从本质上来说就是一纸白皮书，接下来全靠吹，忽悠散户投币，“我要出一个新的代币了，你们快来买吧。”而 IFO 的集资依靠的是与比特币的关联，“我要出一个代币了，这个代币是由比特币分叉出来的哦，你们快来买吧！”靠着与比特币的连带性，IFO 打了一记集资的擦边球。所以国内诸多项目方和经验资深的投资方一拍即合，搞 IFO 吧。但是 IFO 比 ICO 限定在只能从比特币上分叉，所以技术的发挥仍然有限。</p> <h2 id="社区治理-女巫攻击、贿选、公地悲剧"><a href="#社区治理-女巫攻击、贿选、公地悲剧" class="header-anchor">#</a> 社区治理-女巫攻击、贿选、公地悲剧</h2></div> <footer class="page-edit"><!----> <!----></footer> <!----> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/docs/assets/js/app.94b39639.js" defer></script><script src="/docs/assets/js/2.76afec17.js" defer></script><script src="/docs/assets/js/3.d3b6eea9.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>lodash-difference源码研读解析【二、index】 | 大前端工程师成长路线</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="博客 分享 笔记 规划 ">
+    
+    <link rel="preload" href="/docs/assets/css/0.styles.8e9f036c.css" as="style"><link rel="preload" href="/docs/assets/js/app.94b39639.js" as="script"><link rel="preload" href="/docs/assets/js/2.76afec17.js" as="script"><link rel="preload" href="/docs/assets/js/24.9b02bb60.js" as="script"><link rel="prefetch" href="/docs/assets/js/10.64049170.js"><link rel="prefetch" href="/docs/assets/js/100.dd1cca3c.js"><link rel="prefetch" href="/docs/assets/js/101.cdd50df5.js"><link rel="prefetch" href="/docs/assets/js/102.5210e26f.js"><link rel="prefetch" href="/docs/assets/js/103.eb756fd5.js"><link rel="prefetch" href="/docs/assets/js/104.1229887c.js"><link rel="prefetch" href="/docs/assets/js/105.f0ff66e7.js"><link rel="prefetch" href="/docs/assets/js/106.48d9f073.js"><link rel="prefetch" href="/docs/assets/js/107.275da6d8.js"><link rel="prefetch" href="/docs/assets/js/108.408ba7cb.js"><link rel="prefetch" href="/docs/assets/js/109.2330bb70.js"><link rel="prefetch" href="/docs/assets/js/11.bd20babd.js"><link rel="prefetch" href="/docs/assets/js/110.d0bb9e94.js"><link rel="prefetch" href="/docs/assets/js/111.02fd143e.js"><link rel="prefetch" href="/docs/assets/js/112.2fcbaf7c.js"><link rel="prefetch" href="/docs/assets/js/113.f7451943.js"><link rel="prefetch" href="/docs/assets/js/114.0aef5d7e.js"><link rel="prefetch" href="/docs/assets/js/115.f716492f.js"><link rel="prefetch" href="/docs/assets/js/116.7761e546.js"><link rel="prefetch" href="/docs/assets/js/117.62104f62.js"><link rel="prefetch" href="/docs/assets/js/118.3537fba6.js"><link rel="prefetch" href="/docs/assets/js/119.a3e1b948.js"><link rel="prefetch" href="/docs/assets/js/12.acef1ad3.js"><link rel="prefetch" href="/docs/assets/js/120.512d3a45.js"><link rel="prefetch" href="/docs/assets/js/121.36dab76a.js"><link rel="prefetch" href="/docs/assets/js/122.5002b723.js"><link rel="prefetch" href="/docs/assets/js/123.9f11a15e.js"><link rel="prefetch" href="/docs/assets/js/124.8314ec7f.js"><link rel="prefetch" href="/docs/assets/js/125.219d7f16.js"><link rel="prefetch" href="/docs/assets/js/126.976f1303.js"><link rel="prefetch" href="/docs/assets/js/127.fe7f2060.js"><link rel="prefetch" href="/docs/assets/js/128.76cd6359.js"><link rel="prefetch" href="/docs/assets/js/129.baaca83c.js"><link rel="prefetch" href="/docs/assets/js/13.1530fbbe.js"><link rel="prefetch" href="/docs/assets/js/130.99b9937a.js"><link rel="prefetch" href="/docs/assets/js/131.3489f2b6.js"><link rel="prefetch" href="/docs/assets/js/132.7414008f.js"><link rel="prefetch" href="/docs/assets/js/133.6a477779.js"><link rel="prefetch" href="/docs/assets/js/134.6a6ed5f0.js"><link rel="prefetch" href="/docs/assets/js/135.0926b2b5.js"><link rel="prefetch" href="/docs/assets/js/136.940aa1b3.js"><link rel="prefetch" href="/docs/assets/js/137.e251b84c.js"><link rel="prefetch" href="/docs/assets/js/138.5af41670.js"><link rel="prefetch" href="/docs/assets/js/139.84f95936.js"><link rel="prefetch" href="/docs/assets/js/14.b1a2320e.js"><link rel="prefetch" href="/docs/assets/js/140.ecada68e.js"><link rel="prefetch" href="/docs/assets/js/141.5d1c1229.js"><link rel="prefetch" href="/docs/assets/js/142.eee979a4.js"><link rel="prefetch" href="/docs/assets/js/143.01add7b2.js"><link rel="prefetch" href="/docs/assets/js/144.8a9cbb91.js"><link rel="prefetch" href="/docs/assets/js/145.6b459ea9.js"><link rel="prefetch" href="/docs/assets/js/146.1e95cd21.js"><link rel="prefetch" href="/docs/assets/js/147.efb6801c.js"><link rel="prefetch" href="/docs/assets/js/148.c07a025c.js"><link rel="prefetch" href="/docs/assets/js/149.2db1daa2.js"><link rel="prefetch" href="/docs/assets/js/15.d20d3145.js"><link rel="prefetch" href="/docs/assets/js/150.2320c3a6.js"><link rel="prefetch" href="/docs/assets/js/151.bed6ef26.js"><link rel="prefetch" href="/docs/assets/js/152.d834f76e.js"><link rel="prefetch" href="/docs/assets/js/153.8ea5aa64.js"><link rel="prefetch" href="/docs/assets/js/154.b48e69a0.js"><link rel="prefetch" href="/docs/assets/js/155.bce89d8c.js"><link rel="prefetch" href="/docs/assets/js/156.31f98da2.js"><link rel="prefetch" href="/docs/assets/js/157.4e1c5d43.js"><link rel="prefetch" href="/docs/assets/js/158.418b4c1e.js"><link rel="prefetch" href="/docs/assets/js/159.4f420dab.js"><link rel="prefetch" href="/docs/assets/js/16.84ad4cf9.js"><link rel="prefetch" href="/docs/assets/js/160.51b0427d.js"><link rel="prefetch" href="/docs/assets/js/161.34fa2b09.js"><link rel="prefetch" href="/docs/assets/js/162.f26fa746.js"><link rel="prefetch" href="/docs/assets/js/163.a18dd90e.js"><link rel="prefetch" href="/docs/assets/js/164.6fa4a900.js"><link rel="prefetch" href="/docs/assets/js/165.a7c5a3ff.js"><link rel="prefetch" href="/docs/assets/js/166.f0b83042.js"><link rel="prefetch" href="/docs/assets/js/167.292780aa.js"><link rel="prefetch" href="/docs/assets/js/168.4eefd91f.js"><link rel="prefetch" href="/docs/assets/js/169.d96e4ac2.js"><link rel="prefetch" href="/docs/assets/js/17.9b7ff467.js"><link rel="prefetch" href="/docs/assets/js/170.d5646d37.js"><link rel="prefetch" href="/docs/assets/js/171.adb8fc47.js"><link rel="prefetch" href="/docs/assets/js/172.753b2844.js"><link rel="prefetch" href="/docs/assets/js/173.d7a64d92.js"><link rel="prefetch" href="/docs/assets/js/174.a5b3c59b.js"><link rel="prefetch" href="/docs/assets/js/175.0c77f908.js"><link rel="prefetch" href="/docs/assets/js/176.ea206798.js"><link rel="prefetch" href="/docs/assets/js/177.8efed05b.js"><link rel="prefetch" href="/docs/assets/js/178.d4596432.js"><link rel="prefetch" href="/docs/assets/js/179.e6714e90.js"><link rel="prefetch" href="/docs/assets/js/18.9664df50.js"><link rel="prefetch" href="/docs/assets/js/180.b7f539b6.js"><link rel="prefetch" href="/docs/assets/js/181.056fcc7a.js"><link rel="prefetch" href="/docs/assets/js/182.15b285f9.js"><link rel="prefetch" href="/docs/assets/js/183.186493b9.js"><link rel="prefetch" href="/docs/assets/js/184.54de7b4c.js"><link rel="prefetch" href="/docs/assets/js/185.2b2021fd.js"><link rel="prefetch" href="/docs/assets/js/186.4e088784.js"><link rel="prefetch" href="/docs/assets/js/187.6087a4e3.js"><link rel="prefetch" href="/docs/assets/js/188.914af9b3.js"><link rel="prefetch" href="/docs/assets/js/189.195080e9.js"><link rel="prefetch" href="/docs/assets/js/19.e0b7d897.js"><link rel="prefetch" href="/docs/assets/js/190.9afe3a61.js"><link rel="prefetch" href="/docs/assets/js/191.54c05c70.js"><link rel="prefetch" href="/docs/assets/js/192.2da00714.js"><link rel="prefetch" href="/docs/assets/js/193.5742b404.js"><link rel="prefetch" href="/docs/assets/js/194.1676d51a.js"><link rel="prefetch" href="/docs/assets/js/20.2a0397e4.js"><link rel="prefetch" href="/docs/assets/js/21.9bb9c4ab.js"><link rel="prefetch" href="/docs/assets/js/22.46437f0c.js"><link rel="prefetch" href="/docs/assets/js/23.0ce76941.js"><link rel="prefetch" href="/docs/assets/js/25.1a0f8c16.js"><link rel="prefetch" href="/docs/assets/js/26.958642ab.js"><link rel="prefetch" href="/docs/assets/js/27.8615210e.js"><link rel="prefetch" href="/docs/assets/js/28.4cf2c45a.js"><link rel="prefetch" href="/docs/assets/js/29.2ac725fc.js"><link rel="prefetch" href="/docs/assets/js/3.d3b6eea9.js"><link rel="prefetch" href="/docs/assets/js/30.9300744f.js"><link rel="prefetch" href="/docs/assets/js/31.9ab467b3.js"><link rel="prefetch" href="/docs/assets/js/32.7397c323.js"><link rel="prefetch" href="/docs/assets/js/33.a0cf2637.js"><link rel="prefetch" href="/docs/assets/js/34.d61e1231.js"><link rel="prefetch" href="/docs/assets/js/35.4cee926c.js"><link rel="prefetch" href="/docs/assets/js/36.8e50ef5f.js"><link rel="prefetch" href="/docs/assets/js/37.9c87dce8.js"><link rel="prefetch" href="/docs/assets/js/38.b730aca9.js"><link rel="prefetch" href="/docs/assets/js/39.f42e7ac1.js"><link rel="prefetch" href="/docs/assets/js/4.d378cb7e.js"><link rel="prefetch" href="/docs/assets/js/40.21bac2d8.js"><link rel="prefetch" href="/docs/assets/js/41.3df23d9f.js"><link rel="prefetch" href="/docs/assets/js/42.b658ecc6.js"><link rel="prefetch" href="/docs/assets/js/43.f46e461e.js"><link rel="prefetch" href="/docs/assets/js/44.ed2a9ef8.js"><link rel="prefetch" href="/docs/assets/js/45.3b8ed15e.js"><link rel="prefetch" href="/docs/assets/js/46.7b5589f3.js"><link rel="prefetch" href="/docs/assets/js/47.d589d707.js"><link rel="prefetch" href="/docs/assets/js/48.1da7df07.js"><link rel="prefetch" href="/docs/assets/js/49.a4005952.js"><link rel="prefetch" href="/docs/assets/js/5.00b262d0.js"><link rel="prefetch" href="/docs/assets/js/50.6f366509.js"><link rel="prefetch" href="/docs/assets/js/51.0b1f7508.js"><link rel="prefetch" href="/docs/assets/js/52.04158d6d.js"><link rel="prefetch" href="/docs/assets/js/53.8ffbb93a.js"><link rel="prefetch" href="/docs/assets/js/54.ec719dcb.js"><link rel="prefetch" href="/docs/assets/js/55.3c3726fe.js"><link rel="prefetch" href="/docs/assets/js/56.b25caaff.js"><link rel="prefetch" href="/docs/assets/js/57.618c18f5.js"><link rel="prefetch" href="/docs/assets/js/58.e00bda15.js"><link rel="prefetch" href="/docs/assets/js/59.1e010f25.js"><link rel="prefetch" href="/docs/assets/js/6.f5f38eea.js"><link rel="prefetch" href="/docs/assets/js/60.b15808f5.js"><link rel="prefetch" href="/docs/assets/js/61.fdc6b78e.js"><link rel="prefetch" href="/docs/assets/js/62.60b704a4.js"><link rel="prefetch" href="/docs/assets/js/63.47e652e9.js"><link rel="prefetch" href="/docs/assets/js/64.f99fe8c5.js"><link rel="prefetch" href="/docs/assets/js/65.4db4e87e.js"><link rel="prefetch" href="/docs/assets/js/66.588a809b.js"><link rel="prefetch" href="/docs/assets/js/67.43cedc92.js"><link rel="prefetch" href="/docs/assets/js/68.0e353abf.js"><link rel="prefetch" href="/docs/assets/js/69.2e7aa4a1.js"><link rel="prefetch" href="/docs/assets/js/7.cd57a54e.js"><link rel="prefetch" href="/docs/assets/js/70.45edc6f2.js"><link rel="prefetch" href="/docs/assets/js/71.8d435855.js"><link rel="prefetch" href="/docs/assets/js/72.2dd55d77.js"><link rel="prefetch" href="/docs/assets/js/73.12d57bc7.js"><link rel="prefetch" href="/docs/assets/js/74.317ea09a.js"><link rel="prefetch" href="/docs/assets/js/75.5633de27.js"><link rel="prefetch" href="/docs/assets/js/76.1f02e44e.js"><link rel="prefetch" href="/docs/assets/js/77.5e88da18.js"><link rel="prefetch" href="/docs/assets/js/78.9cf48658.js"><link rel="prefetch" href="/docs/assets/js/79.cf1334fe.js"><link rel="prefetch" href="/docs/assets/js/8.de8abaeb.js"><link rel="prefetch" href="/docs/assets/js/80.d9f20419.js"><link rel="prefetch" href="/docs/assets/js/81.dfcc1189.js"><link rel="prefetch" href="/docs/assets/js/82.b171602c.js"><link rel="prefetch" href="/docs/assets/js/83.d01eca38.js"><link rel="prefetch" href="/docs/assets/js/84.09f77d84.js"><link rel="prefetch" href="/docs/assets/js/85.ef3698e2.js"><link rel="prefetch" href="/docs/assets/js/86.9c44181e.js"><link rel="prefetch" href="/docs/assets/js/87.f58ed969.js"><link rel="prefetch" href="/docs/assets/js/88.2a96e1fd.js"><link rel="prefetch" href="/docs/assets/js/89.aeb088ab.js"><link rel="prefetch" href="/docs/assets/js/9.8db69a38.js"><link rel="prefetch" href="/docs/assets/js/90.32a883ed.js"><link rel="prefetch" href="/docs/assets/js/91.f2011ce8.js"><link rel="prefetch" href="/docs/assets/js/92.998023e0.js"><link rel="prefetch" href="/docs/assets/js/93.7c498a57.js"><link rel="prefetch" href="/docs/assets/js/94.bc5970b6.js"><link rel="prefetch" href="/docs/assets/js/95.dc60a529.js"><link rel="prefetch" href="/docs/assets/js/96.41b7d263.js"><link rel="prefetch" href="/docs/assets/js/97.81eedf62.js"><link rel="prefetch" href="/docs/assets/js/98.2642cb83.js"><link rel="prefetch" href="/docs/assets/js/99.c63d8a70.js">
+    <link rel="stylesheet" href="/docs/assets/css/0.styles.8e9f036c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/docs/" class="home-link router-link-active"><img src="/docs/images/home/balu.jpg" alt="大前端工程师成长路线" class="logo"> <span class="site-name can-hide">大前端工程师成长路线</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读研生涯" class="dropdown-title"><span class="title">读研生涯</span> <span class="arrow down"></span></button> <button type="button" aria-label="读研生涯" class="mobile-dropdown-title"><span class="title">读研生涯</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/PostGraduate/Explore/" class="nav-link">
+  探索与记录
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="计算机基础" class="dropdown-title"><span class="title">计算机基础</span> <span class="arrow down"></span></button> <button type="button" aria-label="计算机基础" class="mobile-dropdown-title"><span class="title">计算机基础</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/CS/Algorithm/" class="nav-link">
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerComposition/" class="nav-link">
+  计算机组成原理
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerNetworks/" class="nav-link">
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/OperatingSystem/" class="nav-link">
+  操作系统
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Web/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTML/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/CSS/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/TypeScript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Gis/" class="nav-link">
+  Gis
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/App/" class="nav-link">
+  App
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Desktop/" class="nav-link">
+  桌面应用
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/WxApp/" class="nav-link">
+  小程序
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow down"></span></button> <button type="button" aria-label="后端" class="mobile-dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Koa/" class="nav-link">
+  Koa
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Nest/" class="nav-link">
+  Nest
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Node/" class="nav-link">
+  Node
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工程化" class="dropdown-title"><span class="title">工程化</span> <span class="arrow down"></span></button> <button type="button" aria-label="工程化" class="mobile-dropdown-title"><span class="title">工程化</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/SoftwareEnginner/" class="nav-link">
+  软件工程
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Develop/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Build/" class="nav-link">
+  构建
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Deploy/" class="nav-link">
+  部署
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Performance/" class="nav-link">
+  性能
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Norm/" class="nav-link">
+  规范
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读源码" class="dropdown-title"><span class="title">读源码</span> <span class="arrow down"></span></button> <button type="button" aria-label="读源码" class="mobile-dropdown-title"><span class="title">读源码</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Axios/" class="nav-link">
+  Axios
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Lodash/" class="nav-link router-link-active">
+  Lodash
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/React/" class="nav-link">
+  React
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow down"></span></button> <button type="button" aria-label="其他" class="mobile-dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Others/Question/" class="nav-link">
+  面试题
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/BlockChain/" class="nav-link">
+  区块链
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/English/" class="nav-link">
+  英语
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/StudySource/" class="nav-link">
+  学习资源
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/JsTricks/" class="nav-link">
+  Js Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/CssTricks/" class="nav-link">
+  Css Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/DevelopSkills/" class="nav-link">
+  开发技巧
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/Note/" class="nav-link">
+  备忘录
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/bierxiensi" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读研生涯" class="dropdown-title"><span class="title">读研生涯</span> <span class="arrow down"></span></button> <button type="button" aria-label="读研生涯" class="mobile-dropdown-title"><span class="title">读研生涯</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/PostGraduate/Explore/" class="nav-link">
+  探索与记录
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="计算机基础" class="dropdown-title"><span class="title">计算机基础</span> <span class="arrow down"></span></button> <button type="button" aria-label="计算机基础" class="mobile-dropdown-title"><span class="title">计算机基础</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/CS/Algorithm/" class="nav-link">
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerComposition/" class="nav-link">
+  计算机组成原理
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerNetworks/" class="nav-link">
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/OperatingSystem/" class="nav-link">
+  操作系统
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Web/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTML/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/CSS/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/TypeScript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Gis/" class="nav-link">
+  Gis
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/App/" class="nav-link">
+  App
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Desktop/" class="nav-link">
+  桌面应用
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/WxApp/" class="nav-link">
+  小程序
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow down"></span></button> <button type="button" aria-label="后端" class="mobile-dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Koa/" class="nav-link">
+  Koa
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Nest/" class="nav-link">
+  Nest
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Node/" class="nav-link">
+  Node
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工程化" class="dropdown-title"><span class="title">工程化</span> <span class="arrow down"></span></button> <button type="button" aria-label="工程化" class="mobile-dropdown-title"><span class="title">工程化</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/SoftwareEnginner/" class="nav-link">
+  软件工程
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Develop/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Build/" class="nav-link">
+  构建
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Deploy/" class="nav-link">
+  部署
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Performance/" class="nav-link">
+  性能
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Norm/" class="nav-link">
+  规范
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读源码" class="dropdown-title"><span class="title">读源码</span> <span class="arrow down"></span></button> <button type="button" aria-label="读源码" class="mobile-dropdown-title"><span class="title">读源码</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Axios/" class="nav-link">
+  Axios
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Lodash/" class="nav-link router-link-active">
+  Lodash
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/React/" class="nav-link">
+  React
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow down"></span></button> <button type="button" aria-label="其他" class="mobile-dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Others/Question/" class="nav-link">
+  面试题
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/BlockChain/" class="nav-link">
+  区块链
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/English/" class="nav-link">
+  英语
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/StudySource/" class="nav-link">
+  学习资源
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/JsTricks/" class="nav-link">
+  Js Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/CssTricks/" class="nav-link">
+  Css Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/DevelopSkills/" class="nav-link">
+  开发技巧
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/Note/" class="nav-link">
+  备忘录
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/bierxiensi" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Lodash</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/SourceCode/Lodash/" aria-current="page" class="sidebar-link">Lodash</a></li><li><a href="/docs/SourceCode/Lodash/BaseIntersection.html" class="sidebar-link">lodash-intersection-baseIntersection源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Chunk1.html" class="sidebar-link">lodash-chunk源码研读解析【上】</a></li><li><a href="/docs/SourceCode/Lodash/Chunk2.html" class="sidebar-link">lodash-chunk 源码研读解析【下】</a></li><li><a href="/docs/SourceCode/Lodash/Compact.html" class="sidebar-link">lodash-compact源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Difference(Cache).html" class="sidebar-link">lodash-difference源码研读解析【cache】</a></li><li><a href="/docs/SourceCode/Lodash/Difference(Flatten).html" class="sidebar-link">lodash-difference源码研读解析【flatten】</a></li><li><a href="/docs/SourceCode/Lodash/Difference(Index).html" aria-current="page" class="active sidebar-link">lodash-difference源码研读解析【index】</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/SourceCode/Lodash/Difference(Index).html#_1-strictindexof-模块" class="sidebar-link">1. strictIndexOf 模块</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Lodash/Difference(Index).html#_2-baseisnan-模块" class="sidebar-link">2. baseIsNaN 模块</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Lodash/Difference(Index).html#_3-basefindindex-模块" class="sidebar-link">3. baseFindIndex 模块</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Lodash/Difference(Index).html#_4-baseindexof-模块" class="sidebar-link">4. baseIndexOf 模块</a></li><li class="sidebar-sub-header"><a href="/docs/SourceCode/Lodash/Difference(Index).html#_5-arrayincludes-模块" class="sidebar-link">5. arrayIncludes 模块</a></li></ul></li><li><a href="/docs/SourceCode/Lodash/DifferenceBy.html" class="sidebar-link">lodash-differenceBy源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/DifferenceWith.html" class="sidebar-link">lodash-differenceWith源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Drop.html" class="sidebar-link">lodash-drop源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/DropRight.html" class="sidebar-link">lodash-dropRight源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/DropRightWhile.html" class="sidebar-link">lodash-dropRightWhile源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/DropWhile.html" class="sidebar-link">lodash-dropWhile源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/FindLastIndex.html" class="sidebar-link">lodash-FindLastIndex源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/First.html" class="sidebar-link">lodash-first源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Flatten.html" class="sidebar-link">lodash-flatten源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/FlattenDeep.html" class="sidebar-link">lodash-flattenDeep源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/FlattenDepth.html" class="sidebar-link">lodash-flattenDepth源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Head.html" class="sidebar-link">lodash-head源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/IndexOf.html" class="sidebar-link">lodash-indexOf源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Initial.html" class="sidebar-link">lodash-initial源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Intersection.html" class="sidebar-link">lodash-intersection源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/IntersectionBy.html" class="sidebar-link">lodash-intersectionBy源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/IntersectionWith.html" class="sidebar-link">lodash-intersectionWith源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/ObjGet.html" class="sidebar-link">【从源码看一道前端面试题】实现 lodash 中的 get 函数</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="content__default"><blockquote><p>A modern JavaScript utility library delivering modularity, performance &amp; extras.</p></blockquote> <blockquote><p><code>lodash</code> 是一个一致性、模块化、高性能的 <code>JavaScript</code> 实用工具库</p></blockquote> <h1 id="一、环境准备"><a href="#一、环境准备" class="header-anchor">#</a> 一、环境准备</h1> <ul><li><p><code>lodash</code> 版本 <code>v4.0.0</code></p></li> <li><p>通过 <code>github1s</code> 网页可以 <a href="https://github1s.com/lodash/lodash/blob/HEAD/difference.js" target="_blank" rel="noopener noreferrer">查看<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> <code>lodash - difference</code> 源码</p></li> <li><p>调试测试用例可以 <code>clone</code> 到本地</p></li></ul> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">git</span> clone https://github.com/lodash/lodash.git
+
+<span class="token builtin class-name">cd</span> axios
+
+<span class="token function">npm</span> <span class="token function">install</span>
+
+<span class="token function">npm</span> run <span class="token builtin class-name">test</span>
+</code></pre></div><h1 id="二、结构分析"><a href="#二、结构分析" class="header-anchor">#</a> 二、结构分析</h1> <p><img src="/docs/assets/img/difference_relation.969a6710.jpg" alt=""></p> <p>  这是一张 <code>difference</code> 依赖引用路径图，相对复杂一些，按照功能划分，大致包括cache模块、index模块和flatten模块。接下来会自底向上分析各个依赖模块。由于依赖较多，篇幅较长，将按照模块分成四个部分，本篇主要讲述 <code>Index</code> 模块，包含 <code>arrayIncludes</code>、<code>baseIndexOf</code>、<code>baseFindIndex</code>、<code>baseIsNaN</code>、<code>strictIndexOf</code>。</p> <h1 id="三、函数研读"><a href="#三、函数研读" class="header-anchor">#</a> 三、函数研读</h1> <h2 id="_1-strictindexof-模块"><a href="#_1-strictindexof-模块" class="header-anchor">#</a> 1. strictIndexOf 模块</h2> <p><strong>indexOf的一个特殊版本，它执行严格的相等用于比较value，比如<code>===</code></strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} fromIndex The index to search from.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">strictIndexOf</span><span class="token punctuation">(</span><span class="token parameter">array<span class="token punctuation">,</span> value<span class="token punctuation">,</span> fromIndex</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> index <span class="token operator">=</span> fromIndex <span class="token operator">-</span> <span class="token number">1</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> length <span class="token punctuation">}</span> <span class="token operator">=</span> array
+
+  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">++</span>index <span class="token operator">&lt;</span> length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>array<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">===</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> index
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> strictIndexOf
+</code></pre></div><ul><li>重点关注<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Strict_equality" target="_blank" rel="noopener noreferrer">MDN - Strict equality (===)<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>，全等运算符与相等运算符 <code>==</code> 最显著的区别是，如果操作数的类型不同，<code>==</code> 运算符会在比较之前尝试将它们转换为相同的类型。</li></ul> <h2 id="_2-baseisnan-模块"><a href="#_2-baseisnan-模块" class="header-anchor">#</a> 2. baseIsNaN 模块</h2> <p><strong>'isNaN'的基本实现，不支持数字对象</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is `NaN`, else `false`.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">baseIsNaN</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> value <span class="token operator">!==</span> value
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> baseIsNaN
+</code></pre></div><ul><li>重点关注全局属性 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/NaN" target="_blank" rel="noopener noreferrer">NaN<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>, <code>NaN</code> 的值表示不是一个数字（Not-A-Number）,在现代浏览器中（ES5中）， NaN 属性是一个不可配置（non-configurable），不可写（non-writable）的属性</li> <li>在执行自比较之中：NaN，也只有NaN，比较之中不等于它自己，<code>NaN === NaN; // false</code></li></ul> <h2 id="_3-basefindindex-模块"><a href="#_3-basefindindex-模块" class="header-anchor">#</a> 3. baseFindIndex 模块</h2> <p><strong>'findIndex'和'findLastIndex'的基本实现</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {Function} predicate 每次迭代调用的函数
+ * @param {number} fromIndex The index to search from.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">baseFindIndex</span><span class="token punctuation">(</span><span class="token parameter">array<span class="token punctuation">,</span> predicate<span class="token punctuation">,</span> fromIndex<span class="token punctuation">,</span> fromRight</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> length <span class="token punctuation">}</span> <span class="token operator">=</span> array
+  <span class="token keyword">let</span> index <span class="token operator">=</span> fromIndex <span class="token operator">+</span> <span class="token punctuation">(</span>fromRight <span class="token operator">?</span> <span class="token number">1</span> <span class="token operator">:</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>fromRight <span class="token operator">?</span> index<span class="token operator">--</span> <span class="token operator">:</span> <span class="token operator">++</span>index <span class="token operator">&lt;</span> length<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">predicate</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">,</span> index<span class="token punctuation">,</span> array<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> index
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> baseFindIndex
+</code></pre></div><ul><li>重点关注 <code>index = fromIndex + (fromRight ? 1 : -1)</code> ，由于支持从右向左的迭代，起始<code>index</code>应该<code>+1</code>以防止<code>index--</code>越过<code>0</code>从而进入死循环，同理从左侧查起要确保查到<code>array[0]</code>从而起始 <code>index</code> 需要加一</li></ul> <h2 id="_4-baseindexof-模块"><a href="#_4-baseindexof-模块" class="header-anchor">#</a> 4. baseIndexOf 模块</h2> <p><strong>没有<code>fromIndex</code>边界检查的<code>indexOf</code>的基本实现</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> baseFindIndex <span class="token keyword">from</span> <span class="token string">'./baseFindIndex.js'</span>
+<span class="token keyword">import</span> baseIsNaN <span class="token keyword">from</span> <span class="token string">'./baseIsNaN.js'</span>
+<span class="token keyword">import</span> strictIndexOf <span class="token keyword">from</span> <span class="token string">'./strictIndexOf.js'</span>
+
+<span class="token comment">/**
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} fromIndex The index to search from.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">baseIndexOf</span><span class="token punctuation">(</span><span class="token parameter">array<span class="token punctuation">,</span> value<span class="token punctuation">,</span> fromIndex</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> value <span class="token operator">===</span> value
+    <span class="token operator">?</span> <span class="token function">strictIndexOf</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> value<span class="token punctuation">,</span> fromIndex<span class="token punctuation">)</span>
+    <span class="token operator">:</span> <span class="token function">baseFindIndex</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> baseIsNaN<span class="token punctuation">,</span> fromIndex<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> baseIndexOf
+</code></pre></div><ul><li><code>value</code> 如果不是 <code>NaN</code>，进入 <code>strictIndexOf</code>，从 <code>array[fromIndex]</code> 开始按序严格比较是否与 <code>value</code> 相等，若相等返回对应 <code>index</code>，否则返回 <code>-1</code></li> <li><code>value</code> 如果是 <code>NaN</code>，进入 <code>baseFindIndex</code>，将 <code>baseIsNaN</code> 作为 <code>baseFindIndex</code> 的入参迭代函数 <code>predicate</code> 并开始从 <code>array[fromIndex]</code> 开始判断是否为 <code>NaN</code>，若找到 <code>NaN</code> 就返回对应 <code>index</code>，否则返回 <code>-1</code></li></ul> <p>Tips：可以看到 <code>baseFindIndex</code> 模块中的有些形参是没有用到的，比如查找时是按照从左往右的顺序查找，并没有传入 <code>fromRight</code>，但提前占了坑，体现了很好的扩展性🐶</p> <h2 id="_5-arrayincludes-模块"><a href="#_5-arrayincludes-模块" class="header-anchor">#</a> 5. arrayIncludes 模块</h2> <p><strong>不支持从数组指定位置搜索的includes</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> baseIndexOf <span class="token keyword">from</span> <span class="token string">'./baseIndexOf.js'</span>
+
+<span class="token comment">/**
+ * @private
+ * @param {Array} [array] The array to inspect.
+ * @param {*} target The value to search for.
+ * @returns {boolean} Returns `true` if `target` is found, else `false`.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">arrayIncludes</span><span class="token punctuation">(</span><span class="token parameter">array<span class="token punctuation">,</span> value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> length <span class="token operator">=</span> array <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> array<span class="token punctuation">.</span>length
+  <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span>length <span class="token operator">&amp;&amp;</span> <span class="token function">baseIndexOf</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token operator">-</span><span class="token number">1</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> arrayIncludes
+</code></pre></div><ul><li>如果 length 不存在（包含null、0）或者没有找到 index 都会返回false</li></ul> <p>Tips：<code>!!</code> 运算符表示逻辑非的取反运算，如<code>!!obj</code>与 <code>obj != null &amp;&amp; typeof obj === undefined &amp;&amp; obj != &quot;&quot; &amp;&amp; obj != false</code> 在计算上等价</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docs/SourceCode/Lodash/Difference(Flatten).html" class="prev">
+        lodash-difference源码研读解析【flatten】
+      </a></span> <span class="next"><a href="/docs/SourceCode/Lodash/DifferenceBy.html">
+        lodash-differenceBy源码研读解析
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/docs/assets/js/app.94b39639.js" defer></script><script src="/docs/assets/js/2.76afec17.js" defer></script><script src="/docs/assets/js/24.9b02bb60.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>lodash-differenceBy源码研读解析 | 大前端工程师成长路线</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    
+    <meta name="description" content="博客 分享 笔记 规划 ">
+    
+    <link rel="preload" href="/docs/assets/css/0.styles.8e9f036c.css" as="style"><link rel="preload" href="/docs/assets/js/app.94b39639.js" as="script"><link rel="preload" href="/docs/assets/js/2.76afec17.js" as="script"><link rel="preload" href="/docs/assets/js/26.958642ab.js" as="script"><link rel="prefetch" href="/docs/assets/js/10.64049170.js"><link rel="prefetch" href="/docs/assets/js/100.dd1cca3c.js"><link rel="prefetch" href="/docs/assets/js/101.cdd50df5.js"><link rel="prefetch" href="/docs/assets/js/102.5210e26f.js"><link rel="prefetch" href="/docs/assets/js/103.eb756fd5.js"><link rel="prefetch" href="/docs/assets/js/104.1229887c.js"><link rel="prefetch" href="/docs/assets/js/105.f0ff66e7.js"><link rel="prefetch" href="/docs/assets/js/106.48d9f073.js"><link rel="prefetch" href="/docs/assets/js/107.275da6d8.js"><link rel="prefetch" href="/docs/assets/js/108.408ba7cb.js"><link rel="prefetch" href="/docs/assets/js/109.2330bb70.js"><link rel="prefetch" href="/docs/assets/js/11.bd20babd.js"><link rel="prefetch" href="/docs/assets/js/110.d0bb9e94.js"><link rel="prefetch" href="/docs/assets/js/111.02fd143e.js"><link rel="prefetch" href="/docs/assets/js/112.2fcbaf7c.js"><link rel="prefetch" href="/docs/assets/js/113.f7451943.js"><link rel="prefetch" href="/docs/assets/js/114.0aef5d7e.js"><link rel="prefetch" href="/docs/assets/js/115.f716492f.js"><link rel="prefetch" href="/docs/assets/js/116.7761e546.js"><link rel="prefetch" href="/docs/assets/js/117.62104f62.js"><link rel="prefetch" href="/docs/assets/js/118.3537fba6.js"><link rel="prefetch" href="/docs/assets/js/119.a3e1b948.js"><link rel="prefetch" href="/docs/assets/js/12.acef1ad3.js"><link rel="prefetch" href="/docs/assets/js/120.512d3a45.js"><link rel="prefetch" href="/docs/assets/js/121.36dab76a.js"><link rel="prefetch" href="/docs/assets/js/122.5002b723.js"><link rel="prefetch" href="/docs/assets/js/123.9f11a15e.js"><link rel="prefetch" href="/docs/assets/js/124.8314ec7f.js"><link rel="prefetch" href="/docs/assets/js/125.219d7f16.js"><link rel="prefetch" href="/docs/assets/js/126.976f1303.js"><link rel="prefetch" href="/docs/assets/js/127.fe7f2060.js"><link rel="prefetch" href="/docs/assets/js/128.76cd6359.js"><link rel="prefetch" href="/docs/assets/js/129.baaca83c.js"><link rel="prefetch" href="/docs/assets/js/13.1530fbbe.js"><link rel="prefetch" href="/docs/assets/js/130.99b9937a.js"><link rel="prefetch" href="/docs/assets/js/131.3489f2b6.js"><link rel="prefetch" href="/docs/assets/js/132.7414008f.js"><link rel="prefetch" href="/docs/assets/js/133.6a477779.js"><link rel="prefetch" href="/docs/assets/js/134.6a6ed5f0.js"><link rel="prefetch" href="/docs/assets/js/135.0926b2b5.js"><link rel="prefetch" href="/docs/assets/js/136.940aa1b3.js"><link rel="prefetch" href="/docs/assets/js/137.e251b84c.js"><link rel="prefetch" href="/docs/assets/js/138.5af41670.js"><link rel="prefetch" href="/docs/assets/js/139.84f95936.js"><link rel="prefetch" href="/docs/assets/js/14.b1a2320e.js"><link rel="prefetch" href="/docs/assets/js/140.ecada68e.js"><link rel="prefetch" href="/docs/assets/js/141.5d1c1229.js"><link rel="prefetch" href="/docs/assets/js/142.eee979a4.js"><link rel="prefetch" href="/docs/assets/js/143.01add7b2.js"><link rel="prefetch" href="/docs/assets/js/144.8a9cbb91.js"><link rel="prefetch" href="/docs/assets/js/145.6b459ea9.js"><link rel="prefetch" href="/docs/assets/js/146.1e95cd21.js"><link rel="prefetch" href="/docs/assets/js/147.efb6801c.js"><link rel="prefetch" href="/docs/assets/js/148.c07a025c.js"><link rel="prefetch" href="/docs/assets/js/149.2db1daa2.js"><link rel="prefetch" href="/docs/assets/js/15.d20d3145.js"><link rel="prefetch" href="/docs/assets/js/150.2320c3a6.js"><link rel="prefetch" href="/docs/assets/js/151.bed6ef26.js"><link rel="prefetch" href="/docs/assets/js/152.d834f76e.js"><link rel="prefetch" href="/docs/assets/js/153.8ea5aa64.js"><link rel="prefetch" href="/docs/assets/js/154.b48e69a0.js"><link rel="prefetch" href="/docs/assets/js/155.bce89d8c.js"><link rel="prefetch" href="/docs/assets/js/156.31f98da2.js"><link rel="prefetch" href="/docs/assets/js/157.4e1c5d43.js"><link rel="prefetch" href="/docs/assets/js/158.418b4c1e.js"><link rel="prefetch" href="/docs/assets/js/159.4f420dab.js"><link rel="prefetch" href="/docs/assets/js/16.84ad4cf9.js"><link rel="prefetch" href="/docs/assets/js/160.51b0427d.js"><link rel="prefetch" href="/docs/assets/js/161.34fa2b09.js"><link rel="prefetch" href="/docs/assets/js/162.f26fa746.js"><link rel="prefetch" href="/docs/assets/js/163.a18dd90e.js"><link rel="prefetch" href="/docs/assets/js/164.6fa4a900.js"><link rel="prefetch" href="/docs/assets/js/165.a7c5a3ff.js"><link rel="prefetch" href="/docs/assets/js/166.f0b83042.js"><link rel="prefetch" href="/docs/assets/js/167.292780aa.js"><link rel="prefetch" href="/docs/assets/js/168.4eefd91f.js"><link rel="prefetch" href="/docs/assets/js/169.d96e4ac2.js"><link rel="prefetch" href="/docs/assets/js/17.9b7ff467.js"><link rel="prefetch" href="/docs/assets/js/170.d5646d37.js"><link rel="prefetch" href="/docs/assets/js/171.adb8fc47.js"><link rel="prefetch" href="/docs/assets/js/172.753b2844.js"><link rel="prefetch" href="/docs/assets/js/173.d7a64d92.js"><link rel="prefetch" href="/docs/assets/js/174.a5b3c59b.js"><link rel="prefetch" href="/docs/assets/js/175.0c77f908.js"><link rel="prefetch" href="/docs/assets/js/176.ea206798.js"><link rel="prefetch" href="/docs/assets/js/177.8efed05b.js"><link rel="prefetch" href="/docs/assets/js/178.d4596432.js"><link rel="prefetch" href="/docs/assets/js/179.e6714e90.js"><link rel="prefetch" href="/docs/assets/js/18.9664df50.js"><link rel="prefetch" href="/docs/assets/js/180.b7f539b6.js"><link rel="prefetch" href="/docs/assets/js/181.056fcc7a.js"><link rel="prefetch" href="/docs/assets/js/182.15b285f9.js"><link rel="prefetch" href="/docs/assets/js/183.186493b9.js"><link rel="prefetch" href="/docs/assets/js/184.54de7b4c.js"><link rel="prefetch" href="/docs/assets/js/185.2b2021fd.js"><link rel="prefetch" href="/docs/assets/js/186.4e088784.js"><link rel="prefetch" href="/docs/assets/js/187.6087a4e3.js"><link rel="prefetch" href="/docs/assets/js/188.914af9b3.js"><link rel="prefetch" href="/docs/assets/js/189.195080e9.js"><link rel="prefetch" href="/docs/assets/js/19.e0b7d897.js"><link rel="prefetch" href="/docs/assets/js/190.9afe3a61.js"><link rel="prefetch" href="/docs/assets/js/191.54c05c70.js"><link rel="prefetch" href="/docs/assets/js/192.2da00714.js"><link rel="prefetch" href="/docs/assets/js/193.5742b404.js"><link rel="prefetch" href="/docs/assets/js/194.1676d51a.js"><link rel="prefetch" href="/docs/assets/js/20.2a0397e4.js"><link rel="prefetch" href="/docs/assets/js/21.9bb9c4ab.js"><link rel="prefetch" href="/docs/assets/js/22.46437f0c.js"><link rel="prefetch" href="/docs/assets/js/23.0ce76941.js"><link rel="prefetch" href="/docs/assets/js/24.9b02bb60.js"><link rel="prefetch" href="/docs/assets/js/25.1a0f8c16.js"><link rel="prefetch" href="/docs/assets/js/27.8615210e.js"><link rel="prefetch" href="/docs/assets/js/28.4cf2c45a.js"><link rel="prefetch" href="/docs/assets/js/29.2ac725fc.js"><link rel="prefetch" href="/docs/assets/js/3.d3b6eea9.js"><link rel="prefetch" href="/docs/assets/js/30.9300744f.js"><link rel="prefetch" href="/docs/assets/js/31.9ab467b3.js"><link rel="prefetch" href="/docs/assets/js/32.7397c323.js"><link rel="prefetch" href="/docs/assets/js/33.a0cf2637.js"><link rel="prefetch" href="/docs/assets/js/34.d61e1231.js"><link rel="prefetch" href="/docs/assets/js/35.4cee926c.js"><link rel="prefetch" href="/docs/assets/js/36.8e50ef5f.js"><link rel="prefetch" href="/docs/assets/js/37.9c87dce8.js"><link rel="prefetch" href="/docs/assets/js/38.b730aca9.js"><link rel="prefetch" href="/docs/assets/js/39.f42e7ac1.js"><link rel="prefetch" href="/docs/assets/js/4.d378cb7e.js"><link rel="prefetch" href="/docs/assets/js/40.21bac2d8.js"><link rel="prefetch" href="/docs/assets/js/41.3df23d9f.js"><link rel="prefetch" href="/docs/assets/js/42.b658ecc6.js"><link rel="prefetch" href="/docs/assets/js/43.f46e461e.js"><link rel="prefetch" href="/docs/assets/js/44.ed2a9ef8.js"><link rel="prefetch" href="/docs/assets/js/45.3b8ed15e.js"><link rel="prefetch" href="/docs/assets/js/46.7b5589f3.js"><link rel="prefetch" href="/docs/assets/js/47.d589d707.js"><link rel="prefetch" href="/docs/assets/js/48.1da7df07.js"><link rel="prefetch" href="/docs/assets/js/49.a4005952.js"><link rel="prefetch" href="/docs/assets/js/5.00b262d0.js"><link rel="prefetch" href="/docs/assets/js/50.6f366509.js"><link rel="prefetch" href="/docs/assets/js/51.0b1f7508.js"><link rel="prefetch" href="/docs/assets/js/52.04158d6d.js"><link rel="prefetch" href="/docs/assets/js/53.8ffbb93a.js"><link rel="prefetch" href="/docs/assets/js/54.ec719dcb.js"><link rel="prefetch" href="/docs/assets/js/55.3c3726fe.js"><link rel="prefetch" href="/docs/assets/js/56.b25caaff.js"><link rel="prefetch" href="/docs/assets/js/57.618c18f5.js"><link rel="prefetch" href="/docs/assets/js/58.e00bda15.js"><link rel="prefetch" href="/docs/assets/js/59.1e010f25.js"><link rel="prefetch" href="/docs/assets/js/6.f5f38eea.js"><link rel="prefetch" href="/docs/assets/js/60.b15808f5.js"><link rel="prefetch" href="/docs/assets/js/61.fdc6b78e.js"><link rel="prefetch" href="/docs/assets/js/62.60b704a4.js"><link rel="prefetch" href="/docs/assets/js/63.47e652e9.js"><link rel="prefetch" href="/docs/assets/js/64.f99fe8c5.js"><link rel="prefetch" href="/docs/assets/js/65.4db4e87e.js"><link rel="prefetch" href="/docs/assets/js/66.588a809b.js"><link rel="prefetch" href="/docs/assets/js/67.43cedc92.js"><link rel="prefetch" href="/docs/assets/js/68.0e353abf.js"><link rel="prefetch" href="/docs/assets/js/69.2e7aa4a1.js"><link rel="prefetch" href="/docs/assets/js/7.cd57a54e.js"><link rel="prefetch" href="/docs/assets/js/70.45edc6f2.js"><link rel="prefetch" href="/docs/assets/js/71.8d435855.js"><link rel="prefetch" href="/docs/assets/js/72.2dd55d77.js"><link rel="prefetch" href="/docs/assets/js/73.12d57bc7.js"><link rel="prefetch" href="/docs/assets/js/74.317ea09a.js"><link rel="prefetch" href="/docs/assets/js/75.5633de27.js"><link rel="prefetch" href="/docs/assets/js/76.1f02e44e.js"><link rel="prefetch" href="/docs/assets/js/77.5e88da18.js"><link rel="prefetch" href="/docs/assets/js/78.9cf48658.js"><link rel="prefetch" href="/docs/assets/js/79.cf1334fe.js"><link rel="prefetch" href="/docs/assets/js/8.de8abaeb.js"><link rel="prefetch" href="/docs/assets/js/80.d9f20419.js"><link rel="prefetch" href="/docs/assets/js/81.dfcc1189.js"><link rel="prefetch" href="/docs/assets/js/82.b171602c.js"><link rel="prefetch" href="/docs/assets/js/83.d01eca38.js"><link rel="prefetch" href="/docs/assets/js/84.09f77d84.js"><link rel="prefetch" href="/docs/assets/js/85.ef3698e2.js"><link rel="prefetch" href="/docs/assets/js/86.9c44181e.js"><link rel="prefetch" href="/docs/assets/js/87.f58ed969.js"><link rel="prefetch" href="/docs/assets/js/88.2a96e1fd.js"><link rel="prefetch" href="/docs/assets/js/89.aeb088ab.js"><link rel="prefetch" href="/docs/assets/js/9.8db69a38.js"><link rel="prefetch" href="/docs/assets/js/90.32a883ed.js"><link rel="prefetch" href="/docs/assets/js/91.f2011ce8.js"><link rel="prefetch" href="/docs/assets/js/92.998023e0.js"><link rel="prefetch" href="/docs/assets/js/93.7c498a57.js"><link rel="prefetch" href="/docs/assets/js/94.bc5970b6.js"><link rel="prefetch" href="/docs/assets/js/95.dc60a529.js"><link rel="prefetch" href="/docs/assets/js/96.41b7d263.js"><link rel="prefetch" href="/docs/assets/js/97.81eedf62.js"><link rel="prefetch" href="/docs/assets/js/98.2642cb83.js"><link rel="prefetch" href="/docs/assets/js/99.c63d8a70.js">
+    <link rel="stylesheet" href="/docs/assets/css/0.styles.8e9f036c.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/docs/" class="home-link router-link-active"><img src="/docs/images/home/balu.jpg" alt="大前端工程师成长路线" class="logo"> <span class="site-name can-hide">大前端工程师成长路线</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读研生涯" class="dropdown-title"><span class="title">读研生涯</span> <span class="arrow down"></span></button> <button type="button" aria-label="读研生涯" class="mobile-dropdown-title"><span class="title">读研生涯</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/PostGraduate/Explore/" class="nav-link">
+  探索与记录
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="计算机基础" class="dropdown-title"><span class="title">计算机基础</span> <span class="arrow down"></span></button> <button type="button" aria-label="计算机基础" class="mobile-dropdown-title"><span class="title">计算机基础</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/CS/Algorithm/" class="nav-link">
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerComposition/" class="nav-link">
+  计算机组成原理
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerNetworks/" class="nav-link">
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/OperatingSystem/" class="nav-link">
+  操作系统
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Web/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTML/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/CSS/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/TypeScript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Gis/" class="nav-link">
+  Gis
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/App/" class="nav-link">
+  App
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Desktop/" class="nav-link">
+  桌面应用
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/WxApp/" class="nav-link">
+  小程序
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow down"></span></button> <button type="button" aria-label="后端" class="mobile-dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Koa/" class="nav-link">
+  Koa
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Nest/" class="nav-link">
+  Nest
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Node/" class="nav-link">
+  Node
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工程化" class="dropdown-title"><span class="title">工程化</span> <span class="arrow down"></span></button> <button type="button" aria-label="工程化" class="mobile-dropdown-title"><span class="title">工程化</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/SoftwareEnginner/" class="nav-link">
+  软件工程
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Develop/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Build/" class="nav-link">
+  构建
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Deploy/" class="nav-link">
+  部署
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Performance/" class="nav-link">
+  性能
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Norm/" class="nav-link">
+  规范
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读源码" class="dropdown-title"><span class="title">读源码</span> <span class="arrow down"></span></button> <button type="button" aria-label="读源码" class="mobile-dropdown-title"><span class="title">读源码</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Axios/" class="nav-link">
+  Axios
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Lodash/" class="nav-link router-link-active">
+  Lodash
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/React/" class="nav-link">
+  React
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow down"></span></button> <button type="button" aria-label="其他" class="mobile-dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Others/Question/" class="nav-link">
+  面试题
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/BlockChain/" class="nav-link">
+  区块链
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/English/" class="nav-link">
+  英语
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/StudySource/" class="nav-link">
+  学习资源
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/JsTricks/" class="nav-link">
+  Js Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/CssTricks/" class="nav-link">
+  Css Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/DevelopSkills/" class="nav-link">
+  开发技巧
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/Note/" class="nav-link">
+  备忘录
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/bierxiensi" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/docs/" class="nav-link">
+  Home
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读研生涯" class="dropdown-title"><span class="title">读研生涯</span> <span class="arrow down"></span></button> <button type="button" aria-label="读研生涯" class="mobile-dropdown-title"><span class="title">读研生涯</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/PostGraduate/Explore/" class="nav-link">
+  探索与记录
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="计算机基础" class="dropdown-title"><span class="title">计算机基础</span> <span class="arrow down"></span></button> <button type="button" aria-label="计算机基础" class="mobile-dropdown-title"><span class="title">计算机基础</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/CS/Algorithm/" class="nav-link">
+  数据结构与算法
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerComposition/" class="nav-link">
+  计算机组成原理
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/ComputerNetworks/" class="nav-link">
+  计算机网络
+</a></li><li class="dropdown-item"><!----> <a href="/docs/CS/OperatingSystem/" class="nav-link">
+  操作系统
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="前端" class="dropdown-title"><span class="title">前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="前端" class="mobile-dropdown-title"><span class="title">前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Web/JavaScript/" class="nav-link">
+  JavaScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/HTML/" class="nav-link">
+  HTML
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/CSS/" class="nav-link">
+  CSS
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/React/" class="nav-link">
+  React
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Vue/" class="nav-link">
+  Vue
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/TypeScript/" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Gis/" class="nav-link">
+  Gis
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/App/" class="nav-link">
+  App
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/Desktop/" class="nav-link">
+  桌面应用
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Web/WxApp/" class="nav-link">
+  小程序
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="后端" class="dropdown-title"><span class="title">后端</span> <span class="arrow down"></span></button> <button type="button" aria-label="后端" class="mobile-dropdown-title"><span class="title">后端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Koa/" class="nav-link">
+  Koa
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Nest/" class="nav-link">
+  Nest
+</a></li><li class="dropdown-item"><!----> <a href="/docs/BackEnd/Node/" class="nav-link">
+  Node
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="工程化" class="dropdown-title"><span class="title">工程化</span> <span class="arrow down"></span></button> <button type="button" aria-label="工程化" class="mobile-dropdown-title"><span class="title">工程化</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/SoftwareEnginner/" class="nav-link">
+  软件工程
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Develop/" class="nav-link">
+  开发
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Build/" class="nav-link">
+  构建
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Deploy/" class="nav-link">
+  部署
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Performance/" class="nav-link">
+  性能
+</a></li><li class="dropdown-item"><!----> <a href="/docs/FrontEndEngineering/Norm/" class="nav-link">
+  规范
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="读源码" class="dropdown-title"><span class="title">读源码</span> <span class="arrow down"></span></button> <button type="button" aria-label="读源码" class="mobile-dropdown-title"><span class="title">读源码</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Axios/" class="nav-link">
+  Axios
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/Lodash/" class="nav-link router-link-active">
+  Lodash
+</a></li><li class="dropdown-item"><!----> <a href="/docs/SourceCode/React/" class="nav-link">
+  React
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="其他" class="dropdown-title"><span class="title">其他</span> <span class="arrow down"></span></button> <button type="button" aria-label="其他" class="mobile-dropdown-title"><span class="title">其他</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/docs/Others/Question/" class="nav-link">
+  面试题
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/BlockChain/" class="nav-link">
+  区块链
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/English/" class="nav-link">
+  英语
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/StudySource/" class="nav-link">
+  学习资源
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/JsTricks/" class="nav-link">
+  Js Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/CssTricks/" class="nav-link">
+  Css Tricks
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/DevelopSkills/" class="nav-link">
+  开发技巧
+</a></li><li class="dropdown-item"><!----> <a href="/docs/Others/Note/" class="nav-link">
+  备忘录
+</a></li></ul></div></div><div class="nav-item"><a href="https://github.com/bierxiensi" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Lodash</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/docs/SourceCode/Lodash/" aria-current="page" class="sidebar-link">Lodash</a></li><li><a href="/docs/SourceCode/Lodash/BaseIntersection.html" class="sidebar-link">lodash-intersection-baseIntersection源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Chunk1.html" class="sidebar-link">lodash-chunk源码研读解析【上】</a></li><li><a href="/docs/SourceCode/Lodash/Chunk2.html" class="sidebar-link">lodash-chunk 源码研读解析【下】</a></li><li><a href="/docs/SourceCode/Lodash/Compact.html" class="sidebar-link">lodash-compact源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Difference(Cache).html" class="sidebar-link">lodash-difference源码研读解析【cache】</a></li><li><a href="/docs/SourceCode/Lodash/Difference(Flatten).html" class="sidebar-link">lodash-difference源码研读解析【flatten】</a></li><li><a href="/docs/SourceCode/Lodash/Difference(Index).html" class="sidebar-link">lodash-difference源码研读解析【index】</a></li><li><a href="/docs/SourceCode/Lodash/DifferenceBy.html" aria-current="page" class="active sidebar-link">lodash-differenceBy源码研读解析</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/docs/SourceCode/Lodash/DifferenceBy.html#differenceby" class="sidebar-link">differenceBy</a></li></ul></li><li><a href="/docs/SourceCode/Lodash/DifferenceWith.html" class="sidebar-link">lodash-differenceWith源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Drop.html" class="sidebar-link">lodash-drop源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/DropRight.html" class="sidebar-link">lodash-dropRight源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/DropRightWhile.html" class="sidebar-link">lodash-dropRightWhile源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/DropWhile.html" class="sidebar-link">lodash-dropWhile源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/FindLastIndex.html" class="sidebar-link">lodash-FindLastIndex源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/First.html" class="sidebar-link">lodash-first源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Flatten.html" class="sidebar-link">lodash-flatten源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/FlattenDeep.html" class="sidebar-link">lodash-flattenDeep源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/FlattenDepth.html" class="sidebar-link">lodash-flattenDepth源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Head.html" class="sidebar-link">lodash-head源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/IndexOf.html" class="sidebar-link">lodash-indexOf源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Initial.html" class="sidebar-link">lodash-initial源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/Intersection.html" class="sidebar-link">lodash-intersection源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/IntersectionBy.html" class="sidebar-link">lodash-intersectionBy源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/IntersectionWith.html" class="sidebar-link">lodash-intersectionWith源码研读解析</a></li><li><a href="/docs/SourceCode/Lodash/ObjGet.html" class="sidebar-link">【从源码看一道前端面试题】实现 lodash 中的 get 函数</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><blockquote><p>A modern JavaScript utility library delivering modularity, performance &amp; extras.</p></blockquote> <blockquote><p><code>lodash</code> 是一个一致性、模块化、高性能的 <code>JavaScript</code> 实用工具库</p></blockquote> <h1 id="一、环境准备"><a href="#一、环境准备" class="header-anchor">#</a> 一、环境准备</h1> <ul><li><p><code>lodash</code> 版本 <code>v4.0.0</code></p></li> <li><p>通过 <code>github1s</code> 网页可以 <a href="https://github1s.com/lodash/lodash/blob/HEAD/differenceBy.js" target="_blank" rel="noopener noreferrer">查看<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> <code>lodash - difference</code> 源码</p></li> <li><p>调试测试用例可以 <code>clone</code> 到本地</p></li></ul> <div class="language-shell extra-class"><pre class="language-shell"><code><span class="token function">git</span> clone https://github.com/lodash/lodash.git
+
+<span class="token builtin class-name">cd</span> axios
+
+<span class="token function">npm</span> <span class="token function">install</span>
+
+<span class="token function">npm</span> run <span class="token builtin class-name">test</span>
+</code></pre></div><h1 id="二、结构分析"><a href="#二、结构分析" class="header-anchor">#</a> 二、结构分析</h1> <p><img src="/docs/assets/img/differenceBy.017b2d0b.png" alt=""></p> <p>  这是一张 <code>differenceBy</code> 依赖引用路径图，还记得我们之前分析的 <code>difference</code>，<code>differenceBy</code> 相比 <code>difference</code>  只多了一个 <code>last</code> 依赖，下面将会全篇分析一下设计思路，详情部分可以关注前面的 <a href="https://juejin.cn/post/7066424341025521671" target="_blank" rel="noopener noreferrer">Difference<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>、<a href="https://juejin.cn/post/7065293553043734536" target="_blank" rel="noopener noreferrer">Difference(Cache)<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>、<a href="https://juejin.cn/post/7066053963854020645" target="_blank" rel="noopener noreferrer">Difference(Flatten)<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>、<a href="https://juejin.cn/post/7065675978437034021" target="_blank" rel="noopener noreferrer">Difference(Index)<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>。</p> <h1 id="三、模块分析"><a href="#三、模块分析" class="header-anchor">#</a> 三、模块分析</h1> <h2 id="differenceby"><a href="#differenceby" class="header-anchor">#</a> differenceBy</h2> <p><strong>这个方法类似_.difference ，除了它接受一个 iteratee （迭代器）</strong></p> <h3 id="_1-internal-basedifference"><a href="#_1-internal-basedifference" class="header-anchor">#</a> 1. internal/baseDifference</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> SetCache <span class="token keyword">from</span> <span class="token string">'./SetCache.js'</span>
+<span class="token keyword">import</span> arrayIncludes <span class="token keyword">from</span> <span class="token string">'./arrayIncludes.js'</span>
+<span class="token keyword">import</span> arrayIncludesWith <span class="token keyword">from</span> <span class="token string">'./arrayIncludesWith.js'</span>
+<span class="token keyword">import</span> map <span class="token keyword">from</span> <span class="token string">'../map.js'</span>
+<span class="token keyword">import</span> cacheHas <span class="token keyword">from</span> <span class="token string">'./cacheHas.js'</span>
+
+<span class="token comment">/** Used as the size to enable large array optimizations. */</span>
+<span class="token keyword">const</span> <span class="token constant">LARGE_ARRAY_SIZE</span> <span class="token operator">=</span> <span class="token number">200</span>
+
+<span class="token comment">/**
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {Array} values The values to exclude.
+ * @param {Function} [iteratee] 每个元素调用的迭代对象
+ * @param {Function} [comparator] 每个元素调用的比较器
+ * @returns {Array} Returns the new array of filtered values.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">baseDifference</span><span class="token punctuation">(</span><span class="token parameter">array<span class="token punctuation">,</span> values<span class="token punctuation">,</span> iteratee<span class="token punctuation">,</span> comparator</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> includes <span class="token operator">=</span> arrayIncludes
+  <span class="token keyword">let</span> isCommon <span class="token operator">=</span> <span class="token boolean">true</span>
+  <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+  <span class="token keyword">const</span> valuesLength <span class="token operator">=</span> values<span class="token punctuation">.</span>length
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>array<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> result
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>iteratee<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    values <span class="token operator">=</span> <span class="token function">map</span><span class="token punctuation">(</span>values<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">iteratee</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>comparator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    includes <span class="token operator">=</span> arrayIncludesWith
+    isCommon <span class="token operator">=</span> <span class="token boolean">false</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>values<span class="token punctuation">.</span>length <span class="token operator">&gt;=</span> <span class="token constant">LARGE_ARRAY_SIZE</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    includes <span class="token operator">=</span> cacheHas
+    isCommon <span class="token operator">=</span> <span class="token boolean">false</span>
+    values <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SetCache</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token literal-property property">outer</span><span class="token operator">:</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> value <span class="token keyword">of</span> array<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> computed <span class="token operator">=</span> iteratee <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> value <span class="token operator">:</span> <span class="token function">iteratee</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+
+    value <span class="token operator">=</span> <span class="token punctuation">(</span>comparator <span class="token operator">||</span> value <span class="token operator">!==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">?</span> value <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>isCommon <span class="token operator">&amp;&amp;</span> computed <span class="token operator">===</span> computed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">let</span> valuesIndex <span class="token operator">=</span> valuesLength
+      <span class="token keyword">while</span> <span class="token punctuation">(</span>valuesIndex<span class="token operator">--</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>values<span class="token punctuation">[</span>valuesIndex<span class="token punctuation">]</span> <span class="token operator">===</span> computed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">continue</span> outer
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">includes</span><span class="token punctuation">(</span>values<span class="token punctuation">,</span> computed<span class="token punctuation">,</span> comparator<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> result
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> baseDifference
+</code></pre></div><ul><li>若入参包含了自定义比较器 <code>comparator</code> 则设定非通用排除规则 <code>includes</code>（isCommon = false），需要注意的是 <code>values.length &gt;= LARGE_ARRAY_SIZE = 200</code> 也要设定非通用排除规则 <code>includes</code>，此时需要对数据做 <code>map</code> 存储，牺牲更多空间换取更少的查询时间。</li></ul> <h4 id="_1-1-setcache"><a href="#_1-1-setcache" class="header-anchor">#</a> 1.1 SetCache</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> MapCache <span class="token keyword">from</span> <span class="token string">'./MapCache.js'</span>
+
+<span class="token comment">/** Used to stand-in for `undefined` hash values. */</span>
+<span class="token keyword">const</span> <span class="token constant">HASH_UNDEFINED</span> <span class="token operator">=</span> <span class="token string">'__lodash_hash_undefined__'</span>
+
+<span class="token keyword">class</span> <span class="token class-name">SetCache</span> <span class="token punctuation">{</span>
+
+  <span class="token comment">/**
+   * Creates an array cache object to store unique values.
+   * @private
+   * @constructor
+   * @param {Array} [values] The values to cache.
+   */</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">values</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> index <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+    <span class="token keyword">const</span> length <span class="token operator">=</span> values <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> values<span class="token punctuation">.</span>length
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>__data__ <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MapCache</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">++</span>index <span class="token operator">&lt;</span> length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>values<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * Adds `value` to the array cache.
+   * @memberOf SetCache
+   * @alias push
+   * @param {*} value The value to cache.
+   * @returns {Object} Returns the cache instance.
+   */</span>
+  <span class="token function">add</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>__data__<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> <span class="token constant">HASH_UNDEFINED</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">/**
+   * Checks if `value` is in the array cache.
+   * @memberOf SetCache
+   * @param {*} value The value to search for.
+   * @returns {boolean} Returns `true` if `value` is found, else `false`.
+   */</span>
+  <span class="token function">has</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>__data__<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token class-name">SetCache</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>push <span class="token operator">=</span> <span class="token class-name">SetCache</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>add
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> SetCache
+</code></pre></div><ul><li><p><code>SetCache</code> 对外暴露了添加 <code>add</code> 和查询 <code>has</code> 函数</p></li> <li><p>MapCache: <code>MapCache</code> 对外暴露了添加 <code>set</code> 、查询 <code>has</code> 函数、获取 <code>get</code> 函数等，以及全局变量 <code>__data__</code> 的初始化、清除、针对不同类型数据的存储处理细节</p> <ul><li>Hash: 专注于处理需要缓存的 <code>key-value</code> 数据</li></ul></li></ul> <h4 id="_1-2-arrayincludes"><a href="#_1-2-arrayincludes" class="header-anchor">#</a> 1.2 arrayIncludes</h4> <p><strong>不支持从数组指定位置搜索的includes</strong></p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> baseIndexOf <span class="token keyword">from</span> <span class="token string">'./baseIndexOf.js'</span>
+
+<span class="token comment">/**
+ * @private
+ * @param {Array} [array] The array to inspect.
+ * @param {*} target The value to search for.
+ * @returns {boolean} Returns `true` if `target` is found, else `false`.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">arrayIncludes</span><span class="token punctuation">(</span><span class="token parameter">array<span class="token punctuation">,</span> value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> length <span class="token operator">=</span> array <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> array<span class="token punctuation">.</span>length
+  <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span>length <span class="token operator">&amp;&amp;</span> <span class="token function">baseIndexOf</span><span class="token punctuation">(</span>array<span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token operator">-</span><span class="token number">1</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> arrayIncludes
+</code></pre></div><ul><li><p>如果 <code>length</code> 不存在（包含null、0、undefined）或者没有找到 <code>index</code> 都会返回 <code>false</code></p></li> <li><p>baseIndexOf: 根据待查找值是否为 <code>NaN</code> 分别进入严格查找逻辑 <code>strictIndexOf</code> 或基础查找逻辑 <code>baseFindIndex</code></p></li> <li><p>baseFindIndex: <code>findIndex</code> 和 <code>findLastIndex</code> 的基本实现，支持正向/反向查找 <code>index</code></p></li> <li><p>baseIsNaN: 会过滤掉 <code>NaN</code>，因为在执行自比较之中 <code>NaN</code>，也只有 <code>NaN</code> ，比较之中不等于它自己，即 <code>NaN === NaN; // false</code></p></li> <li><p>strictIndexOf: <code>indexOf</code> 的一个特殊版本，它执行严格的相等 <code>===</code> 用于比较 <code>value</code></p></li></ul> <h4 id="_1-3-arrayincludeswith"><a href="#_1-3-arrayincludeswith" class="header-anchor">#</a> 1.3 arrayIncludesWith</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @private
+ * @param {Array} [array] The array to inspect.
+ * @param {*} target The value to search for.
+ * @param {Function} comparator The comparator invoked per element.
+ * @returns {boolean} Returns `true` if `target` is found, else `false`.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">arrayIncludesWith</span><span class="token punctuation">(</span><span class="token parameter">array<span class="token punctuation">,</span> target<span class="token punctuation">,</span> comparator</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>array <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">false</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> value <span class="token keyword">of</span> array<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">comparator</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> arrayIncludesWith
+
+</code></pre></div><ul><li>类似于 <code>arrayIncludes</code>，只是它接受一个比较器 <code>comparator</code>。使用 <code>for...of</code> 迭代待搜索数组 <code>array</code> 中的每一项，使用 <code>if</code> 判断比较器 <code>comparator(target, value)</code> 的返回值并给出对应返回结果，目前用不到，将会在下面的 <code>differenceWith</code> 当中出场 🐶</li></ul> <h4 id="_1-4-map"><a href="#_1-4-map" class="header-anchor">#</a> 1.4 map</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @since 5.0.0
+ * @category Array
+ * @param {Array} array The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ * @example
+ *
+ * function square(n) {
+ *   return n * n
+ * }
+ *
+ * map([4, 8], square)
+ * // =&gt; [16, 64]
+ */</span>
+<span class="token keyword">function</span> <span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">array<span class="token punctuation">,</span> iteratee</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> index <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span>
+  <span class="token keyword">const</span> length <span class="token operator">=</span> array <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> array<span class="token punctuation">.</span>length
+  <span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>length<span class="token punctuation">)</span>
+
+  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">++</span>index <span class="token operator">&lt;</span> length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    result<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">iteratee</span><span class="token punctuation">(</span>array<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">,</span> index<span class="token punctuation">,</span> array<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> result
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> map
+
+</code></pre></div><ul><li>通过 <code>iteratee</code> 运行 <code>array</code> 的每个元素来创建一个数组 <code>result</code>。使用 <code>new Array</code> 创建一个对应其长度的数组 <code>result</code>，其中 <code>array</code> 为 <code>null</code> 时，长度为 <code>0</code>，将会创建一个空数组，会按照 <code>array</code> 长度循环调用 <code>iteratee</code>，每次循环 <code>index + 1</code>。</li></ul> <h4 id="_1-5-cachehas"><a href="#_1-5-cachehas" class="header-anchor">#</a> 1.5 cacheHas</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @private
+ * @param {Object} cache The cache to query.
+ * @param {string} key The key of the entry to check.
+ * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">cacheHas</span><span class="token punctuation">(</span><span class="token parameter">cache<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> cache<span class="token punctuation">.</span><span class="token function">has</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> cacheHas
+</code></pre></div><ul><li>检查 <code>key</code> 的 <code>cache</code> 值是否存在，<code>cache</code> 和 <code>key</code> 均为入参</li></ul> <h3 id="_2-internal-baseflatten"><a href="#_2-internal-baseflatten" class="header-anchor">#</a> 2. internal/baseFlatten</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> isFlattenable <span class="token keyword">from</span> <span class="token string">'./isFlattenable.js'</span>
+
+<span class="token comment">/**
+ * @private
+ * @param {Array} array The array to flatten.
+ * @param {number} depth 最大递归深度
+ * @param {boolean} [predicate=isFlattenable] 每次迭代调用的函数
+ * @param {boolean} [isStrict] 限制为通过“谓词”检查的值
+ * @param {Array} [result=[]] 初始结果值
+ * @returns {Array} 返回新的展平数组
+ */</span>
+<span class="token keyword">function</span> <span class="token function">baseFlatten</span><span class="token punctuation">(</span><span class="token parameter">array<span class="token punctuation">,</span> depth<span class="token punctuation">,</span> predicate<span class="token punctuation">,</span> isStrict<span class="token punctuation">,</span> result</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  predicate <span class="token operator">||</span> <span class="token punctuation">(</span>predicate <span class="token operator">=</span> isFlattenable<span class="token punctuation">)</span>
+  result <span class="token operator">||</span> <span class="token punctuation">(</span>result <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>array <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> result
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> value <span class="token keyword">of</span> array<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>depth <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token function">predicate</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>depth <span class="token operator">&gt;</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// 递归展平阵列（易受调用堆栈限制的影响）</span>
+        <span class="token function">baseFlatten</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> depth <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">,</span> predicate<span class="token punctuation">,</span> isStrict<span class="token punctuation">,</span> result<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token operator">...</span>value<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isStrict<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      result<span class="token punctuation">[</span>result<span class="token punctuation">.</span>length<span class="token punctuation">]</span> <span class="token operator">=</span> value
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> result
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> baseFlatten
+
+</code></pre></div><ul><li>扁平化的基本实现，使用 <code>for...of</code> 迭代待展平 <code>array</code> 中的每一项，如果最大递归深度 <code>depth</code> 仍然未减至 <code>1</code> 则递归调用 <code>baseFlatten</code>，每次<code>depth - 1</code>，直至 <code>depth = 1</code> 将返回值放入 <code>result</code>。</li> <li><code>depth = 1</code> 时由于所有项都已展平 <code>predicate(value)</code> 返回 <code>false</code>，进入 <code>else if (!isStrict)</code> 语句块，目的是限制“谓词”展平到<code>result</code>，其中谓词是一个可调用的表达式，其返回结果是一个能用作条件的值。通俗的说就是一个函数，会返回一个符合该条件(“truthy值”)的数组。</li></ul> <h4 id="_2-1-isflattenable"><a href="#_2-1-isflattenable" class="header-anchor">#</a> 2.1 isFlattenable</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> isArguments <span class="token keyword">from</span> <span class="token string">'../isArguments.js'</span>
+
+<span class="token comment">/** Built-in value reference. */</span>
+<span class="token keyword">const</span> spreadableSymbol <span class="token operator">=</span> Symbol<span class="token punctuation">.</span>isConcatSpreadable
+
+<span class="token comment">/**
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is flattenable, else `false`.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isFlattenable</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">isArguments</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token operator">||</span>
+    <span class="token operator">!</span><span class="token operator">!</span><span class="token punctuation">(</span>value <span class="token operator">&amp;&amp;</span> value<span class="token punctuation">[</span>spreadableSymbol<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> isFlattenable
+</code></pre></div><ul><li><p>重点关注 <code>value[spreadableSymbol]</code>，在这之前我们需要知道 <code>Array</code> 的 <code>concat</code> 运算，正常情况下 <code>['a', 'b', 'c'].concat([1, 2, 3]) = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, 1, 2, 3]</code>，但可通过设定被连接 <code>array</code>，<code>array[Symbol.isConcatSpreadable] = false;</code>，使得 <code>array</code> 不被展开到发起连接的 <code>array</code> 而是作为一个元素连接到其中，如 <code>['a', 'b', 'c'].concat([1, 2, 3]) = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, [ 1, 2, 3] ]</code></p> <div class="language- extra-class"><pre><code>isArguments: `arguments` 对象是所有（非箭头）函数中都可用的局部变量，可以按照操作数组的方式获取参数，封装了 `getTag` 和 `isObjectLike`。
+  
+getTag: 使用非严格等 `==` 无法判断 `value` 是 `null` or `undefined`，使用严格等 `===` 判断 `value` 是 `null` or `undefined` 并设定 [toStringTag](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol/toStringTag)(准确的说应该是`Symbol.toStringTag`)，如果 `null` or `undefined` 直接使用 `Object` 原型链函数 `toString()` 获取 `toStringTag`
+isObjectLike: 借助 `typeof` 可以获取 `未经计算的操作数` 的类型的性质判断 `value` 是否为非 `Null` 的 `object` 类型（js设计缺陷使得 `typeof null = Object`）
+</code></pre></div></li></ul> <h3 id="_3-isarraylikeobject"><a href="#_3-isarraylikeobject" class="header-anchor">#</a> 3. isArrayLikeObject</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> isArrayLike <span class="token keyword">from</span> <span class="token string">'./isArrayLike.js'</span>
+<span class="token keyword">import</span> isObjectLike <span class="token keyword">from</span> <span class="token string">'./isObjectLike.js'</span>
+<span class="token comment">/**
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array-like object,
+ *  else `false`.
+ * @example
+ *
+ * isArrayLikeObject([1, 2, 3])
+ * // =&gt; true
+ *
+ * isArrayLikeObject(document.body.children)
+ * // =&gt; true
+ *
+ * isArrayLikeObject('abc')
+ * // =&gt; false
+ *
+ * isArrayLikeObject(Function)
+ * // =&gt; false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isArrayLikeObject</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token function">isObjectLike</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isArrayLike</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> isArrayLikeObject
+
+</code></pre></div><ul><li><p>封装了 <code>isObjectLike</code> 与 <code>isArrayLike</code>，当 <code>value</code> 同时符合两者所检测的目标类型时返回 <code>true</code>，否则返回 <code>false</code></p> <div class="language- extra-class"><pre><code> isObjectLike: 借助 `typeof` 可以获取 `未经计算的操作数` 的类型的性质判断 `value` 是否为非 `Null` 的 `object` 类型（js设计缺陷使得 `typeof null = Object`）  
+ isArrayLike: 会判断一个值非 `null`，非 `function` 类型，有 `.length` 属性且 `length` 为大小不超过 `MAX_SAFE_INTEGER = 9007199254740991` 的自然数
+</code></pre></div></li></ul> <h4 id="_3-1-isarraylike"><a href="#_3-1-isarraylike" class="header-anchor">#</a> 3.1 isArrayLike</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">import</span> isLength <span class="token keyword">from</span> <span class="token string">'./isLength.js'</span>
+<span class="token comment">/**
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * isArrayLike([1, 2, 3])
+ * // =&gt; true
+ *
+ * isArrayLike(document.body.children)
+ * // =&gt; true
+ *
+ * isArrayLike('abc')
+ * // =&gt; true
+ *
+ * isArrayLike(Function)
+ * // =&gt; false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isArrayLike</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> value <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> value <span class="token operator">!==</span> <span class="token string">'function'</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isLength</span><span class="token punctuation">(</span>value<span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> isArrayLike
+
+</code></pre></div><ul><li>检查 <code>value</code> 是否与数组类似。其被视为数组，不是函数但是有 <code>.length</code> 值，是一个大于等于<code>0</code>且小于 <code>MAX_SAFE_INTEGER</code>的 <code>Number</code></li> <li>重点关注 <code>isLength</code>，判断规则是 <code>typeof value === 'number' &amp;&amp; value &gt; -1 &amp;&amp; value % 1 == 0 &amp;&amp; value &lt;= MAX_SAFE_INTEGER</code>，其中 <code>value % 1 == 0</code> 确保 <code>value</code> 是整数，<code>MAX_SAFE_INTEGER = 9007199254740991</code></li></ul> <h4 id="_3-2-isobjectlike"><a href="#_3-2-isobjectlike" class="header-anchor">#</a> 3.2 isObjectLike</h4> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * isObjectLike({})
+ * // =&gt; true
+ *
+ * isObjectLike([1, 2, 3])
+ * // =&gt; true
+ *
+ * isObjectLike(Function)
+ * // =&gt; false
+ *
+ * isObjectLike(null)
+ * // =&gt; false
+ */</span>
+<span class="token keyword">function</span> <span class="token function">isObjectLike</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">typeof</span> value <span class="token operator">===</span> <span class="token string">'object'</span> <span class="token operator">&amp;&amp;</span> value <span class="token operator">!==</span> <span class="token keyword">null</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> isObjectLike
+
+</code></pre></div><ul><li>可以通过 <code>typeof</code> 来获取 <code>未经计算的操作数</code> 的类型，这里检查 <code>value</code> 是否与对象类似，如果不为空则是一个对象，并且会有一个<code>typeof</code> 运算结果为 <code>object</code> 返回值</li></ul> <h3 id="_4-last"><a href="#_4-last" class="header-anchor">#</a> 4. last</h3> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">/**
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to query.
+ * @returns {*} Returns the last element of `array`.
+ * @example
+ *
+ * last([1, 2, 3])
+ * // =&gt; 3
+ */</span>
+<span class="token keyword">function</span> <span class="token function">last</span><span class="token punctuation">(</span><span class="token parameter">array</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> length <span class="token operator">=</span> array <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> array<span class="token punctuation">.</span>length
+  <span class="token keyword">return</span> length <span class="token operator">?</span> array<span class="token punctuation">[</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">:</span> <span class="token keyword">undefined</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> last
+</code></pre></div><ul><li>目的是获取数组最后一个元素</li></ul></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/docs/SourceCode/Lodash/Difference(Index).html" class="prev">
+        lodash-difference源码研读解析【index】
+      </a></span> <span class="next"><a href="/docs/SourceCode/Lodash/DifferenceWith.html">
+        lodash-differenceWith源码研读解析
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"><!----></div></div>
+    <script src="/docs/assets/js/app.94b39639.js" defer></script><script src="/docs/assets/js/2.76afec17.js" defer></script><script src="/docs/assets/js/26.958642ab.js" defer></script>
+  </body>
+</html>
