@@ -335,13 +335,17 @@ module.exports = {
             // JavaScript
             "/Web/JavaScript/": [
                 {
-                    title: "ES6 到 ES12 特性总结", // 必要的
+                    title: "JavaScript", // 必要的
                     path: "/Web/JavaScript/",
                 },
                 {
                     title: "JavaScript初级", // 必要的
                     collapsable: true, // 可选的, 默认值是 true,
                     children: [
+                        {
+                            title: "ES6 到 ES12 特性总结",
+                            path: "/Web/JavaScript/ES",
+                        },
                         {
                             title: "文本对象模型DOM",
                             path: "/Web/JavaScript/DOM",
@@ -374,23 +378,27 @@ module.exports = {
                         },
                         {
                             title: "内存泄漏与垃圾回收",
-                            path: "/Web/JavaScript/Advance/Advance3",
+                            path: "/Web/JavaScript/Advance/Garbage",
                         },
                         {
                             title: "闭包",
-                            path: "/Web/JavaScript/Advance/Advance4",
+                            path: "/Web/JavaScript/Advance/Closure",
                         },
                         {
                             title: "截流与防抖",
-                            path: "/Web/JavaScript/Advance/Advance5",
+                            path: "/Web/JavaScript/Advance/Debounce",
                         },
                         {
                             title: "javascript安全",
-                            path: "/Web/JavaScript/Advance/Advance6",
+                            path: "/Web/JavaScript/Advance/Security",
                         },
                         {
                             title: "eventloop",
                             path: "/Web/JavaScript/Advance/Eventloop",
+                        },
+                        {
+                            title: "requestAnimationFrame",
+                            path: "/Web/JavaScript/Advance/RequestAnimationFrame",
                         },
                         {
                             title: "Buffer",
