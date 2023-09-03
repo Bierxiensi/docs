@@ -73,6 +73,7 @@ end -- 最后调用，做一些 clean 工作
 ## 搭建自己的CLI
 
 ### my-cli
+- [cleye]()
 - [commander]() 命令行自定义指令
 - [inquirer]() 命令行询问用户问题，记录回答结果
 - [handlebars]() / [ejs]()

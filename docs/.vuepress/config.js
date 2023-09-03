@@ -82,8 +82,9 @@ module.exports = {
                 ],
             },
             {
-                text: "读源码",
+                text: "书&源码精读",
                 items: [
+                    { text: "ES", link: "/SourceCode/ES/" },
                     { text: "Axios", link: "/SourceCode/Axios/" },
                     { text: "Lodash", link: "/SourceCode/Lodash/" },
                     { text: "React", link: "/SourceCode/React/" },
@@ -342,6 +343,10 @@ module.exports = {
                     title: "JavaScript初级", // 必要的
                     collapsable: true, // 可选的, 默认值是 true,
                     children: [
+                        {
+                            title: "阮一峰ES6精读",
+                            path: "/Web/JavaScript/ES",
+                        },
                         {
                             title: "ES6 到 ES12 特性总结",
                             path: "/Web/JavaScript/ES",
@@ -719,6 +724,19 @@ module.exports = {
             /*
              * 读源码
             */
+            // Axios
+            "/SourceCode/ES/": [
+                {
+                    title: "ECMAScript6入门教程", // 必要的
+                    collapsable: true, // 可选的, 默认值是 true,
+                    children: [
+                        {
+                            title: "ES",
+                            path: "/SourceCode/ES/",
+                        },
+                    ],
+                },
+            ],
             // Axios
             "/SourceCode/Axios/": [
                 {

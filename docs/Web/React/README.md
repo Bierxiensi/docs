@@ -44,3 +44,19 @@ comments:
 
 * 其他
  - react-window和react-virtualized：虚拟滚动库，提供可服用组件，用于展示列表、网络和表格数据
+
+
+
+ ## 3. 核心概念
+
+ - React 事件合成机制
+
+ - fiber
+
+ - diff
+
+ ## 4. hooks
+
+ - useLayoutEffect
+ 
+ - useEffect
