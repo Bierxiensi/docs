@@ -7,7 +7,7 @@ description:
 comments:
 ---
 
-
+```js
 import { useDispatch, useSelector } from 'dva';
 import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
@@ -277,3 +277,4 @@ export default () => {
         </div>
     );
 };
+```
