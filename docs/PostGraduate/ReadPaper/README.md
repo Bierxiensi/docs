@@ -21,3 +21,10 @@ comments:
 使用`历史观测值y^(t-K:t)`和`协变量x^(t-K:t)`作为`输入变量`,来预测`下一个时间步`的`观测值y^(t+1)`
 
 - 多步预测
+
+### 方法
+#### ARIMA 
+表示：
+AR = Auto Regressive term（自回归）
+I = Differencing（由于去趋势化产生的差异）
+MA = Moving Average term（平均移动）
